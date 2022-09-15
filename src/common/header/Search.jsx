@@ -1,5 +1,5 @@
 import React from "react"
-import logo from "../../components/assets/images/logo.svg"
+// import logo from "../../components/assets/images/logo.svg"
 import { Link } from "react-router-dom"
 
 const Search = ({ CartItem }) => {
@@ -8,6 +8,16 @@ const Search = ({ CartItem }) => {
     const search = document.querySelector(".search")
     search.classList.toggle("active", window.scrollY > 100)
   })
+
+  let notify = document.querySelector('.search .cart span')
+
+  if (notify) {
+    if (CartItem.length===0) {
+      notify.style.display = 'none'
+    } else {
+      notify.style.display = 'block'
+    }
+  }
 
   return (
     <>
@@ -26,7 +36,11 @@ const Search = ({ CartItem }) => {
           </div>
 
           <div className='icon f_flex width'>
-            <i className='fa fa-user icon-circle'></i>
+            <div>
+              <Link to='/'>
+                <i className='fa fa-user icon-circle'></i>
+              </Link>
+            </div>
             <div className='cart'>
               <Link to='/cart'>
                 <i className='fa fa-shopping-bag icon-circle'></i>
