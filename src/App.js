@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Header from "./common/header/Header"
-import Pages from "./pages/Pages"
+import Header from "./common/Header/Header"
+import Pages from "./views/Pages"
 import Data from "./components/Data"
 import Cart from "./common/Cart/Cart"
-import Footer from "./common/footer/Footer"
+import Footer from "./common/Footer/Footer"
 import Sdata from "./components/shops/Sdata"
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import DetailProduct from "./common/DetailProduct/DetailProduct"
+
 
 function App() {
   /*
@@ -78,8 +82,22 @@ function App() {
           <Route path='/cart' exact>
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
           </Route>
+          <Route path='/detail' exact>
+            <DetailProduct/>
+          </Route>
         </Switch>
         <Footer />
+        <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
       </Router>
     </>
   )
