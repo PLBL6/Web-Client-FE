@@ -7,17 +7,94 @@ import Data from "./components/Data"
 import Cart from "./common/Cart/Cart"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
+import Login from "./components/Login/login"
+import { useEffect } from "react"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged  } from "firebase/auth";
 
 function App() {
+  const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
+  const [isOpenModalSignUp, SetOpenModalSignUp] = useState(false)
+
+  const [user, setUser] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [hasAccount, setHasAccount] = useState(false)
+
+  const auth = getAuth()
+
+  const clearInputs = () => {
+    setEmail('')
+    setPassword('')
+  }
+
+  const clearErrors = () => {
+    setEmailError('')
+    setPassword('')
+  }
+
+  const handleLogin = () => {
+    clearErrors()
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const handleSignUp = () => {
+    clearErrors()
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
+  // const handleLogout = () => {
+  //   firebase.auth().signOut()
+  // }
+
+  const authListener = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        clearInputs()
+        setUser(user)
+      } else {
+        setUser("");
+      }
+    })
+  }
+
+  useEffect(() => {
+    authListener()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  const handleClickLogin = () => {
+    SetOpenModalLogin(true)
+  }
+
+  const handleClickSignUp = () => {
+    SetOpenModalSignUp(true)
+  }
   /*
   step1 :  const { productItems } = Data 
   lai pass garne using props
-  
+   
   Step 2 : item lai cart ma halne using useState
   ==> CartItem lai pass garre using props from  <Cart CartItem={CartItem} /> ani import garrxa in cartItem ma
- 
+   
   Step 3 :  chai flashCard ma xa button ma
-
+  
   Step 4 :  addToCart lai chai pass garne using props in pages and cart components
   */
 
@@ -67,10 +144,31 @@ function App() {
     }
   }
 
+
+
   return (
     <>
+      {isOpenModalLogin || isOpenModalSignUp ?
+        <Login
+          isOpenModalLogin={isOpenModalLogin}
+          SetOpenModalLogin={SetOpenModalLogin}
+          isOpenModalSignUp={isOpenModalSignUp}
+          SetOpenModalSignUp={SetOpenModalSignUp}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          handleSignUp={handleSignUp}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+        />
+        : ''}
       <Router>
-        <Header CartItem={CartItem} />
+        <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} />
+
         <Switch>
           <Route path='/' exact>
             <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />

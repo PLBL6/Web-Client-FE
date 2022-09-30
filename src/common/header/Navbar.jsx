@@ -9,7 +9,7 @@ const Navbar = () => {
       <header className='header'>
         <div className='container d_flex'>
           <div className='catgrories d_flex'>
-            <span class='fa-solid fa-bars'></span>
+            <span className='fa-solid fa-bars'></span>
             <h4>
               Danh mục <i className='fa fa-chevron-down'></i>
             </h4>

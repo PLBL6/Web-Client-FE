@@ -4,22 +4,22 @@ import "./style.css"
 const Wrapper = () => {
   const data = [
     {
-      cover: <i class='fa-solid fa-truck-fast'></i>,
+      cover: <i className='fa-solid fa-truck-fast'></i>,
       title: "Giao hàng tiện lợi",
       decs: "",
     },
     {
-      cover: <i class='fa-solid fa-id-card'></i>,
+      cover: <i className='fa-solid fa-id-card'></i>,
       title: "Bảo mật thông tin",
       decs: "",
     },
     {
-      cover: <i class='fa-solid fa-shield'></i>,
+      cover: <i className='fa-solid fa-shield'></i>,
       title: "Giao dịch nhanh chóng",
       decs: "",
     },
     {
-      cover: <i class='fa-solid fa-headset'></i>,
+      cover: <i className='fa-solid fa-headset'></i>,
       title: "Hỗ trợ 24/7",
       decs: "",
     },

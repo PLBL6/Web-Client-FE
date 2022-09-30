@@ -4,10 +4,10 @@ import "./Header.css"
 import Search from "./Search"
 import Navbar from "./Navbar"
 
-const Header = ({ CartItem }) => {
+const Header = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp }) => {
   return (
     <>
-      <Search CartItem={CartItem} />
+      <Search OnOpenModalLogin={OnOpenModalLogin} OnOpenModalSignUp={OnOpenModalSignUp} CartItem={CartItem} />
       <Navbar />
     </>
   )

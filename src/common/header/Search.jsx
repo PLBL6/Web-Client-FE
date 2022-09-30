@@ -1,8 +1,8 @@
-import React from "react"
 // import logo from "../../components/assets/images/logo.svg"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem }) => {
+const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp }) => {
+
   // fixed Header
   window.addEventListener("scroll", function () {
     const search = document.querySelector(".search")
@@ -12,7 +12,7 @@ const Search = ({ CartItem }) => {
   let notify = document.querySelector('.search .cart span')
 
   if (notify) {
-    if (CartItem.length===0) {
+    if (CartItem.length === 0) {
       notify.style.display = 'none'
     } else {
       notify.style.display = 'block'
@@ -26,7 +26,7 @@ const Search = ({ CartItem }) => {
           <div className='logo width '>
             <a className="logoShoplink" href="/">
               MyShop
-            </a>    
+            </a>
           </div>
 
           <div className='search-box f_flex'>
@@ -35,18 +35,27 @@ const Search = ({ CartItem }) => {
             <button className="btn-search">Tìm kiếm</button>
           </div>
 
-          <div className='icon f_flex width'>
-            <div>
-              <Link to='/'>
-                <i className='fa fa-user icon-circle'></i>
-              </Link>
+          <div className='user icon f_flex width'>
+
+            <ul className="list-signup-signin">
+              <li onClick={OnOpenModalLogin} className="item-separate">Đăng nhập</li>
+              <li onClick={OnOpenModalSignUp}>Đăng kí</li>
+            </ul>
+            <div className="user-cart">
+              <div className="user">
+                <Link to='/'>
+                  <i className='fa fa-user icon-circle'></i>
+                </Link>
+              </div>
+
+              <div className='cart'>
+                <Link to='/cart'>
+                  <i className='fa fa-shopping-bag icon-circle'></i>
+                  <span>{CartItem.length === 0 ? "" : CartItem.length}</span>
+                </Link>
+              </div>
             </div>
-            <div className='cart'>
-              <Link to='/cart'>
-                <i className='fa fa-shopping-bag icon-circle'></i>
-                <span>{CartItem.length === 0 ? "" : CartItem.length}</span>
-              </Link>
-            </div>
+
           </div>
         </div>
       </section>
