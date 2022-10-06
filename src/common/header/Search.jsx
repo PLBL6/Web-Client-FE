@@ -1,7 +1,7 @@
 // import logo from "../../components/assets/images/logo.svg"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp }) => {
+const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLogout }) => {
 
   // fixed Header
   window.addEventListener("scroll", function () {
@@ -36,17 +36,36 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp }) => {
           </div>
 
           <div className='user icon f_flex width'>
+            {user.displayName ?
+              <div className="header-user">
+                <img class="header-user__img" src={user.photoURL} alt="Avatar" />
+                <span class="header-user__name">{user.displayName}</span>
 
-            <ul className="list-signup-signin">
-              <li onClick={OnOpenModalLogin} className="item-separate">Đăng nhập</li>
-              <li onClick={OnOpenModalSignUp}>Đăng kí</li>
-            </ul>
-            <div className="user-cart">
-              <div className="user">
-                <Link to='/'>
-                  <i className='fa fa-user icon-circle'></i>
-                </Link>
+                <ul class="header__navbar-user-menu">
+                  <li class="header__navbar-user-item ">
+                    <a href="/">Tài khoản của tôi</a>
+                  </li>
+                  <li class="header__navbar-user-item header__navbar-user-item--separate">
+                    <a onClick={handleLogout} href="/">Đăng xuất</a>
+                  </li>
+
+                
+                </ul>
               </div>
+              :
+              <ul className="list-signup-signin">
+                <li onClick={OnOpenModalLogin} className="item-separate">Đăng nhập</li>
+                <li onClick={OnOpenModalSignUp}>Đăng kí</li>
+              </ul>
+
+            }
+            <div className="user-cart" style={user.displayName ? { marginTop: 20 } : {}}>
+              {user.displayName ? '' :
+                <div className="user">
+                  <Link to='/'>
+                    <i className='fa fa-user icon-circle'></i>
+                  </Link>
+                </div>}
 
               <div className='cart'>
                 <Link to='/cart'>

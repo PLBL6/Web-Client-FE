@@ -1,9 +1,18 @@
 import { useEffect } from "react"
 import "./login.css"
+import { signInWithGoogle } from "../../firebase"
 
 function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpenModalSignUp,
-    setEmail, email, password, setPassword, handleLogin, handleSignUp, hasAccount, setHasAccount, emailError, passwordError
+    setEmail, email, password, setPassword, handleLogin, handleSignUp, hasAccount, setHasAccount, emailError, passwordError, user
 }) {
+
+    const closeModalWhenLogin = () => {
+        signInWithGoogle()
+        if (user.email) {
+            SetOpenModalLogin(false)
+            SetOpenModalSignUp(false)
+        }
+    }
     useEffect(() => {
         const modalOverlay = document.querySelector('.modal__overlay')
         modalOverlay.onclick = () => {
@@ -15,7 +24,11 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
         switchBtn.onclick = () => {
             SetOpenModalLogin(isOpenModalSignUp)
             SetOpenModalSignUp(isOpenModalLogin)
+        }
 
+        const modal = document.querySelector('.modal')
+        if (user.email) {
+            modal.style.display = 'none'
         }
     })
 
@@ -60,19 +73,19 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
 
                             <div className="auth-form__controls">
                                 <button className="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
-                                {isOpenModalSignUp ? <button onclick={handleSignUp} className="btn btn--primary">ĐĂNG KÝ</button> : <button onclick={handleLogin} className="btn btn--primary">ĐĂNG NHẬP</button>}
+                                {isOpenModalSignUp ? <button onClick={handleSignUp} className="btn btn--primary">ĐĂNG KÝ</button> : <button onClick={handleLogin} className="btn btn--primary">ĐĂNG NHẬP</button>}
                             </div>
                         </div>
                     </div>
                     <div className="auth-form__socials">
-                        <a href="/" className="auth-form__socials--facebook btn btn--with-icon">
+                        <button className="auth-form__socials--facebook btn btn--with-icon">
                             <i className="auth-form__socials-icon fa-brands fa-facebook-square"></i>
                             <span className="auth-form__socials-title">Đăng nhập với Facebook</span>
-                        </a>
-                        <a href="/" className="auth-form__socials--google btn btn--with-icon">
+                        </button>
+                        <button onClick={closeModalWhenLogin} className="auth-form__socials--google btn btn--with-icon">
                             <i className="auth-form__socials-icon fa-brands fa-google"></i>
                             <span className="auth-form__socials-title">Đăng nhập với Google</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

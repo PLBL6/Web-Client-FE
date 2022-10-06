@@ -9,33 +9,34 @@ import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import Login from "./components/Login/login"
 import { useEffect } from "react"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged  } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebase"
 
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
   const [isOpenModalSignUp, SetOpenModalSignUp] = useState(false)
 
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState({})
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [hasAccount, setHasAccount] = useState(false)
 
-  const auth = getAuth()
+  // const auth = getAuth()
 
-  const clearInputs = () => {
-    setEmail('')
-    setPassword('')
-  }
+  // const clearInputs = () => {
+  //   setEmail('')
+  //   setPassword('')
+  // }
 
-  const clearErrors = () => {
-    setEmailError('')
-    setPassword('')
-  }
+  // const clearErrors = () => {
+  //   setEmailError('')
+  //   setPassword('')
+  // }
 
-  const handleLogin = () => {
-    clearErrors()
+  const handleLogin = async () => {
+    // clearErrors()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
@@ -46,11 +47,10 @@ function App() {
       });
   }
 
-  const handleSignUp = () => {
-    clearErrors()
-    createUserWithEmailAndPassword(auth, email, password)
+  const handleSignUp = async () => {
+    // clearErrors()
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
         console.log(userCredential);
       })
       .catch((error) => {
@@ -59,15 +59,16 @@ function App() {
 
   }
 
-  // const handleLogout = () => {
-  //   firebase.auth().signOut()
-  // }
+  const handleLogout = async () => {
+    await signOut(auth)
+  }
 
   const authListener = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        clearInputs()
+        // clearInputs()
         setUser(user)
+        console.log('Login by user:', user.email);
       } else {
         setUser("");
       }
@@ -76,8 +77,7 @@ function App() {
 
   useEffect(() => {
     authListener()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  }, [])
 
   const handleClickLogin = () => {
     SetOpenModalLogin(true)
@@ -164,10 +164,11 @@ function App() {
           setHasAccount={setHasAccount}
           emailError={emailError}
           passwordError={passwordError}
+          user={user}
         />
         : ''}
       <Router>
-        <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} />
+        <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} user={user} handleLogout={handleLogout}  />
 
         <Switch>
           <Route path='/' exact>

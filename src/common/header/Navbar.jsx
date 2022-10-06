@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
   return (
@@ -30,6 +30,10 @@ const Navbar = () => {
               <li>
                 <Link to='/'>Liên hệ</Link>
               </li>
+              {user.email ?
+                <li>
+                  <Link className="signout" to='/'>Đăng xuất</Link>
+                </li> : ''}
             </ul>
 
             {/* <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
