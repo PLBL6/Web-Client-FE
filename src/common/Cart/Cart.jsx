@@ -62,6 +62,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
               <h4>Tổng tiền :</h4>
               <h3>${totalPrice}</h3>
             </div>
+            <button className="btn-buy">MUA</button>
+
           </div>
         </div>
       </section>

@@ -1,16 +1,18 @@
 import React, { useState } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { Routes, Route } from 'react-router-dom'
 import Header from "./common/header/Header"
-import Pages from "./pages/Pages"
+import MainPage from "./pages/MainPage"
 import Data from "./components/Data"
-import Cart from "./common/Cart/Cart"
+import CartPage from "./pages/CartPage"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import Login from "./components/Login/login"
 import { useEffect } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase"
+import ProductDetailPage from "./pages/ProductDetailPage"
+import ListProduct from "./pages/ListProduct"
 
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
@@ -167,19 +169,14 @@ function App() {
           user={user}
         />
         : ''}
-      <Router>
-        <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} user={user} handleLogout={handleLogout}  />
-
-        <Switch>
-          <Route path='/' exact>
-            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />
-          </Route>
-          <Route path='/cart' exact>
-            <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} user={user} handleLogout={handleLogout} />
+      <Routes>
+        <Route path='/' element={<MainPage productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
+        <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
+        <Route path='/product' element={<ProductDetailPage />} />
+        <Route path='/category' element={<ListProduct />} />
+      </Routes>
+      <Footer />
     </>
   )
 }

@@ -13,6 +13,7 @@
   margin-top: 30px;
   margin-left: 30px;
   height: 130px;
+  position: relative;
 }
 .cart-list {
   background: white;
@@ -88,4 +89,20 @@
   font-size: 18px;
   margin-top: 30px;
   height: 130px;
+}
+
+.btn-buy {
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+  padding: 10px 20px;
+  font-size: 15px;
+  background-color: #fff;
+  border: 1px solid #333;
+}
+
+.btn-buy:hover {
+  cursor: pointer;
+  /* background-color: #e94560; */
+  opacity: 0.8;
 }

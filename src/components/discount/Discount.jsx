@@ -1,14 +1,14 @@
 import React from "react"
 import Dcard from "./Dcard"
 
-const Discount = () => {
+const Discount = ( shopItems , addToCart ) => {
   return (
     <>
       <section className='Discount background NewArrivals'>
         <div className='container'>
           <div className='heading d_flex'>
             <div className='heading-left row  f_flex'>
-              <img src='https://img.icons8.com/windows/32/fa314a/gift.png' />
+              <img src='https://img.icons8.com/windows/32/fa314a/gift.png' alt="sản phẩm giảm giá" />
               <h2>Khuyến mãi lớn</h2>
             </div>
             <div className='heading-right row '>
@@ -16,7 +16,7 @@ const Discount = () => {
               <i className='fa-solid fa-caret-right'></i>
             </div>
           </div>
-          <Dcard />
+          <Dcard shopItems={shopItems} addToCart={addToCart} />
         </div>
       </section>
     </>
