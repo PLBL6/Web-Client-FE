@@ -1,0 +1,175 @@
+.product-detail {
+    width: 1200px;
+    display: flex;
+    margin: 50px auto;
+    box-shadow: 1px 2px 3px 1px rgb(200, 200, 200);
+}
+
+.product-detail__img {
+    width: 40%;
+    background-image: url('https://cdn1.viettelstore.vn/images/Product/ProductImage/medium/iPhone_14_Plus-pur1.jpg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+
+.product-detail__info {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.product-detail__name {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.product-detail__review-info {
+    list-style-type: none;
+    display: flex;
+}
+
+.product-detail__review-info__item {
+    position: relative;
+    margin: 16px 0;
+    font-size: 18px;
+}
+
+.product-detail__review-info__item+.product-detail__review-info__item {
+    margin-left: 40px;
+}
+
+.product-detail-separate::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 18px;
+    background-color: #EB3251;
+    right: -20px;
+    top: 5px;
+    transform: translateX(-50%);
+}
+
+.product-detail__rating {
+    display: flex;
+}
+
+.product-detail__rating-value {
+    color: #E94560;
+
+}
+
+.product-detail__rating__icon {
+    margin-left: 8px;
+    color: #d5d5d5;
+}
+
+.rating--active {
+    color: #E94560;
+}
+
+.product-detail__price {
+    background-color: #dcdada;
+    display: flex;
+    padding: 0 50px;
+    margin-bottom: 24px;
+}
+
+
+.product-detail__price-old {
+    font-size: 18px;
+    color: #666;
+    text-decoration: line-through;
+}
+
+.product-detail__price-current {
+    font-size: 28px;
+    color: #EB3251;
+    margin: 0 24px;
+}
+
+.product-detail__price-discount {
+    background-color: #EB3251;
+    height: 80%;
+    margin: auto 0;
+    border-radius: 5px;
+    padding: 0 4px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.product-detail__item {
+    display: flex;
+    padding: 0 24px;
+}
+
+.product-detail__item+.product-detail__item {
+    margin-top: 12px;
+}
+
+.product-detail__head {
+    flex: 0.6;
+}
+
+.product-detail__value {
+    flex: 1;
+}
+
+.product-detail__quantity {
+    margin: 24px;
+    display: flex;
+}
+
+.product-detail__quantity-name {
+    margin-right: 90px;
+}
+
+.product-detail__quantity-input {
+    display: flex;
+}
+
+.btn-quantity-decrease,.btn-quantity-increase {
+    font-size: 16px;
+    border: 1px solid #00000017;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+
+.quantity-input-value {
+    padding: 3px 20px;
+    border: 1px solid #00000017;
+
+}
+
+.product-detail__handle {
+    margin: 30px 0;
+}
+
+.product-detail__addtocart {
+    padding: 14px 42px;
+    font-size: 15px;
+    background-color: #e9c1c7;
+    color: #EB3251;
+    font-weight: bold;
+    border: 1px solid #EB3251;
+    margin-right: 24px;
+}
+
+.product-detail__addtocart:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.product-detail__buy {
+    padding: 14px 42px;
+    font-size: 15px;
+    background-color: #EB3251;
+    color: #fff;
+}
+
+.product-detail__buy:hover {
+    opacity: 0.9;
+}

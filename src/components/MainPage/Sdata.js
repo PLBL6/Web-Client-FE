@@ -1,7 +1,7 @@
 const Sdata = [
   {
     id: 1,
-    title: "Giảm 50% cho lần mua đầu tiêntiên",
+    title: "Giảm 50% cho lần mua đầu tiên",
     desc: "Description",
     cover: "./images/SlideCard/slide-1.png",
   },

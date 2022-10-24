@@ -1,23 +1,102 @@
 import React, { useState } from "react"
 import "./App.css"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { Routes, Route } from 'react-router-dom'
 import Header from "./common/header/Header"
-import Pages from "./pages/Pages"
+import MainPage from "./pages/MainPage"
 import Data from "./components/Data"
-import Cart from "./common/Cart/Cart"
+import CartPage from "./pages/CartPage"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
+import Login from "./components/Login/login"
+import { useEffect } from "react"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebase"
+import ProductDetailPage from "./pages/ProductDetailPage"
+import ListProduct from "./pages/ListProduct"
 
 function App() {
+  const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
+  const [isOpenModalSignUp, SetOpenModalSignUp] = useState(false)
+
+  const [user, setUser] = useState({})
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [hasAccount, setHasAccount] = useState(false)
+
+  // const auth = getAuth()
+
+  // const clearInputs = () => {
+  //   setEmail('')
+  //   setPassword('')
+  // }
+
+  // const clearErrors = () => {
+  //   setEmailError('')
+  //   setPassword('')
+  // }
+
+  const handleLogin = async () => {
+    // clearErrors()
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const handleSignUp = async () => {
+    // clearErrors()
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
+  const handleLogout = async () => {
+    await signOut(auth)
+  }
+
+  const authListener = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // clearInputs()
+        setUser(user)
+        console.log('Login by user:', user.email);
+      } else {
+        setUser("");
+      }
+    })
+  }
+
+  useEffect(() => {
+    authListener()
+  }, [])
+
+  const handleClickLogin = () => {
+    SetOpenModalLogin(true)
+  }
+
+  const handleClickSignUp = () => {
+    SetOpenModalSignUp(true)
+  }
   /*
   step1 :  const { productItems } = Data 
   lai pass garne using props
-  
+   
   Step 2 : item lai cart ma halne using useState
   ==> CartItem lai pass garre using props from  <Cart CartItem={CartItem} /> ani import garrxa in cartItem ma
- 
+   
   Step 3 :  chai flashCard ma xa button ma
-
+  
   Step 4 :  addToCart lai chai pass garne using props in pages and cart components
   */
 
@@ -67,20 +146,37 @@ function App() {
     }
   }
 
+
+
   return (
     <>
-      <Router>
-        <Header CartItem={CartItem} />
-        <Switch>
-          <Route path='/' exact>
-            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />
-          </Route>
-          <Route path='/cart' exact>
-            <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      {isOpenModalLogin || isOpenModalSignUp ?
+        <Login
+          isOpenModalLogin={isOpenModalLogin}
+          SetOpenModalLogin={SetOpenModalLogin}
+          isOpenModalSignUp={isOpenModalSignUp}
+          SetOpenModalSignUp={SetOpenModalSignUp}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          handleSignUp={handleSignUp}
+          hasAccount={hasAccount}
+          setHasAccount={setHasAccount}
+          emailError={emailError}
+          passwordError={passwordError}
+          user={user}
+        />
+        : ''}
+      <Header OnOpenModalLogin={handleClickLogin} OnOpenModalSignUp={handleClickSignUp} CartItem={CartItem} user={user} handleLogout={handleLogout} />
+      <Routes>
+        <Route path='/' element={<MainPage productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
+        <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
+        <Route path='/product' element={<ProductDetailPage />} />
+        <Route path='/category' element={<ListProduct />} />
+      </Routes>
+      <Footer />
     </>
   )
 }
