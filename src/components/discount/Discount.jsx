@@ -1,7 +1,8 @@
 import React from "react"
 import Dcard from "./Dcard"
+import Ddata from "../data/Ddata"
 
-const Discount = ( shopItems , addToCart ) => {
+const Discount = ({ shopItems, addToCart }) => {
   return (
     <>
       <section className='Discount background NewArrivals'>
@@ -16,7 +17,7 @@ const Discount = ( shopItems , addToCart ) => {
               <i className='fa-solid fa-caret-right'></i>
             </div>
           </div>
-          <Dcard shopItems={shopItems} addToCart={addToCart} />
+          <Dcard data={Ddata} shopItems={shopItems} addToCart={addToCart} />
         </div>
       </section>
     </>

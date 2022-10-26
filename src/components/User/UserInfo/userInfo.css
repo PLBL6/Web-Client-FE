@@ -1,0 +1,16 @@
+.userInfo-section {
+    padding: 0 40px;
+}
+
+.btn-save {
+    width: 82px;
+    height: 40px;
+    background-color: #EB3251;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.btn-save:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

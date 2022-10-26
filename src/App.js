@@ -13,6 +13,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 import { auth } from "./firebase"
 import ProductDetailPage from "./pages/ProductDetailPage"
 import ListProduct from "./pages/ListProduct"
+import UserProfilePage from "./pages/UserProfilePage"
 
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
@@ -175,6 +176,7 @@ function App() {
         <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
         <Route path='/product' element={<ProductDetailPage />} />
         <Route path='/category' element={<ListProduct />} />
+        <Route path='/user' element={<UserProfilePage />} />
       </Routes>
       <Footer />
     </>

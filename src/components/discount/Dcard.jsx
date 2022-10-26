@@ -2,10 +2,9 @@ import React from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Ddata from "./Ddata"
 import "../newarrivals/style.css"
 
-const Dcard = ( shopItems, addToCart) => {
+const Dcard = ({ shopItems, addToCart, data }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -16,7 +15,7 @@ const Dcard = ( shopItems, addToCart) => {
   return (
     <>
       <Slider {...settings}>
-        {Ddata.map((value, index) => {
+        {data.map((value, index) => {
           return (
             <>
               <div className='box product' key={index}>
@@ -27,11 +26,11 @@ const Dcard = ( shopItems, addToCart) => {
                 <h4>{value.name}</h4>
 
                 <div >
-                <span className="price-old mr12">$1000</span>
-                <span>{value.price}</span>
-                <button className="btn-addToCart" onClick={() => addToCart(value)}>
-                  <i className='fa fa-plus'></i>
-                </button>
+                  <span className="price-old mr12">$1000</span>
+                  <span>{value.price}</span>
+                  <button className="btn-addToCart" onClick={() => addToCart(value)}>
+                    <i className='fa fa-plus'></i>
+                  </button>
                 </div>
               </div>
             </>

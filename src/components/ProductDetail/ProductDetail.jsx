@@ -5,16 +5,16 @@ const ProductDetail = () => {
             <div className="product-detail__img">
             </div>
             <div className="product-detail__info">
-                <h1 className="product-detail__name">Tên sản phẩmên sản phẩmên sản phẩmên sản phẩmên sản phẩm</h1>
+                <h1 className="product-detail__name">Iphone 14 Pro Max</h1>
                 <ul className="product-detail__review-info">
                     <li className="product-detail__review-info__item product-detail__rating product-detail-separate">
                         <p className="product-detail__rating-value">4.8</p>
                         <div className="product-detail__rating__icon">
-                            <i class="fa-solid fa-star rating--active"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star rating--active"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
                         </div>
                     </li>
                     <li className="product-detail__review-info__item product-detail-separate">
@@ -55,9 +55,9 @@ const ProductDetail = () => {
                 <div className="product-detail__quantity">
                     <h3 className="product-detail__quantity-name">Số lượng:</h3>
                     <div className="product-detail__quantity-input">
-                        <div className="btn-quantity-decrease"><i class="fa-sharp fa-solid fa-minus"></i></div>
+                        <div className="btn-quantity-decrease"><i className="fa-sharp fa-solid fa-minus"></i></div>
                         <p className="quantity-input-value">1</p>
-                        <div className="btn-quantity-increase"><i class="fa-sharp fa-solid fa-plus"></i></div>
+                        <div className="btn-quantity-increase"><i className="fa-sharp fa-solid fa-plus"></i></div>
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@ const ProductDetail = () => {
 
                 <div className="product-detail__handle">
                     <button className="product-detail__addtocart">
-                        <i class="fa-sharp fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+                        <i className="fa-sharp fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                     </button>
                     <a className="product-detail__buy" href="/">Mua ngay</a>
                 </div>

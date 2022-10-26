@@ -1,10 +1,9 @@
 import React from "react"
-import Sdata from "./Sdata"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const SlideCard = () => {
+const SlideCard = ({ data }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,7 +18,7 @@ const SlideCard = () => {
   return (
     <>
       <Slider {...settings}>
-        {Sdata.map((value, index) => {
+        {data.map((value, index) => {
           return (
             <>
               <div className='box d_flex top' key={index}>

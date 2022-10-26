@@ -38,14 +38,14 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
           <div className='user icon f_flex width'>
             {user.displayName ?
               <div className="header-user">
-                <img class="header-user__img" src={user.photoURL} alt="Avatar" />
-                <span class="header-user__name">{user.displayName}</span>
+                <img className="header-user__img" src={user.photoURL} alt="Avatar" />
+                <span className="header-user__name">{user.displayName}</span>
 
-                <ul class="header__navbar-user-menu">
-                  <li class="header__navbar-user-item ">
+                <ul className="header__navbar-user-menu">
+                  <li className="header__navbar-user-item ">
                     <a href="/">Tài khoản của tôi</a>
                   </li>
-                  <li class="header__navbar-user-item header__navbar-user-item--separate">
+                  <li className="header__navbar-user-item header__navbar-user-item--separate">
                     <a onClick={handleLogout} href="/">Đăng xuất</a>
                   </li>
 
