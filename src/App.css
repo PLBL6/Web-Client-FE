@@ -15,9 +15,13 @@ body {
   background-color: #ffffff;
 }
 
+.mb40 {
+  margin-bottom: 40px !important;
+}
+
 .background {
   background: #e4e5e6;
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
 .container {
@@ -99,7 +103,7 @@ button {
   box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
   background-color: #fff;
   border-radius: 5px;
-  /* max-width: max-content; */
+  width: fit-content;
 }
 
 .category img {
@@ -161,7 +165,6 @@ button {
 /*---------product-----------*/
 .product {
   background: #fff;
-  padding: 20px;
   position: relative;
   border-radius: 8px;
   box-shadow: rgb(3 0 71 / 9%) 0px 1px 3px;
@@ -471,4 +474,22 @@ button {
 .user-page-section {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.box.product {
+  cursor: pointer;
+}
+
+.heading-right span {
+  color: #e94560;
+}
+
+.heading-right:hover {
+  cursor: pointer;
+}
+
+.pagination-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }

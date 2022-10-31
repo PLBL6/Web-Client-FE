@@ -1,43 +1,27 @@
 const CategoryProductData = [
     {
       cateImg: "./images/category/cat1.png",
-      cateName: "Thời trang",
+      cateName: "Áo Quần",
     },
     {
       cateImg: "./images/category/cat2.png",
-      cateName: "Đồ điện tử",
+      cateName: "Giày dép",
     },
     {
       cateImg: "./images/category/cat3.png",
-      cateName: "Xe",
+      cateName: "Nón, mũ",
     },
     {
       cateImg: "./images/category/cat4.png",
-      cateName: "Đồ gia dụng",
+      cateName: "Kính mát",
     },
     {
       cateImg: "./images/category/cat5.png",
-      cateName: "Quà",
+      cateName: "Phụ kiện",
     },
     {
       cateImg: "./images/category/cat7.png",
-      cateName: "Sức khỏe và sắc đẹp",
-    },
-    {
-      cateImg: "./images/category/cat8.png",
-      cateName: "Thú cưng",
-    },
-    {
-      cateImg: "./images/category/cat9.png",
-      cateName: "Đồ chơi",
-    },
-    {
-      cateImg: "./images/category/cat10.png",
-      cateName: "Tạp hóa ",
-    },
-    {
-      cateImg: "./images/category/cat11.png",
-      cateName: "Sách",
+      cateName: "Trang sức",
     },
   ]
 

@@ -1,6 +1,6 @@
 import React from "react"
-import Dcard from "./Dcard"
-import Ddata from "../data/Ddata"
+import ShopCart from "../shops/ShopCart"
+
 
 const Discount = ({ shopItems, addToCart }) => {
   return (
@@ -12,12 +12,12 @@ const Discount = ({ shopItems, addToCart }) => {
               <img src='https://img.icons8.com/windows/32/fa314a/gift.png' alt="sản phẩm giảm giá" />
               <h2>Khuyến mãi lớn</h2>
             </div>
-            <div className='heading-right row '>
+            <a href="/category" className='heading-right row'>
               <span>Xem thêm</span>
               <i className='fa-solid fa-caret-right'></i>
-            </div>
+            </a>
           </div>
-          <Dcard data={Ddata} shopItems={shopItems} addToCart={addToCart} />
+          <ShopCart shopItems={shopItems} addToCart={addToCart} />
         </div>
       </section>
     </>

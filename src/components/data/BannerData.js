@@ -1,4 +1,4 @@
-const Sdata = [
+const BannerData = [
   {
     id: 1,
     title: "Giảm 50% cho lần mua đầu tiên",
@@ -24,4 +24,4 @@ const Sdata = [
     cover: "./images/SlideCard/slide-4.png",
   },
 ]
-export default Sdata
+export default BannerData

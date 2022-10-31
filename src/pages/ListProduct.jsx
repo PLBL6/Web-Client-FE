@@ -1,5 +1,5 @@
 import Categories from "../components/MainPage/Categories"
-import Pagination from "../components/Pagination/Pagination"
+import { Pagination } from "@mui/material"
 import Product from "../components/shops/Product"
 import CategoryProductData from "../components/data/CategoryProductData"
 
@@ -34,7 +34,9 @@ const ListProduct = () => {
                             <Product />
                         </div>
                     </div>
-                    <Pagination/>
+                    <div className="pagination-wrapper">
+                        <Pagination count={10} size="large" />
+                    </div>
                 </div>
             </div>
         </div>

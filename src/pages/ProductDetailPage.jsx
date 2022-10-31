@@ -1,8 +1,12 @@
+import Comment from "../components/ProductDetail/Comment"
 import ProductDetail from "../components/ProductDetail/ProductDetail"
 
 const ProductDetailPage = () => {
     return (
-        <ProductDetail />
+        <div className="product-details-wrapper" >
+            <ProductDetail />
+            <Comment />
+        </div>
     )
 }
 

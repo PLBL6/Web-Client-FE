@@ -62,7 +62,7 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
             <div className="user-cart" style={user.displayName ? { marginTop: 20 } : {}}>
               {user.displayName ? '' :
                 <div className="user">
-                  <Link to='/'>
+                  <Link to='/user'>
                     <i className='fa fa-user icon-circle'></i>
                   </Link>
                 </div>}

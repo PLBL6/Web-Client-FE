@@ -1,13 +1,13 @@
 import React from "react"
 import SlideCard from "./SlideCard"
-import Sdata from "../data/Sdata"
+import BannerData from "../data/BannerData"
 
 const SliderHome = () => {
   return (
     <>
       <section className='homeSlide contentWidth'>
         <div className='container'>
-          <SlideCard data = {Sdata} />
+          <SlideCard data = {BannerData} />
         </div>
       </section>
     </>
