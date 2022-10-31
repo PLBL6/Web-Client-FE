@@ -4,10 +4,10 @@ const Product = () => {
             <div className='img'>
                 <span className='discount'>50% Off</span>
                 <img style={{width: "100%", height: "100%"}} className="img" src="https://cf.shopee.vn/file/119c8c8d5ea3673710e887fd48fa1c3f" alt='' />
-                <div className='product-like'>
+                {/* <div className='product-like'>
                     <label></label> <br />
                     <i className='fa-regular fa-heart'></i>
-                </div>
+                </div> */}
             </div>
             <div className='product-details'>
                 <h3>Name</h3>

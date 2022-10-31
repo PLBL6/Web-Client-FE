@@ -6,16 +6,16 @@ const Shop = ({nameShop, addToCart, shopItems }) => {
   return (
     <>
       <section className='shop background'>
-        <div className='container'>
+        <div className='container mb40'>
           <div className='contentWidthFull'>
-            <div className='heading d_flex'>
+            <div className='heading c_flex'>
               <div className='heading-left row  f_flex'>
-                <h2>Đồ điện tử</h2>
+                <h2>Áo Quần</h2>
               </div>
-              <div className='heading-right row '>
+              <a href="/category" className='heading-right row ' >
                 <span>Xem thêm</span>
                 <i className='fa-solid fa-caret-right'></i>
-              </div>
+              </a>
             </div>
             <div>
               <ShopCart addToCart={addToCart} shopItems={shopItems} />
@@ -24,9 +24,9 @@ const Shop = ({nameShop, addToCart, shopItems }) => {
         </div>
         <div className='container'>
           <div className='contentWidthFull'>
-            <div className='heading d_flex'>
+            <div className='heading c_flex'>
               <div className='heading-left row  f_flex'>
-                <h2>Thời trang</h2>
+                <h2>Phụ kiện</h2>
               </div>
               <div className='heading-right row '>
                 <span>Xem thêm</span>

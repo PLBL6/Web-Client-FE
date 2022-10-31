@@ -22,7 +22,7 @@ const Navbar = ({ user }) => {
                 <Link to='/'>Trang chủ</Link>
               </li>
               <li>
-                <Link to='/'>Tài khoản người dùng</Link>
+                <Link to='/user'>Tài khoản người dùng</Link>
               </li>
               <li>
                 <Link to='/'>Doanh nghiệp</Link>
@@ -30,10 +30,6 @@ const Navbar = ({ user }) => {
               <li>
                 <Link to='/'>Liên hệ</Link>
               </li>
-              {user.email ?
-                <li>
-                  <Link className="signout" to='/'>Đăng xuất</Link>
-                </li> : ''}
             </ul>
 
             {/* <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>

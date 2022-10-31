@@ -69,7 +69,15 @@
 }
 
 
-
+.product-img {
+  padding-top: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
 
 .product-item {
   display: block;
@@ -82,4 +90,12 @@
   transition: transform ease 0.1s;
   will-change: transform;
   text-decoration: none;
+}
+
+.product-details {
+  padding: 20px;
+}
+
+.cartProduct {
+  cursor: pointer;
 }

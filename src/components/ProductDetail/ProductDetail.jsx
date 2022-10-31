@@ -1,20 +1,25 @@
+import { Rating } from "@mui/material";
+
 import "./productDetail.css"
 const ProductDetail = () => {
+
+
     return (
         <div className="product-detail">
             <div className="product-detail__img">
+                <img src="https://vn-live-01.slatic.net/p/df9cc39aa53e106a4fcdecf18ec0265e.jpg" alt="" />
             </div>
             <div className="product-detail__info">
-                <h1 className="product-detail__name">Iphone 14 Pro Max</h1>
+                <h1 className="product-detail__name">Áo phông</h1>
                 <ul className="product-detail__review-info">
                     <li className="product-detail__review-info__item product-detail__rating product-detail-separate">
-                        <p className="product-detail__rating-value">4.8</p>
+                        <p className="product-detail__rating-value">4.5</p>
                         <div className="product-detail__rating__icon">
-                            <i className="fa-solid fa-star rating--active"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
+                            <Rating
+                                defaultValue={4.5} precision={0.5}
+                                readOnly
+                                style={{ color: "#E94560" }}
+                            />
                         </div>
                     </li>
                     <li className="product-detail__review-info__item product-detail-separate">

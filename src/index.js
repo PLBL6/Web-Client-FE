@@ -4,10 +4,12 @@ import App from "./App"
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
+
+  <React.Fragment>
+    <BrowserRouter>
       <App />
-    </React.StrictMode>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </React.Fragment>
+  ,
   document.getElementById("root")
 )
