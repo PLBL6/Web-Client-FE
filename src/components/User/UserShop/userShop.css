@@ -1,0 +1,103 @@
+.userShop-section {
+    background-color: #F6F6F6;
+    width: 100%;
+    padding: 20px 50px;
+}
+
+.handle-user-shop-section {
+    background-color: #fff;
+    width: 70%;
+    box-shadow: 1px 2px 3px 1px rgb(200 200 200);
+}
+
+.search-product-section {
+    padding: 20px 200px 0 20px;
+}
+
+.list-product-section {
+    margin: 50px 0;
+}
+
+.CreateProductShop__section {
+    padding: 20px;
+}
+
+.table-product {
+    width: 100%;
+}
+
+.handle-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-product__name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-product__img {
+    width: 80px;
+    height: 80px;
+    margin-right: 12px;
+}
+
+.btn-create {
+    float: right;
+    margin-bottom: 20px;
+}
+
+.base-info, .details-info {
+    margin-bottom: 40px;
+}
+
+.base-info__avatar {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #eb3251;
+}
+
+.base-info__avatar+.base-info__avatar {
+    margin-left: 20px;
+}
+
+.details-info h2,
+.base-info h2 {
+    color: #eb3251;
+    margin: 20px 0;
+}
+
+.info-important {
+    color: #eb3251;
+    font-size: 20px;
+}
+
+.upload-image {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    margin-right: 20px;
+    border: 1px dashed #666;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.upload-image:hover p {
+    color: #eb3251;
+}
+
+.upload-image:hover {
+    border-color: #eb3251;
+    background-color: #d79fa8;
+}
+
+.upload-image p {
+    font-size: 12px;
+    text-align: center;
+    margin: auto 0;
+}
+
+.upload-image input {
+    display: block;
+}

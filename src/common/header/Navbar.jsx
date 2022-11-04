@@ -25,7 +25,7 @@ const Navbar = ({ user }) => {
                 <Link to='/user'>Tài khoản người dùng</Link>
               </li>
               <li>
-                <Link to='/'>Doanh nghiệp</Link>
+                <Link to='/user-shop/*'>Doanh nghiệp</Link>
               </li>
               <li>
                 <Link to='/'>Liên hệ</Link>

@@ -12,8 +12,9 @@ import { useEffect } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase"
 import ProductDetailPage from "./pages/ProductDetailPage"
-import ListProduct from "./pages/ListProduct"
+import ListProductPage from "./pages/ListProductPage"
 import UserProfilePage from "./pages/UserProfilePage"
+import UserShopPage from "./pages/UserShopPage"
 
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
@@ -146,8 +147,9 @@ function App() {
         <Route path='/' element={<MainPage productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
         <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
         <Route path='/product' element={<ProductDetailPage />} />
-        <Route path='/category' element={<ListProduct />} />
+        <Route path='/category' element={<ListProductPage />} />
         <Route path='/user' element={<UserProfilePage />} />
+        <Route path='/user-shop/*' element={<UserShopPage />} />
       </Routes>
       <Footer />
     </>
