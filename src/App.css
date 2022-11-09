@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+:root {
+  --primary: #e94560;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -19,14 +23,23 @@ body {
   margin-bottom: 40px !important;
 }
 
+.no-pd {
+  padding: 0 !important;
+}
+
 .background {
-  background: #e4e5e6;
+  background: #F6F6F6;
   padding: 30px 0;
 }
 
 .container {
   max-width: 90%;
   margin: auto;
+}
+
+textarea {
+  padding: 10px;
+
 }
 
 .d_flex {
@@ -90,6 +103,8 @@ button {
   box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
 }
 
+
+
 /*---------category----------*/
 .contentWidth {
   width: 77%;
@@ -129,13 +144,6 @@ button {
 }
 
 /*---------category----------*/
-.btn-primary {
-  background: #e94560;
-  padding: 13px 40px;
-  font-weight: bold;
-  color: #fff;
-  border-radius: 5px;
-}
 
 .top {
   margin-top: 80px;
@@ -356,9 +364,9 @@ button {
 }
 
 .grid__column-2 {
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 16.667%;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 16.667%;
 }
 
 .grid__column-3 {
@@ -391,23 +399,23 @@ button {
 }
 
 .product-bg {
-  background-color:#f6f6f6;
+  background-color: #f6f6f6;
   box-shadow: rgb(0 0 71 / 9%) 6px 3px 6px;
 }
 
 /* Pagination */
-.pagination{
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
 }
 
-.pagination-item{
+.pagination-item {
   margin: 0 12px;
 }
 
-.pagination-item__link{
+.pagination-item__link {
   display: block;
   text-decoration: none;
   font-size: 24px;
@@ -421,13 +429,13 @@ button {
 
 
 
-.pagination-item__link--current .pagination-item__link{
+.pagination-item__link--current .pagination-item__link {
   background-color: #e94560;
   color: #fff;
 }
 
-.pagination-item__link--current .pagination-item__link:hover{
-  background-color:#e94560 ;
+.pagination-item__link--current .pagination-item__link:hover {
+  background-color: #e94560;
 }
 
 .category-item {
@@ -438,20 +446,22 @@ button {
 /* FORM */
 .form-group {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
-.form-group + .form-group {
+.form-group-handle {
+  justify-content: flex-start !important;
+}
+
+.form-group+.form-group {
   margin-top: 30px;
 }
 
 .form-group label {
-  width: 30%;
+  min-width: 180px;
 }
 
-.form-group input {
-}
+
 
 .form-control {
   display: block;
@@ -471,9 +481,16 @@ button {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.form-control-custom {
+  width: 40%;
+}
+
+input::placeholder {
+  font-style: italic;
+}
+
 .user-page-section {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding: 50px 0;
 }
 
 .box.product {
@@ -492,4 +509,71 @@ button {
   margin-top: 20px;
   display: flex;
   justify-content: center;
+}
+
+/* Table */
+table {
+  border-collapse: collapse;
+}
+
+thead, td, tr, th, tbody, table {
+  text-align: left;
+}
+
+thead {
+  background-color: #888;
+
+}
+
+thead tr td {
+  padding: 20px 0;
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+tbody tr {
+  border-bottom: 1px solid #ccc;
+}
+
+/* btn */
+.btn-primary {
+  background: #e94560;
+  padding: 13px 40px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background: #d23650;
+  cursor: pointer;
+}
+
+
+/* Link */
+.link {
+  color: #E94560;
+  transition: all 0.5 ease-in-out;
+}
+
+.link+.link {
+  margin-top: 10px;
+}
+
+.link:hover {
+  color: #c31834;
+}
+
+.user-page-section-wrapper {
+  background-color: #f6f6f6;
+}
+
+/* handle css list */
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+  background-color: #f4c6cf !important;
+}
+
+.css-13eg511-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+  background-color: #f4c6cf !important;
 }

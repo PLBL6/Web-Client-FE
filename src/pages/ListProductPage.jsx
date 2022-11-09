@@ -3,7 +3,7 @@ import { Pagination } from "@mui/material"
 import Product from "../components/shops/Product"
 import CategoryProductData from "../components/data/CategoryProductData"
 
-const ListProduct = () => {
+const ListProductPage = () => {
     return (
         <div className="listproduct-section grid1400">
             <div className="grid__row">
@@ -43,4 +43,4 @@ const ListProduct = () => {
     )
 }
 
-export default ListProduct
+export default ListProductPage

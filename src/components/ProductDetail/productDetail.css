@@ -211,12 +211,15 @@
 
 .comment-input-wrap {
     width: 100%;
+
 }
+
 
 .comment-input-section input {
     width: 100%;
     border-bottom: 1px solid #ccc;
     padding: 10px 0 6px;
+    margin-left: 12px;
     white-space: pre-wrap;
 }
 

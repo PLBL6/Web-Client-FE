@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 const Navbar = ({ user }) => {
   // Toogle Menu
@@ -25,7 +25,7 @@ const Navbar = ({ user }) => {
                 <Link to='/user'>Tài khoản người dùng</Link>
               </li>
               <li>
-                <Link to='/'>Doanh nghiệp</Link>
+                <Link to="/user-shop/all">Doanh nghiệp</Link>
               </li>
               <li>
                 <Link to='/'>Liên hệ</Link>
