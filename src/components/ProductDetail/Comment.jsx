@@ -40,7 +40,7 @@ const Comment = () => {
                             style={{ color: "#E94560" }}
                             size="small"
                         />
-                        <p className="comment-item__content">em học java mảng chỉ chứa phần tử có cùng kiểu dữ liệu qua javaScrip chứa dc nhiều kiểu dữ liệu hơi lạ, kkkkkk</p>
+                        <p className="comment-item__content">Test Comment</p>
                     </div>
                 </li>
                 <li className="comment-item">
@@ -53,7 +53,7 @@ const Comment = () => {
                             style={{ color: "#E94560" }}
                             size="small"
                         />
-                        <p className="comment-item__content">em học java mảng chỉ chứa phần tử có cùng kiểu dữ liệu qua javaScrip chứa dc nhiều kiểu dữ liệu hơi lạ, kkkkkk</p>
+                        <p className="comment-item__content">Test Comment Test Comment Test Comment Test Comment Test Comment</p>
                     </div>
                 </li>
                 <li className="comment-item">
@@ -66,7 +66,7 @@ const Comment = () => {
                             style={{ color: "#E94560" }}
                             size="small"
                         />
-                        <p className="comment-item__content">em học java mảng chỉ chứa phần tử có cùng kiểu dữ liệu qua javaScrip chứa dc nhiều kiểu dữ liệu hơi lạ, nên có nhiều chỗ hay lắm </p>
+                        <p className="comment-item__content">123121111111 </p>
                     </div>
                 </li>
 

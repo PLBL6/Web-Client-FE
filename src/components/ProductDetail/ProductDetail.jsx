@@ -40,20 +40,20 @@ const ProductDetail = () => {
 
                 <ul className="product-detail__list-details">
                     <li className="product-detail__item">
-                        <h3 className="product-detail__head">Property:</h3>
-                        <p className="product-detail__value">Value</p>
+                        <h3 className="product-detail__head">Danh Mục:</h3>
+                        <p className="product-detail__value">Áo Quần</p>
                     </li>
                     <li className="product-detail__item">
-                        <h3 className="product-detail__head">Property:</h3>
-                        <p className="product-detail__value">Value</p>
+                        <h3 className="product-detail__head">Màu sắc:</h3>
+                        <p className="product-detail__value">Đen</p>
                     </li>
                     <li className="product-detail__item">
-                        <h3 className="product-detail__head">Property:</h3>
-                        <p className="product-detail__value">Value</p>
+                        <h3 className="product-detail__head">Kích cỡ:</h3>
+                        <p className="product-detail__value">Size S</p>
                     </li>
                     <li className="product-detail__item">
-                        <h3 className="product-detail__head">Property:</h3>
-                        <p className="product-detail__value">Value</p>
+                        <h3 className="product-detail__head">Khuyến mãi:</h3>
+                        <p className="product-detail__value">60%</p>
                     </li>
                 </ul>
 

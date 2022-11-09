@@ -3,22 +3,28 @@ const CategoryUserData = [
     {
         cateIcon: "fa-solid fa-user",
         cateName: "Thông tin cá nhân",
-    },
-    {
-        cateIcon: "fa-solid fa-shop",
-        cateName: "Kênh người bán",
+        slug: "/user/profile"
     },
     {
         cateIcon: "fa-solid fa-list",
         cateName: "Danh sách đơn hàng",
+        slug: "/user/purchase"
     },
+    {
+        cateIcon: "fa-solid fa-shop",
+        cateName: "Kênh người bán",
+        slug: "/user-shop/all"
+    },
+    
     {
         cateIcon: "fa-solid fa-key",
         cateName: "Thay đổi mật khẩu",
+        slug: "/user/change-password"
     },
     {
         cateIcon: "fa-solid fa-right-from-bracket",
         cateName: "Logout",
+        slug: "/"
     },
 
 ]

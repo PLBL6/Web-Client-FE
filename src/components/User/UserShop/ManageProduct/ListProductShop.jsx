@@ -6,7 +6,7 @@ const ListProductShop = () => {
     const [category, setCategory] = useState('');
 
     return (
-        <>
+        <div className="shop-product-section">
             <div className="search-product-section">
                 <div className="form-group">
                     <label className="form-label" htmlFor="name">Tên sản phẩm</label>
@@ -39,12 +39,14 @@ const ListProductShop = () => {
                 <h3>4 sản phẩm</h3>
                 <table className="table-product table">
                     <thead>
-                        <th>Tên sản phẩm</th>
-                        <th>Loại hàng</th>
-                        <th>Giá</th>
-                        <th>Kho hàng</th>
-                        <th>Doanh số</th>
-                        <th>Thao tác</th>
+                        <tr>
+                            <td>Tên sản phẩm</td>
+                            <td>Loại hàng</td>
+                            <td>Giá</td>
+                            <td>Kho hàng</td>
+                            <td>Doanh số</td>
+                            <td>Thao tác</td>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -105,7 +107,7 @@ const ListProductShop = () => {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     )
 }
 

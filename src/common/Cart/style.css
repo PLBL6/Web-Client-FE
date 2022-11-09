@@ -2,10 +2,15 @@
   background: #f6f9fc;
   height: auto;
   padding: 50px 0;
+
 }
 
 .cart-items .cart-details {
   width: 70%;
+  margin-left: 20px;
+  background: #f6f9fc;
+  border-radius: 4px;
+  margin: 10px;
 }
 
 .cart-items .cart-total {
@@ -16,50 +21,58 @@
   position: relative;
   padding: 20px;
 }
+
 .cart-list {
   background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+}
+
+.cart-list+.cart-list {
   margin-top: 30px;
 }
+
 .cart-items .img {
   width: 150px;
   height: 150px;
 }
+
 .cart-items img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.cart-items .cart-details {
-  margin-left: 20px;
-}
-
 .cart-items .cart-details h3 {
   font-size: 20px;
   font-weight: 500;
   margin-top: 20px;
-  
+
 }
+
 .cart-items .cart-details h4 {
   font-size: 15px;
   font-weight: 400;
   margin-top: 50px;
   color: grey;
 }
+
 .cart-items h4 span {
   color: #e94560;
   margin-left: 20px;
   font-weight: 500;
 }
-.removeCart {
-  background: none;
-  font-size: 25px;
-  text-align: right;
-  margin-right: 10px;
+
+.cart-details-item {
+  width: 70%;
+  padding: 0 20px;
 }
+
 .cartControl {
   margin-top: 50px;
 }
+
 .cartControl button {
   width: 40px;
   height: 40px;
@@ -67,23 +80,43 @@
   border-radius: 5px;
   font-size: 20px;
 }
+
+.removeCart {
+  background: none;
+  font-size: 25px;
+  text-align: right;
+  margin-right: 10px;
+}
+
 .incCart {
   background: none;
-  border: 1px solid rgb(3 0 71 / 9%);
+  border: 1px solid #03004717;
   color: #e94560;
 }
-.desCart {
-  background: #f6f9fc;
+
+.removeCart:hover,
+.desCart:hover,
+.incCart:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
+
+
+.desCart {
+  background: #c6c6c6;
+}
+
 .cart-total h4 {
   font-size: 15px;
   font-weight: 400;
 }
+
 .cart-total h3 {
   font-size: 20px;
   font-weight: 500;
   color: #e94560;
 }
+
 .cart-total h2 {
   font-size: 18px;
   margin-bottom: 20px;
@@ -91,10 +124,11 @@
   padding-bottom: 10px;
   color: #e94560;
 }
+
 .no-items {
   color: #e94560;
   font-size: 18px;
-  margin-top: 30px;
+  padding: 20px;
   height: 130px;
 }
 

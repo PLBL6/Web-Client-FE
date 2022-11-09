@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+:root {
+  --primary: #e94560;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -24,7 +28,7 @@ body {
 }
 
 .background {
-  background: #e4e5e6;
+  background: #F6F6F6;
   padding: 30px 0;
 }
 
@@ -486,8 +490,7 @@ input::placeholder {
 }
 
 .user-page-section {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding: 50px 0;
 }
 
 .box.product {
@@ -509,23 +512,28 @@ input::placeholder {
 }
 
 /* Table */
-
 table {
   border-collapse: collapse;
 }
 
 thead, td, tr, th, tbody, table {
-  border: 1px solid #ccc;
-  text-align: center;
+  text-align: left;
 }
 
 thead {
   background-color: #888;
+
 }
 
-thead th {
+thead tr td {
   padding: 20px 0;
+  font-size: 18px;
+  font-weight: bold;
 
+}
+
+tbody tr {
+  border-bottom: 1px solid #ccc;
 }
 
 /* btn */
@@ -538,7 +546,7 @@ thead th {
 }
 
 .btn-primary:hover {
-  opacity: 0.8;
+  background: #d23650;
   cursor: pointer;
 }
 
@@ -555,4 +563,17 @@ thead th {
 
 .link:hover {
   color: #c31834;
+}
+
+.user-page-section-wrapper {
+  background-color: #f6f6f6;
+}
+
+/* handle css list */
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+  background-color: #f4c6cf !important;
+}
+
+.css-13eg511-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+  background-color: #f4c6cf !important;
 }

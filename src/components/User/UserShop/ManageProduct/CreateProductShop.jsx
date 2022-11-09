@@ -21,8 +21,8 @@ const CreateProductShop = () => {
                 <div className="form-group">
                     <label className="form-label" htmlFor="img"><span className="info-important">*</span>Hình ảnh sản phẩm</label>
                     <div className="upload-image">
-                        <p>Thêm hình ảnh</p>
-                        <input onChange={handlePreviewAvatar} aspect="1" type="file" name="file" accept="image/*" multiple="multiple" />
+                        <label htmlFor="file">Thêm hình ảnh</label>
+                        <input onChange={handlePreviewAvatar} id="file" type="file" name="file" accept="image/*" multiple="multiple" />
                     </div>
                     {avatars && avatars.map((item, index) => (
                         <img

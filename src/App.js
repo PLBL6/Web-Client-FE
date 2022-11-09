@@ -148,7 +148,7 @@ function App() {
         <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
         <Route path='/product' element={<ProductDetailPage />} />
         <Route path='/category' element={<ListProductPage />} />
-        <Route path='/user' element={<UserProfilePage />} />
+        <Route path='/user/*' element={<UserProfilePage />} />
         <Route path='/user-shop/*' element={<UserShopPage />} />
       </Routes>
       <Footer />
