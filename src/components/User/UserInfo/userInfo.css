@@ -1,3 +1,4 @@
+.change-password-section,
 .userInfo-section {
     padding: 20px 40px;
     background-color: #fff;
@@ -15,3 +16,48 @@
     cursor: pointer;
     opacity: 0.8;
 }
+
+.order-item__user-info i {
+    color: rgb(110, 108, 108);
+    margin-right: 12px;
+}
+
+.order-item__datetime {
+    color: #777;
+}
+
+.order-item-shop {
+    font-weight: bold;
+}
+
+.order-item-button {
+    display: flex;
+}
+
+.order-search-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.order-search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #EAEAEA;
+    padding: 10px 20px;
+    
+}
+
+.order-search i{
+    color: #bbb;
+    font-size: 22px;
+    
+}
+
+.order-search input{
+    width: 100%;
+    background-color: #EAEAEA;
+    font-size: 20px;
+    font-weight: 200;
+}
+
