@@ -4,6 +4,8 @@ import CategoryUserData from "../components/data/CategoryUserData"
 import { Link, Route, Routes } from "react-router-dom"
 import UserInfo from "../components/User/UserInfo/UserInfo"
 import { useState } from "react"
+import UserOrder from "../components/User/UserInfo/UserOrder/UserOrder"
+import ChangePassword from "../components/User/UserInfo/ChangePassword/ChangePassword"
 
 const UserProfilePage = () => {
     const [selectedindex, setSelectedIndex] = useState(0)
@@ -43,6 +45,8 @@ const UserProfilePage = () => {
                     <div className="grid__column-9">
                         <Routes>
                             <Route path="/profile" element={<UserInfo />}></Route>
+                            <Route path="/purchase" element={<UserOrder />}></Route>
+                            <Route path="/change-password" element={<ChangePassword />}></Route>
                         </Routes>
                     </div>
 
