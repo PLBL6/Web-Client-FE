@@ -2,8 +2,17 @@ import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import CardProduct from "./CardProduct"
 
-const ShopCart = ({ shopItems, addToCart }) => {
+const ShopCart = ({ shopItems, addToCart, category }) => {
+  const [products1, setProducts1] = useState([])
+
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/category/${category}`)
+      .then(res => res.json())
+      .then(data => setProducts1(data.products))
+  }, [category])
+
   const settings = {
     dots: false,
     infinite: true,
@@ -16,27 +25,9 @@ const ShopCart = ({ shopItems, addToCart }) => {
     <>
       <Slider {...settings}>
 
-        {shopItems.map((shopItems, index) => {
+        {products1.map((shopItems, index) => {
           return (
-            <div onClick={() => {window.location.href="http://localhost:3000/product"}} className='box cartProduct' key={index}>
-              <div className='product mtop'>
-                <div className='product-img' style={{backgroundImage:`url(${shopItems.cover})`}}>
-                  <span className='discount'>{shopItems.discount}% Off</span>
-                </div>
-                <div className='product-details'>
-                  <h3>{shopItems.name}</h3>
-                  <div className='price'>
-                    <div>
-                      <h4 className="price-old"> $1000</h4>
-                      <h4>${shopItems.price}.00 </h4>
-                    </div>
-                    <button className="btn-addToCart" onClick={(e) => {addToCart(shopItems); e.stopPropagation()}}>
-                      <i className='fa fa-plus'></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CardProduct shopItems={shopItems} addToCart={addToCart}  key={index}  />
           )
         })}
       </Slider>

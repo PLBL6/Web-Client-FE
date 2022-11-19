@@ -6,8 +6,8 @@ const Categories = ({ data }) => {
       <div className='category' style={{marginTop:"12px"}}>
         {data.map((value, index) => {
           return (
-            <div className='box f_flex' key={index}>
-              <img src={value.cateImg} alt='' />
+            <div className='box category-mainpage' key={index}>
+              <i className={value.cateIcon}></i>
               <span>{value.cateName}</span>
             </div>
           )

@@ -96,6 +96,7 @@ function App() {
   const { productItems } = Data
   const { shopItems } = Sdata
 
+
   const [CartItem, setCartItem] = useState([])
 
   const addToCart = (product) => {
@@ -146,8 +147,8 @@ function App() {
       <Routes>
         <Route path='/' element={<MainPage productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
         <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
-        <Route path='/product' element={<ProductDetailPage />} />
-        <Route path='/category' element={<ListProductPage />} />
+        <Route path='/product/*' element={<ProductDetailPage  />} />
+        <Route path='/category/*' element={<ListProductPage   />} />
         <Route path='/user/*' element={<UserProfilePage />} />
         <Route path='/user-shop/*' element={<UserShopPage />} />
       </Routes>

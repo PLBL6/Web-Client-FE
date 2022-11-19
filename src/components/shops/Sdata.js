@@ -6,6 +6,10 @@ const Sdata = {
       name: "Áo phông",
       price: "180",
       discount: "25",
+      shop: {
+        id: 1,
+        name: "shopClothing"
+      }
     },
     {
       id: 8,
@@ -13,6 +17,10 @@ const Sdata = {
       name: "Áo phông android one",
       price: "120",
       discount: "10",
+      shop: {
+        id: 2,
+        name: "apple"
+      }
     },
     {
       id: 9,
@@ -20,6 +28,10 @@ const Sdata = {
       name: "Áo phông Light",
       price: "20",
       discount: "50 ",
+      shop: {
+        id: 2,
+        name: "apple"
+      }
     },
     {
       id: 10,
@@ -27,6 +39,10 @@ const Sdata = {
       name: "Áo phông",
       price: "999",
       discount: "10 ",
+      shop: {
+        id: 3,
+        name: "android"
+      }
     },
     {
       id: 11,
@@ -34,6 +50,10 @@ const Sdata = {
       name: "Áo phông",
       price: "80",
       discount: "20 ",
+      shop: {
+        id: 3,
+        name: "android"
+      }
     },
     {
       id: 12,
@@ -41,6 +61,10 @@ const Sdata = {
       name: "Áo phông ",
       price: "400",
       discount: "20 ",
+      shop: {
+        id: 1,
+        name: "shopClothing"
+      }
     },
     {
       id: 13,
@@ -48,6 +72,10 @@ const Sdata = {
       name: "Áo phông ",
       price: "60",
       discount: "5 ",
+      shop: {
+        id: 1,
+        name: "shopClothing"
+      }
     },
     {
       id: 14,
@@ -55,6 +83,10 @@ const Sdata = {
       name: "Áo phông",
       price: "120",
       discount: "10",
+      shop: {
+        id: 3,
+        name: "android"
+      }
     },
     {
       id: 15,
@@ -62,6 +94,10 @@ const Sdata = {
       name: "Áo phông Cap",
       price: "5",
       discount: "2",
+      shop: {
+        id: 1,
+        name: "shopClothing"
+      }
     },
   ],
 }

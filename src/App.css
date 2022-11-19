@@ -42,6 +42,11 @@ textarea {
 
 }
 
+.category-mainpage {
+  display: flex;
+  align-items: center;
+}
+
 .d_flex {
   display: flex;
   justify-content: space-between;
@@ -200,6 +205,7 @@ button {
   display: flex;
   justify-content: space-between;
   color: #e94560;
+  align-items: center;
 }
 
 .price button {
@@ -395,6 +401,13 @@ button {
   padding-right: 5px;
   width: 20%;
 }
+
+.grid__column-18 {
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 18%;
+}
+
 
 .listproduct-section {
   margin-top: 20px;

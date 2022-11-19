@@ -1,4 +1,4 @@
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
+import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import CategoryUserData from "../components/data/CategoryUserData"
 
 import { Link, Route, Routes } from "react-router-dom"
@@ -22,7 +22,7 @@ const UserProfilePage = () => {
                         <List
                             sx={{ width: '100%', maxWidth: 280, bgcolor: 'background.paper' }}
                             component="nav"
-                            aria-labelledby="nested-list-subheader"
+                            aria-labelledby="list-category"
                             className="boxShadow"
                         >
                             {CategoryUserData.map((item, index) => (

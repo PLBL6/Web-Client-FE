@@ -1,27 +1,33 @@
 const CategoryProductData = [
     {
-      cateImg: "./images/category/cat1.png",
-      cateName: "Áo Quần",
+      cateIcon: "fa-solid fa-shirt",
+      cateName: "mens-shirts",
+      slug: "mens-shirts"
     },
     {
-      cateImg: "./images/category/cat2.png",
-      cateName: "Giày dép",
+      cateIcon: "fa-solid fa-shirt",
+      cateName: "mens-shoes",
+      slug: "mens-shoes"
     },
     {
-      cateImg: "./images/category/cat3.png",
-      cateName: "Nón, mũ",
+      cateIcon: "fa-solid fa-shirt",
+      cateName: "furniture",
+      slug: "furniture"
     },
     {
-      cateImg: "./images/category/cat4.png",
-      cateName: "Kính mát",
+      cateIcon: "fa-solid fa-glasses",
+      cateName: "sunglasses",
+      slug: "sunglasses"
     },
     {
-      cateImg: "./images/category/cat5.png",
-      cateName: "Phụ kiện",
+      cateIcon: "fa-solid fa-shirt",
+      cateName: "lighting",
+      slug: "lighting"
     },
     {
-      cateImg: "./images/category/cat7.png",
-      cateName: "Trang sức",
+      cateIcon: "fa-solid fa-gem",
+      cateName: "womens-jewellery",
+      slug: "womens-jewellery"
     },
   ]
 
