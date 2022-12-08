@@ -1,7 +1,8 @@
 // import logo from "../../components/assets/images/logo.svg"
+// import { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLogout }) => {
+const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLogout,setIsVendorLogin }) => {
 
   // fixed Header
   window.addEventListener("scroll", function () {
@@ -24,9 +25,9 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
       <section className='search'>
         <div className='container c_flex'>
           <div className='logo width '>
-            <a className="logoShoplink" href="/">
-              MyShop
-            </a>
+            <Link className="logoShoplink" to="/">
+              Charlotte
+            </Link>
           </div>
 
           <div className='search-box f_flex'>
@@ -36,33 +37,54 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
           </div>
 
           <div className='user icon f_flex width'>
-            {user.displayName ?
-              <div className="header-user">
-                <img className="header-user__img" src={user.photoURL} alt="Avatar" />
-                <span className="header-user__name">{user.displayName}</span>
+            {user ?
+              // <div className="header-user">
+              //   <img className="header-user__img" src={user.photoURL} alt="Avatar" />
+              //   <span className="header-user__name">{user.displayName}</span>
 
-                <ul className="header__navbar-user-menu">
-                  <li className="header__navbar-user-item ">
-                    <a href="/">Tài khoản của tôi</a>
-                  </li>
-                  <li className="header__navbar-user-item header__navbar-user-item--separate">
-                    <a onClick={handleLogout} href="/">Đăng xuất</a>
-                  </li>
+              //   <ul className="header__navbar-user-menu">
+              //     <li className="header__navbar-user-item ">
+              //       <a href="/">Tài khoản của tôi</a>
+              //     </li>
+              //     <li className="header__navbar-user-item header__navbar-user-item--separate">
+              //       <a onClick={handleLogout} href="/">Đăng xuất</a>
+              //     </li>
 
-                
-                </ul>
-              </div>
+
+              //   </ul>
+              // </div>
+              ""
               :
               <ul className="list-signup-signin">
-                <li onClick={OnOpenModalLogin} className="item-separate">Đăng nhập</li>
-                <li onClick={OnOpenModalSignUp}>Đăng kí</li>
+                <li className="item-separate login-field">
+                  Đăng nhập
+                  <ul className="login-options">
+                    <li onClick={()=> {setIsVendorLogin(false); OnOpenModalLogin(); }} className="option-1 ">
+                      Mua sản phẩm
+                    </li>
+                    <li onClick={()=> {setIsVendorLogin(true); OnOpenModalLogin(); }} className="option-2 ">
+                      Nhà cung cấp
+                    </li>
+                  </ul>
+                </li>
+                <li className="register-field">
+                  Đăng kí
+                  <ul className="register-options ">
+                    <li onClick={()=> {setIsVendorLogin(false); OnOpenModalSignUp(); }} className="option-1 ">
+                      Trở thành người mua
+                    </li>
+                    <li onClick={()=> {setIsVendorLogin(true); OnOpenModalSignUp(); }} className="option-2 ">
+                      Trở thành nhà cung cấp
+                    </li>
+                  </ul>
+                </li>
               </ul>
 
             }
-            <div className="user-cart" style={user.displayName ? { marginTop: 20 } : {}}>
-              {user.displayName ? '' :
+            <div className="user-cart">
+              {user ? '' :
                 <div className="user">
-                  <Link to='/user/profile'>
+                  <Link to='/user/profile' onClick={() => localStorage.setItem("indexCategoryUserPage", 0)}>
                     <i className='fa fa-user icon-circle'></i>
                   </Link>
                 </div>}

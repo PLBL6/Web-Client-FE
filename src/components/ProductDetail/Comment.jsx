@@ -1,9 +1,22 @@
 import { Rating } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import URL_API from "../../url";
 
 const Comment = () => {
 
     const [rating, setRating] = useState(0)
+    const [reviews, setReviews] = useState()
+
+    useEffect(() => {
+        const getReviewsProduct = async () => {
+            const data = await axios(URL_API + `api/get-all-danhgias-by-id-mathang?matHangId=${localStorage.getItem("ProductIdDetail")}`)
+            setReviews(data.data.danhgias)
+        }
+        getReviewsProduct()
+
+    }, [])
+
 
     return (
         <div className="comment-section">
@@ -30,45 +43,21 @@ const Comment = () => {
                 </div>
             </div>
             <ul className="list-comment">
-                <li className="comment-item">
-                    <img className="comment-item__img comment-ava-user" src="https://thuthuatnhanh.com/wp-content/uploads/2022/03/Avatar-co-don.jpg" alt="avatar" />
-                    <div className="comment-item__body">
-                        <p className="comment-item__name">tntntntn</p>
-                        <Rating
-                            defaultValue={4}
-                            readOnly
-                            style={{ color: "#E94560" }}
-                            size="small"
-                        />
-                        <p className="comment-item__content">Test Comment</p>
-                    </div>
-                </li>
-                <li className="comment-item">
-                    <img className="comment-item__img comment-ava-user" src="https://thuthuatnhanh.com/wp-content/uploads/2022/03/Avatar-co-don.jpg" alt="avatar" />
-                    <div className="comment-item__body">
-                        <p className="comment-item__name">tntntntn</p>
-                        <Rating
-                            defaultValue={5}
-                            readOnly
-                            style={{ color: "#E94560" }}
-                            size="small"
-                        />
-                        <p className="comment-item__content">Test Comment Test Comment Test Comment Test Comment Test Comment</p>
-                    </div>
-                </li>
-                <li className="comment-item">
-                    <img className="comment-item__img comment-ava-user" src="https://thuthuatnhanh.com/wp-content/uploads/2022/03/Avatar-co-don.jpg" alt="avatar" />
-                    <div className="comment-item__body">
-                        <p className="comment-item__name">tntntntn</p>
-                        <Rating
-                            defaultValue={3}
-                            readOnly
-                            style={{ color: "#E94560" }}
-                            size="small"
-                        />
-                        <p className="comment-item__content">123121111111 </p>
-                    </div>
-                </li>
+                {reviews?.map((review, index) => (
+                    <li key={index} className="comment-item">
+                        <img className="comment-item__img comment-ava-user" src="https://thuthuatnhanh.com/wp-content/uploads/2022/03/Avatar-co-don.jpg" alt="avatar" />
+                        <div className="comment-item__body">
+                            <p className="comment-item__name">{review?.khachHang}</p>
+                            <Rating
+                                defaultValue={review?.xepHang}
+                                readOnly
+                                style={{ color: "#E94560" }}
+                                size="small"
+                            />
+                            <p className="comment-item__content">{review?.noiDung}</p>
+                        </div>
+                    </li>
+                ))}
 
             </ul>
         </div>

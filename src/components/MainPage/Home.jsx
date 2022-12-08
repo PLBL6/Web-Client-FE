@@ -1,15 +1,15 @@
 import React from "react"
-import Categories from "./Categories"
 import "./Home.css"
 import SliderHome from "./Slider"
 import CategoryProductData from "../data/CategoryProductData"
+import Category from "../Category/Category"
 
 const Home = () => {
   return (
     <>
       <section className='home'>
         <div className='container d_flex home-content'>
-          <Categories data = {CategoryProductData}  />
+          <Category data = {CategoryProductData}  />
           <SliderHome />
         </div>
       </section>

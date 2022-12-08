@@ -11,12 +11,6 @@ const CategoryUserData = [
         slug: "/user/purchase"
     },
     {
-        cateIcon: "fa-solid fa-shop",
-        cateName: "Kênh người bán",
-        slug: "/user-shop/all"
-    },
-    
-    {
         cateIcon: "fa-solid fa-key",
         cateName: "Thay đổi mật khẩu",
         slug: "/user/change-password"

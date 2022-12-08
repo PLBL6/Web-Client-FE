@@ -3,11 +3,11 @@ import CartShopItem from "./CartShopItem"
 import "./cart.css"
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
+  // const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
 
-  const CartitemSorted = CartItem.sort((a,b) => a.shop.id - b.shop.id)
+  // const CartitemSorted = CartItem.sort((a, b) => a.shop.id - b.shop.id)
 
-  console.log("CartitemSorted:",CartitemSorted);
+  // console.log("CartitemSorted:", CartitemSorted);
 
   return (
     <div className='cart-section'>
@@ -31,6 +31,15 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
 
           )
         })} */}
+        <div className="CartShopItem">
+          <CartShopItem />
+        </div>
+        <div className="CartShopItem">
+          <CartShopItem />
+        </div>
+        <div className="CartShopItem">
+          <CartShopItem />
+        </div>
         <div className="cart-payment boxShadow">
           <p className="cart-payment__text">Tổng thanh toán (0 sản phẩm):</p>
           <p className="cart-payment__value">999.999đ</p>

@@ -23,6 +23,14 @@ body {
   margin-bottom: 40px !important;
 }
 
+.m-0 {
+  margin: 0 !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
 .no-pd {
   padding: 0 !important;
 }
@@ -60,6 +68,11 @@ textarea {
 
 .f_flex {
   display: flex;
+}
+
+.f_flex_center {
+  display: flex;
+  justify-content: center;
 }
 
 a {
@@ -129,7 +142,13 @@ button {
 .category img {
   width: 30px;
   height: 30px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  object-fit: contain;
+}
+
+.category-img {
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
@@ -182,6 +201,12 @@ button {
   border-radius: 8px;
   box-shadow: rgb(3 0 71 / 9%) 0px 1px 3px;
   margin: 10px;
+  transition: all ease-in-out 0.3s;
+}
+
+.product:hover {
+  cursor: pointer;
+  transform: translateY(-3px);
 }
 
 .product h3 {
@@ -417,6 +442,11 @@ button {
 .product-bg {
   background-color: #f6f6f6;
   box-shadow: rgb(0 0 71 / 9%) 6px 3px 6px;
+}
+
+.product-bg:hover {
+  box-shadow: rgb(0 0 71 / 15%) 6px 3px 6px;
+
 }
 
 /* Pagination */

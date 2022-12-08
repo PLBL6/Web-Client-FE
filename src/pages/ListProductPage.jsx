@@ -1,45 +1,62 @@
 import { Link, Route, Routes } from "react-router-dom"
-import { Pagination } from "@mui/material"
+import { ListItemAvatar, Pagination } from "@mui/material"
 import CategoryProductData from "../components/data/CategoryProductData"
 import { useEffect, useState } from "react"
 import axios from "axios"
-
-import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-
+import { List, ListItemButton, ListItemText } from "@mui/material"
 import ListProduct from "../components/shops/ListProduct"
+import URL_API from "../url"
+// import Category from "../components/Category/Category"
+
+
 
 const ListProductPage = () => {
 
     const [selectedindex, setSelectedIndex] = useState(() => {
-        const index = JSON.parse(localStorage.getItem("indexCategory"))
+        const index = JSON.parse(localStorage.getItem("indexCategory") - 1)
         return index ?? 0
-     })
+    })
 
     const [products, setProducts] = useState([])
-    const [category, setCategory] = useState(() => {
-        const cate = JSON.parse(localStorage.getItem("Category"))
-        return cate ?? ""
+
+    const [indexCategory, setIndexCategory] = useState(() => {
+        const cate = JSON.parse(localStorage.getItem("indexCategory"))
+        return cate ?? 1
     })
 
     useEffect(() => {
-        const GetProducts = async (category) => {
-            const res = await axios.get(`https://dummyjson.com/products/category/${category}`)
-            setProducts(res.data.products)
+        const GetProducts = async (indexCategory) => {
+            const res = await axios.get(URL_API + `api/get-all-mathangs-by-id-danhmuc?danhMucID=${indexCategory}`)
+            setProducts(res.data.mathangs)
         }
 
-        GetProducts(category)
-        
-    }, [category])
-    
-    const handleListItemClick = (e, index, cate) => {
+        GetProducts(indexCategory)
+
+    }, [indexCategory])
+
+    const handleListItemClick = (e, index, indexCate) => {
         localStorage.setItem("indexCategory", index)
-        setSelectedIndex(index)
+        setSelectedIndex(indexCate - 1)
 
-        setCategory(cate)
-        localStorage.setItem("indexCategory", JSON.stringify(cate))
-
-
+        setIndexCategory(indexCate)
+        localStorage.setItem("indexCategory", indexCate)
+        setCurrentPage(1)
     }
+
+    // Pagination
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const productsPerPage = 10
+
+    const indexOfLastProduct = currentPage * productsPerPage
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
+
+    // Change pages
+    const handlePageChange = (e, p) => {
+        setCurrentPage(p)
+    }
+
     return (
         <div className="listproduct-section grid1400">
             <div className="grid__row">
@@ -47,18 +64,17 @@ const ListProductPage = () => {
                     <List
                         sx={{ width: '100%', maxWidth: 280, bgcolor: 'background.paper' }}
                         component="nav"
-                        aria-labelledby="nested-list-subheader"
                         className="boxShadow"
                     >
                         {CategoryProductData.map((item, index) => (
                             <Link key={index} to={item.slug}>
                                 <ListItemButton
                                     selected={selectedindex === index}
-                                    onClick={(e) => handleListItemClick(e, index, item.slug)}
+                                    onClick={(e) => handleListItemClick(e, index, item.id)}
                                 >
-                                    <ListItemIcon>
-                                        <i className={item.cateIcon}></i>
-                                    </ListItemIcon>
+                                    <ListItemAvatar>
+                                        <img className="category-img" src={item.cateImg} alt={item.cateName} />
+                                    </ListItemAvatar>
                                     <ListItemText primary={item.cateName} />
                                 </ListItemButton>
                             </Link>
@@ -67,15 +83,15 @@ const ListProductPage = () => {
                     </List>
                 </div>
                 <div className="grid__column-10">
-                    <div className="grid__row">
+                    <div className="grid__row" style={{ marginTop: "10px" }}>
                         <Routes>
-                            {CategoryProductData.map((item, index) => (
-                                <Route key={index} path={`/${item.slug}`} element={<ListProduct products={products} />}></Route>
+                            {CategoryProductData.map((item) => (
+                                <Route key={item.id} path={`/${item.id}`} element={<ListProduct products={currentProducts} />}></Route>
                             ))}
                         </Routes>
                     </div>
                     <div className="pagination-wrapper">
-                        <Pagination count={10} size="large" />
+                        <Pagination count={Math.ceil(products.length / productsPerPage)} page={currentPage} size="large" onChange={handlePageChange} />
                     </div>
                 </div>
             </div>

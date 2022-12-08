@@ -5,13 +5,10 @@ import Shop from "../components/shops/Shop"
 import Annocument from "../components/annocument/Annocument"
 import Wrapper from "../components/wrapper/Wrapper"
 
-const MainPage = ({ productItems, addToCart, CartItem, shopItems }) => {
+const MainPage = ({ addToCart, CartItem, shopItems }) => {
   return (
     <>
       <Home CartItem={CartItem} />
-      {/* <FlashDeals productItems={productItems} addToCart={addToCart} /> */}
-      {/* <TopCate /> */}
-      {/* <NewArrivals /> */}
       <Discount shopItems={shopItems} addToCart={addToCart} />
       <Shop shopItems={shopItems} addToCart={addToCart} />
       <Annocument />

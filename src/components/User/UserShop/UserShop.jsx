@@ -9,10 +9,15 @@ import "./userShop.css"
 const UserShop = () => {
     const [open, setOpen] = useState(true)
 
-    const [selectedindex, setSelectedIndex] = useState(1)
+    const [selectedindex, setSelectedIndex] = useState(() => {
+        const index = JSON.parse(localStorage.getItem("indexCategoryShopPage"))
+        return index ?? 0
+    })
 
     const handleListItemClick = (e, index) => {
         setSelectedIndex(index)
+        localStorage.setItem("indexCategoryShopPage", index)
+
     }
 
 

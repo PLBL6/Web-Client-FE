@@ -1,13 +1,19 @@
+import { Link } from "react-router-dom"
+
 const Category = ({ data }) => {
+
+    const handleLinkActive = (e, index) => {
+        localStorage.setItem("indexCategory", index)
+    }
     return (
         <>
-            <div className='category'>
+            <div className='category' style={{marginTop:"12px"}}>
                 {data.map((value, index) => {
                     return (
-                        <div className='box f_flex category-item' key={index}>
-                            <i className={value.cateIcon}></i>
+                        <Link onClick={e => handleLinkActive(e,value.id)} to={`category/${value.id}`} className='box f_flex category-item' key={index}>
+                            <img src={value.cateImg} alt="icon" />
                             <span>{value.cateName}</span>
-                        </div>
+                        </Link>
                     )
                 })}
             </div>

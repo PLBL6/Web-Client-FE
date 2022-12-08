@@ -1,9 +1,19 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Navbar = ({ user }) => {
+const Navbar = ({ isCustomer, user }) => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
+
+  const handleLinkActiveUser = (e, index) => {
+    localStorage.setItem("indexCategoryUserPage", index)
+    window.location.href = "http://localhost:3000/user/profile"
+
+  }
+  const handleLinkActiveShop = (e, index) => {
+    localStorage.setItem("indexCategoryShopPage", index)
+    window.location.href = "http://localhost:3000/user-shop/order"
+  }
   return (
     <>
       <header className='header'>
@@ -22,11 +32,18 @@ const Navbar = ({ user }) => {
                 <Link to='/'>Trang chủ</Link>
               </li>
               <li>
-                <Link to='/user/profile'>Tài khoản người dùng</Link>
+                <Link onClick={(e) => handleLinkActiveUser(e,0)} to='/user/profile'>Khách hàng</Link>
               </li>
               <li>
-                <Link to="/user-shop/all">Doanh nghiệp</Link>
+                <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
               </li>
+              {/* {isCustomer ?
+                <li>
+                  <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
+                </li> :
+                <li>
+                  <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
+                </li>} */}
               <li>
                 <Link to='/'>Liên hệ</Link>
               </li>

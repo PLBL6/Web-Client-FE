@@ -3,20 +3,27 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import CardProduct from "./CardProduct"
+import axios from "axios"
+import URL_API from "../../url"
 
-const ShopCart = ({ shopItems, addToCart, category }) => {
+
+
+const ShopCart = ({ addToCart, category }) => {
   const [products1, setProducts1] = useState([])
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/category/${category}`)
-      .then(res => res.json())
-      .then(data => setProducts1(data.products))
+      const getProductByCategory = async () => {
+        const data = await axios(URL_API+`api/get-all-mathangs-by-id-danhmuc?danhMucID=${category}`)
+        setProducts1(data.data.mathangs)
+    }
+
+    getProductByCategory()
   }, [category])
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: products1?.length > 4 ? 5 :products1?.length,
     slidesToScroll: 1,
     autoplay: false,
   }
@@ -24,10 +31,9 @@ const ShopCart = ({ shopItems, addToCart, category }) => {
   return (
     <>
       <Slider {...settings}>
-
-        {products1.map((shopItems, index) => {
+        {products1.slice(0,10).map((shopItems, index) => {
           return (
-            <CardProduct shopItems={shopItems} addToCart={addToCart}  key={index}  />
+            <CardProduct shopItems={shopItems} addToCart={addToCart} key={index}  />
           )
         })}
       </Slider>

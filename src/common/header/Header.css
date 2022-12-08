@@ -19,10 +19,12 @@
 /*------search-----------*/
 
 .logoShoplink {
-  background-color: #e94560;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 30px;
   padding: 12px 18px;
   border-radius: 8px;
-  margin-left: 12px;
+  font-family: 'Rubik Glitch', cursive;
 }
 
 .search {
@@ -87,13 +89,63 @@
   justify-content: space-evenly;
 }
 
-.list-signup-signin li {
+.list-signup-signin > li {
   padding: 5px;
 }
 
-.list-signup-signin li:hover {
+
+.login-options {
+  position: absolute;
+  z-index: 3;
+  padding: 0;
+  top: calc(100% + 8px);
+  left: 0;
+  list-style: none;
+  background-color: rgb(235, 234, 234);
+  border-radius: 2px;
+  width: 160px;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.register-options {
+  position: absolute;
+  z-index: 3;
+  padding: 0;
+  top: calc(100% + 8px);
+  right: -72px;
+  list-style: none;
+  background-color: rgb(235, 234, 234);
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.login-options li {
+  padding: 8px 10px;
+}
+
+.register-options li {
+  padding: 8px 10px;
+
+}
+
+.register-field,
+.login-field {
   cursor: pointer;
-  color: #e94560;
+  color: var(--primary);
+}
+
+.register-options li:hover,
+.login-options li:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+.register-field:hover .register-options,
+.login-field:hover .login-options {
+  display: block;
+  color: #000;
 }
 
 .item-separate::after {
@@ -104,8 +156,19 @@
   height: 18px;
   background-color: #000;
   top: 8px;
-  right: 104px;
+  right: 102px;
   transform: translateX(-50%);
+}
+
+.register-field::before,
+.login-field::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100px;
+  height: 20px;
+  bottom: -10px;
+  cursor: pointer;
 }
 
 .user {
@@ -251,16 +314,6 @@ header ul li a:hover {
   display: block;
 }
 
-/* .header__navbar-user-menu::before{
-  position: absolute;
-  border-width: 11px 22px;
-  border-style: solid;
-  border-color: transparent transparent #fff transparent;
-  content: "";
-  top: -22px;
-  right: 16px;
-} */
-
 .header__navbar-user-menu::after{
   position: absolute;
   content: "";
@@ -287,7 +340,7 @@ header ul li a:hover {
 
 .header__navbar-user-item a{
   display: block;
-  color: var(--text-color);
+  /* color: var(--text-color); */
   text-decoration: none;
   padding: 12px 16px;
   font-size: 14px;
@@ -365,3 +418,4 @@ header ul li a:hover {
     height: 10vh;
   }
 }
+
