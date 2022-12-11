@@ -1,7 +1,29 @@
+import axios from "axios"
+import { useState } from "react"
 import { useEffect, useRef } from "react"
+import URL_API from "../../url"
 import "./login.css"
 
-function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpenModalSignUp, isVendorLogin, LoginCustomer }) {
+function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpenModalSignUp, isVendorLogin,
+    user, setUser }) {
+
+    const [userName, setUserName] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordAgain, setPasswordAgain] = useState("")
+
+    const LoginCustomer = async (username, password) => {
+        const body = {
+            "tenNguoiDung": username,
+            "matKhau": password
+        }
+        const result = await axios.post(URL_API + `api/check-login-khachhang?matKhau&tenNguoiDung`, body)
+        localStorage.setItem("login", JSON.stringify(result.data))
+        setUser(result.data?.user)
+        if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
+            SetOpenModalLogin(false)
+            SetOpenModalSignUp(false)
+        }
+    }
 
     useEffect(() => {
         const modalOverlay = document.querySelector('.modal__overlay')
@@ -9,15 +31,22 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
             SetOpenModalLogin(false)
             SetOpenModalSignUp(false)
         }
-
     }, [])
 
-
-    const field1 = useRef()
-    const field2 = useRef()
-    const fieldRegister3 = useRef()
-
-
+    // const handleLogin = () => {
+    //     // LoginCustomer(userName, password);
+    //     if (isVendorLogin) {
+    //         console.log("Vendor Login");
+    //     }
+    //     else {
+    //         console.log("Customer Login");
+    //         LoginCustomer(userName, password);
+    //         if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
+    //             SetOpenModalLogin(false)
+    //             SetOpenModalSignUp(false)
+    //         }
+    //     }
+    // }
 
 
 
@@ -35,14 +64,14 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
 
                         <div className="auth-form__form">
                             <div className="auth-form__group">
-                                <input ref={field1} type="text" className="auth-form__input" placeholder="Email" />
+                                <input value={userName} onChange={e => setUserName(e.target.value)} type="text" className="auth-form__input" placeholder="Tên đăng nhập" />
                             </div>
                             <div className="auth-form__group">
-                                <input ref={field2} type="password" className="auth-form__input" placeholder="Mật khảu" />
+                                <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="auth-form__input" placeholder="Mật khảu" />
                             </div>
                             {isOpenModalSignUp ?
                                 <div className="auth-form__group">
-                                    <input ref={fieldRegister3} type="password" className="auth-form__input" placeholder="Nhập lại mật khảu" />
+                                    <input value={passwordAgain} onChange={e => setPasswordAgain(e.target.value)} type="password" className="auth-form__input" placeholder="Nhập lại mật khảu" />
                                 </div>
                                 : ''
                             }
@@ -63,7 +92,7 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
 
                             <div className="auth-form__controls">
                                 <button className="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
-                                {isOpenModalSignUp ? <button className="btn btn--primary">ĐĂNG KÝ</button> : <button onClick={() => LoginCustomer("khachhang6", "password6")} className="btn btn--primary">ĐĂNG NHẬP</button>}
+                                {isOpenModalSignUp ? <button className="btn btn--primary">ĐĂNG KÝ</button> : <button onClick={() => LoginCustomer(userName, password)} className="btn btn--primary">ĐĂNG NHẬP</button>}
                             </div>
                         </div>
                     </div>

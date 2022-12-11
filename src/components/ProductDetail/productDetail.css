@@ -115,19 +115,37 @@
 
 .product-detail__item {
     display: flex;
-    padding: 0 24px;
+    align-items: center;
+    padding: 12px 24px;
+}
+
+.product-color {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-detail__item input {
+    display: none;
+}
+
+.product-detail__item label {
+    padding: 5px 2px;
+    margin: 0 5px;
+    border: 3px solid #ccc;
+    cursor: pointer;
+}
+
+.product-detail__item label:hover {
+    border-color: var(--primary);
 }
 
 .product-detail__item+.product-detail__item {
     margin-top: 12px;
 }
 
-.product-detail__head {
-    flex: 0.6;
-}
 
 .product-detail__value {
-    flex: 1;
+    margin-left: 24px;
 }
 
 .product-detail__quantity {

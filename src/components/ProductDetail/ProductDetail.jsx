@@ -1,19 +1,24 @@
 import { Rating } from "@mui/material";
+import { borderColor } from "@mui/system";
 import axios from "axios";
+import { useLayoutEffect } from "react";
 import { memo, useCallback, useEffect, useState } from "react";
 import URL_API from "../../url";
 import CategoryProductData from "../data/CategoryProductData";
+import ColorData from "../data/ColorData";
+import SizeData from "../data/SizeData";
 
 import "./productDetail.css"
 const ProductDetail = ({ id }) => {
 
+    const [checked, setChecked] = useState()
+
     const [product, setProduct] = useState()
     const [details, setDetails] = useState()
-    // const [colors, setColors] = useState()
-    // const [sizes, setSizes] = useState()
+    
     const [loading, setLoading] = useState(false)
     const [quantity, setQuantity] = useState(1)
-    
+
 
     const increaseQuantity = useCallback(() => setQuantity(prev => prev + 1), [])
     const decreaseQuantity = useCallback(() => setQuantity(prev => {
@@ -35,7 +40,7 @@ const ProductDetail = ({ id }) => {
     useEffect(() => {
         setLoading(true)
         const getProduct = async () => {
-            const data = await axios(URL_API+`api/get-mathangs?idMatHang=${localStorage.getItem("ProductIdDetail")}`)
+            const data = await axios(URL_API + `api/get-mathangs?idMatHang=${localStorage.getItem("ProductIdDetail")}`)
             setProduct(data.data.mathangs)
         }
 
@@ -43,13 +48,13 @@ const ProductDetail = ({ id }) => {
         setLoading(false)
     }, [])
 
-    useEffect(() => {  
+    useEffect(() => {
         const getDetailsProduct = async () => {
-            const data = await axios(URL_API+`api/get-all-chi-tiet-mathangs-by-id-mathang?matHangID=${localStorage.getItem("ProductIdDetail")}`)
+            const data = await axios(URL_API + `api/get-all-chi-tiet-mathangs-by-id-mathang?matHangID=${localStorage.getItem("ProductIdDetail")}`)
             setDetails(data.data.chitietmathangs)
         }
         getDetailsProduct()
-        
+
     }, [])
 
     return (
@@ -89,19 +94,23 @@ const ProductDetail = ({ id }) => {
                 <ul className="product-detail__list-details">
                     <li className="product-detail__item">
                         <h3 className="product-detail__head">Danh Mục:</h3>
-                        <p className="product-detail__value">{CategoryProductData[product?.danhMuc]?.cateName}</p>
+                        <p className="product-detail__value fs-18">{CategoryProductData[product?.danhMuc]?.cateName}</p>
                     </li>
                     <li className="product-detail__item">
-                        <h3 className="product-detail__head">Màu sắc:</h3>
-                        <p className="product-detail__value">Đen</p>
-                    </li>
-                    <li className="product-detail__item">
-                        <h3 className="product-detail__head">Kích cỡ:</h3>
-                        <p className="product-detail__value">Size S</p>
-                    </li>
-                    <li className="product-detail__item">
-                        <h3 className="product-detail__head">Khuyến mãi:</h3>
-                        <p className="product-detail__value">{product?.discountPercentage}%</p>
+                        <h3 className="product-detail__head">Loại hàng:</h3>
+                        <div className="product-color product-detail__value">
+                            {details?.map((detail, index) => (
+                                <div key={index}>
+                                    <input id={detail?.id} type="radio" value={detail?.id}
+                                        onChange={() => setChecked(detail?.id)}
+                                        checked={checked === detail?.id}
+                                    />
+                                    <label style={checked === detail?.id ? { borderColor: '#EB3251' } : {}}
+                                        htmlFor={detail?.id}>{`${ColorData[detail?.maMS - 1]} - ${SizeData[detail?.maKC - 1]}`}</label>
+                                </div>
+                            ))}
+
+                        </div>
                     </li>
                 </ul>
 

@@ -13,29 +13,12 @@ import ProductDetailPage from "./pages/ProductDetailPage"
 import ListProductPage from "./pages/ListProductPage"
 import UserProfilePage from "./pages/UserProfilePage"
 import UserShopPage from "./pages/UserShopPage"
-import axios from "axios"
-import URL_API from "./url"
-
-
 
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
   const [isOpenModalSignUp, SetOpenModalSignUp] = useState(false)
   const [isVendorLogin, setIsVendorLogin] = useState(false)
-  const [user, setUser] = useState(() => {
-    const token = JSON.parse(localStorage.getItem("accessToken"))
-    return token ?? null
-  })
-
-  const LoginCustomer = async (username, password) => {
-    const body = {
-      "tenNguoiDung": username,
-      "matKhau": password
-    }
-    await axios.post(URL_API + `api/check-login-khachhang?matKhau&tenNguoiDung`, body)
-      .then(response => localStorage.setItem("accessToken", response.data.errCode))
-      .catch(error => console.error(error))
-  }
+  const [user, setUser] = useState()
 
   const handleClickLogin = () => {
     SetOpenModalLogin(true)
@@ -85,7 +68,8 @@ function App() {
           isOpenModalSignUp={isOpenModalSignUp}
           SetOpenModalSignUp={SetOpenModalSignUp}
           isVendorLogin={isVendorLogin}
-          LoginCustomer={LoginCustomer}
+          user={user}
+          setUser={setUser}
         />
         : ''}
       <Header
@@ -93,6 +77,7 @@ function App() {
         OnOpenModalSignUp={handleClickSignUp}
         CartItem={CartItem}
         user={user}
+        isVendorLogin={isVendorLogin}
         setIsVendorLogin={setIsVendorLogin}
       />
       <Routes>

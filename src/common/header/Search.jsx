@@ -2,7 +2,7 @@
 // import { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLogout,setIsVendorLogin }) => {
+const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, setIsVendorLogin }) => {
 
   // fixed Header
   window.addEventListener("scroll", function () {
@@ -19,7 +19,7 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
       notify.style.display = 'block'
     }
   }
-
+  console.log("user:", user);
   return (
     <>
       <section className='search'>
@@ -36,24 +36,23 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
             <button className="btn-search">Tìm kiếm</button>
           </div>
 
+            
           <div className='user icon f_flex width'>
-            {user ?
-              // <div className="header-user">
-              //   <img className="header-user__img" src={user.photoURL} alt="Avatar" />
-              //   <span className="header-user__name">{user.displayName}</span>
+            {JSON.parse(localStorage.getItem("login"))?.user ?
+              <div className="header-user">
+                {/* <img className="header-user__img" src={user.photoURL} alt="Avatar" /> */}
+                <p className="header-user__name">{JSON.parse(localStorage.getItem("login"))?.user.tenNguoiDung}</p>
+                <ul className="header__navbar-user-menu">
+                  <li className="header__navbar-user-item ">
+                    <Link to="/user/profile">Tài khoản của tôi</Link>
+                  </li>
+                  <li className="header__navbar-user-item header__navbar-user-item--separate">
+                    <a onClick={() => {localStorage.removeItem("login"); window.location.reload()}} href="/">Đăng xuất</a>
+                  </li>
 
-              //   <ul className="header__navbar-user-menu">
-              //     <li className="header__navbar-user-item ">
-              //       <a href="/">Tài khoản của tôi</a>
-              //     </li>
-              //     <li className="header__navbar-user-item header__navbar-user-item--separate">
-              //       <a onClick={handleLogout} href="/">Đăng xuất</a>
-              //     </li>
 
-
-              //   </ul>
-              // </div>
-              ""
+                </ul>
+              </div>
               :
               <ul className="list-signup-signin">
                 <li className="item-separate login-field">

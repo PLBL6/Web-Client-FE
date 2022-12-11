@@ -4,8 +4,7 @@ import "./Header.css"
 import Search from "./Search"
 import Navbar from "./Navbar"
 
-const Header = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLogout, isVendorLogin
-  ,setIsVendorLogin }) => {
+const Header = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, isVendorLogin, setIsVendorLogin }) => {
   return (
     <>
       <Search
@@ -13,10 +12,15 @@ const Header = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, handleLog
         OnOpenModalSignUp={OnOpenModalSignUp}
         CartItem={CartItem}
         user={user}
-        handleLogout={handleLogout} 
         setIsVendorLogin={setIsVendorLogin}
-        />
-      <Navbar user={user} handleLogout={handleLogout} />
+      />
+      <Navbar
+        user={user}
+        OnOpenModalLogin={OnOpenModalLogin}
+        OnOpenModalSignUp={OnOpenModalSignUp}
+        setIsVendorLogin={setIsVendorLogin}
+        isVendorLogin={isVendorLogin}
+      />
     </>
   )
 }

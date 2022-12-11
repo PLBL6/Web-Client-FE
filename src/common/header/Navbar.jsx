@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Navbar = ({ isCustomer, user }) => {
+const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, isVendorLogin }) => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
+
 
   const handleLinkActiveUser = (e, index) => {
     localStorage.setItem("indexCategoryUserPage", index)
@@ -32,11 +33,17 @@ const Navbar = ({ isCustomer, user }) => {
                 <Link to='/'>Trang chủ</Link>
               </li>
               <li>
-                <Link onClick={(e) => handleLinkActiveUser(e,0)} to='/user/profile'>Khách hàng</Link>
+                {JSON.parse(localStorage.getItem("login"))?.user
+                  ? <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
+                  : <Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }} >Khách hàng</Link>}
               </li>
-              <li>
-                <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
-              </li>
+              {JSON.parse(localStorage.getItem("login"))?.user && !isVendorLogin ?
+                "" :
+                <li>
+                  {/* <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link> */}
+                  <Link onClick={() => { setIsVendorLogin(true); OnOpenModalLogin(); }} >Doanh nghiệp</Link>
+                </li>
+              }
               {/* {isCustomer ?
                 <li>
                   <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
@@ -44,14 +51,13 @@ const Navbar = ({ isCustomer, user }) => {
                 <li>
                   <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
                 </li>} */}
-              <li>
-                <Link to='/'>Liên hệ</Link>
-              </li>
+              {JSON.parse(localStorage.getItem("login"))?.user ?
+                <li>
+                  <Link to='/' onClick={() => { localStorage.removeItem("login"); window.location.reload() }}>Đăng xuất</Link>
+                </li>
+                : ""}
             </ul>
 
-            {/* <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
-              {MobileMenu ? <i className='fas fa-times close home-btn'></i> : <i className='fas fa-bars open'></i>}
-            </button> */}
           </div>
         </div>
       </header>
