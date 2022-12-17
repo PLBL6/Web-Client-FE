@@ -4,11 +4,9 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import CardProduct from "./CardProduct"
 import axios from "axios"
-import URL_API from "../../url"
+import { URL_API } from "../../url"
 
-
-
-const ShopCart = ({ addToCart, category }) => {
+const ShopCart = ({ category }) => {
   const [products1, setProducts1] = useState([])
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const ShopCart = ({ addToCart, category }) => {
     }
 
     getProductByCategory()
-  }, [category])
+  }, [])
 
   const settings = {
     dots: true,
@@ -33,7 +31,7 @@ const ShopCart = ({ addToCart, category }) => {
       <Slider {...settings}>
         {products1.slice(0,10).map((shopItems, index) => {
           return (
-            <CardProduct shopItems={shopItems} addToCart={addToCart} key={index}  />
+            <CardProduct shopItems={shopItems} key={index}  />
           )
         })}
       </Slider>

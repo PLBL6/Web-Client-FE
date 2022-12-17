@@ -3,11 +3,7 @@ import CartShopItem from "./CartShopItem"
 import "./cart.css"
 
 const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  // const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
-
-  // const CartitemSorted = CartItem.sort((a, b) => a.shop.id - b.shop.id)
-
-  // console.log("CartitemSorted:", CartitemSorted);
+  const totalPrice = CartItem.reduce((price, item) => price + item.qty * ((item.gia * (100-item.khuyenMai)/100) * item.qty), 0)
 
   return (
     <div className='cart-section'>
@@ -19,30 +15,16 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
           <li className="cart-header__item">Số tiền</li>
           <li className="cart-header__item">Thao tác</li>
         </ul>
-        {/* {CartItem.map((item) => {
-          return (
-            <div className="cart-shop boxShadow">
-              <div className="cart-shop__info">
-                <i className="cart-shop__icon fa-solid fa-shop"></i>
-                <p className="cart-shop__name">{item.shop.name}</p>
-              </div>
-              {item}
+        {
+          CartItem.map((item, index) => (
+            <div key={index} className="CartShopItem">
+              <CartShopItem item={item} addToCart={addToCart} decreaseQty={decreaseQty}/>
             </div>
-
-          )
-        })} */}
-        <div className="CartShopItem">
-          <CartShopItem />
-        </div>
-        <div className="CartShopItem">
-          <CartShopItem />
-        </div>
-        <div className="CartShopItem">
-          <CartShopItem />
-        </div>
+          ))
+        }
         <div className="cart-payment boxShadow">
-          <p className="cart-payment__text">Tổng thanh toán (0 sản phẩm):</p>
-          <p className="cart-payment__value">999.999đ</p>
+          <p className="cart-payment__text">Tổng thanh toán ({CartItem.length} sản phẩm):</p>
+          <p className="cart-payment__value">{totalPrice} đ</p>
           <a className="btn-primary" href="/">Mua hàng</a>
         </div>
 

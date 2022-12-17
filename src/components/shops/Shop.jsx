@@ -4,7 +4,7 @@ import CategoryProductData from "../data/CategoryProductData"
 import "./style.css"
 import { Link } from "react-router-dom"
 
-const Shop = ({ addToCart, shopItems }) => {
+const Shop = () => {
   const handleLinkActive = (e, index) => {
     localStorage.setItem("indexCategory", index)
   }
@@ -24,7 +24,7 @@ const Shop = ({ addToCart, shopItems }) => {
                 </Link>
               </div>
               <div>
-                <ShopCart addToCart={addToCart} shopItems={shopItems} category={item.id} />
+                <ShopCart category={item.id} />
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { List, ListItemButton, ListItemText } from "@mui/material"
 import ListProduct from "../components/shops/ListProduct"
-import URL_API from "../url"
+import { URL_API } from "../url"
 // import Category from "../components/Category/Category"
 
 

@@ -119,6 +119,11 @@
     padding: 12px 24px;
 }
 
+
+.product-type {
+    padding: 10px 0;
+}
+
 .product-color {
     display: flex;
     flex-wrap: wrap;

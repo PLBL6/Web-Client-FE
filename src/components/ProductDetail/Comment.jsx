@@ -1,7 +1,8 @@
 import { Rating } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import URL_API from "../../url";
+import { URL_API, URL_API_2 } from "../../url";
+
 
 const Comment = () => {
 
@@ -10,7 +11,7 @@ const Comment = () => {
 
     useEffect(() => {
         const getReviewsProduct = async () => {
-            const data = await axios(URL_API + `api/get-all-danhgias-by-id-mathang?matHangId=${localStorage.getItem("ProductIdDetail")}`)
+            const data = await axios(URL_API_2 + `api/get-all-danhgias-by-id-mathang?matHangId=${localStorage.getItem("ProductIdDetail")}`)
             setReviews(data.data.danhgias)
         }
         getReviewsProduct()

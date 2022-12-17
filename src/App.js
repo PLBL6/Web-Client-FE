@@ -3,12 +3,9 @@ import "./App.css"
 import { Routes, Route } from 'react-router-dom'
 import Header from "./common/header/Header"
 import MainPage from "./pages/MainPage"
-import Data from "./components/Data"
 import CartPage from "./pages/CartPage"
 import Footer from "./common/footer/Footer"
-import Sdata from "./components/shops/Sdata"
 import Login from "./components/Login/login"
-// import { useEffect } from "react"
 import ProductDetailPage from "./pages/ProductDetailPage"
 import ListProductPage from "./pages/ListProductPage"
 import UserProfilePage from "./pages/UserProfilePage"
@@ -17,7 +14,9 @@ import UserShopPage from "./pages/UserShopPage"
 function App() {
   const [isOpenModalLogin, SetOpenModalLogin] = useState(false)
   const [isOpenModalSignUp, SetOpenModalSignUp] = useState(false)
-  const [isVendorLogin, setIsVendorLogin] = useState(false)
+  const [isVendorLogin, setIsVendorLogin] = useState(() => {
+    return JSON.parse(localStorage.getItem("isVendor")) ?? false
+  })
   const [user, setUser] = useState()
 
   const handleClickLogin = () => {
@@ -28,36 +27,37 @@ function App() {
     SetOpenModalSignUp(true)
   }
 
-
-
-  const { productItems } = Data
-  const { shopItems } = Sdata
-
-
-  const [CartItem, setCartItem] = useState([])
+  const [CartItem, setCartItem] = useState(() => {
+    const cartStorage = JSON.parse(localStorage.getItem("CartItem"))
+    return cartStorage ?? []
+  })
 
   const addToCart = (product) => {
-
-    const productExit = CartItem.find((item) => item.id === product.id)
+    const productExit = CartItem.find((item) => (item.id === product.id) && (item.detail.id === product.detail.id))
 
     if (productExit) {
-      setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty + 1 } : item)))
+        setCartItem(CartItem.map((item) => ((item.id === product.id) && (item.detail.id === product.detail.id) ? { ...productExit, qty: productExit.qty + 1 } : item)))
     } else {
-      setCartItem([...CartItem, { ...product, qty: 1 }])
+      setCartItem([...CartItem, { ...product }])
     }
+
   }
+  console.log("Cart:", CartItem);
+  localStorage.setItem("CartItem", JSON.stringify(CartItem))
+
+
 
   const decreaseQty = (product) => {
-    const productExit = CartItem.find((item) => item.id === product.id)
+    const productExit = CartItem.find((item) => (item.id === product.id) && (item.detail.id === product.detail.id))
 
     if (productExit.qty === 1) {
-      setCartItem(CartItem.filter((item) => item.id !== product.id))
+      setCartItem(CartItem.filter((item) => (item.id == product.id && item.detail.id !== product.detail.id) || item.id !== product.id ))
     } else {
-      setCartItem(CartItem.map((item) => (item.id === product.id ? { ...productExit, qty: productExit.qty - 1 } : item)))
+      setCartItem(CartItem.map((item) => (item.id === product.id && item.detail.id === product.detail.id ? { ...productExit, qty: productExit.qty - 1 } : item)))
     }
   }
-
-
+  // console.log("CartItem:", CartItem);
+  console.log("isVendorLogin:", isVendorLogin);
 
   return (
     <>
@@ -68,6 +68,7 @@ function App() {
           isOpenModalSignUp={isOpenModalSignUp}
           SetOpenModalSignUp={SetOpenModalSignUp}
           isVendorLogin={isVendorLogin}
+          setIsVendorLogin={setIsVendorLogin}
           user={user}
           setUser={setUser}
         />
@@ -81,9 +82,9 @@ function App() {
         setIsVendorLogin={setIsVendorLogin}
       />
       <Routes>
-        <Route path='/' element={<MainPage productItems={productItems} addToCart={addToCart} shopItems={shopItems} />} />
+        <Route path='/' element={<MainPage />} />
         <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
-        <Route path='/product/*' element={<ProductDetailPage />} />
+        <Route path='/product/*' element={<ProductDetailPage CartItem={CartItem} addToCart={addToCart} />} />
         <Route path='/category/*' element={<ListProductPage />} />
         <Route path='/user/*' element={<UserProfilePage />} />
         <Route path='/user-shop/*' element={<UserShopPage />} />

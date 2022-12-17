@@ -1,9 +1,23 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { URL_API } from "../../../../url";
 
 const ListProductShop = () => {
 
     const [category, setCategory] = useState('');
+
+    const [products, getProducts] = useState();
+
+    useEffect(() => {
+        const GetAllProduct = async () => {
+            const data = await axios(URL_API + `api/get-all-mathangs-by-id-nhacungcap?nhaCungCapId=${JSON.parse(localStorage.getItem("login")).user.id}`)
+            getProducts(data.data.mathangs)
+        }
+        GetAllProduct()
+    }, [])
+
+    // console.log("Product of Vendor:", products);
 
     return (
         <div className="shop-product-section">
@@ -36,7 +50,7 @@ const ListProductShop = () => {
             </div>
 
             <div className="list-product-section">
-                <h3>4 sản phẩm</h3>
+                <h3>{products?.length} sản phẩm</h3>
                 <table className="table-product table">
                     <thead>
                         <tr>

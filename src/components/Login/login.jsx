@@ -1,12 +1,12 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect, useRef } from "react"
-import URL_API from "../../url"
+import { URL_API, URL_API_2 } from "../../url"
 import "./login.css"
 
-function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpenModalSignUp, isVendorLogin,
-    user, setUser }) {
 
+function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpenModalSignUp, isVendorLogin, setIsVendorLogin,
+    user, setUser }) {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -16,12 +16,30 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
             "tenNguoiDung": username,
             "matKhau": password
         }
-        const result = await axios.post(URL_API + `api/check-login-khachhang?matKhau&tenNguoiDung`, body)
+        const result = await axios.post(URL_API_2 + `api/check-login-khachhang?matKhau&tenNguoiDung`, body)
         localStorage.setItem("login", JSON.stringify(result.data))
-        setUser(result.data?.user)
+        localStorage.setItem("isVendor", false)
+
         if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
             SetOpenModalLogin(false)
             SetOpenModalSignUp(false)
+
+        }
+    }
+
+    const LoginVendor = async (username, password) => {
+        const body = {
+            "tenNguoiDung": username,
+            "matKhau": password
+        }
+        const result = await axios.post(URL_API_2 + `api/check-login-nhacungcap?matKhau&tenNguoiDung`, body)
+        localStorage.setItem("login", JSON.stringify(result.data))
+        localStorage.setItem("isVendor", true)
+
+        if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
+            SetOpenModalLogin(false)
+            SetOpenModalSignUp(false)
+            window.location.href = "/user-shop/all"
         }
     }
 
@@ -30,25 +48,9 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
         modalOverlay.onclick = () => {
             SetOpenModalLogin(false)
             SetOpenModalSignUp(false)
+            setIsVendorLogin(false)
         }
     }, [])
-
-    // const handleLogin = () => {
-    //     // LoginCustomer(userName, password);
-    //     if (isVendorLogin) {
-    //         console.log("Vendor Login");
-    //     }
-    //     else {
-    //         console.log("Customer Login");
-    //         LoginCustomer(userName, password);
-    //         if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
-    //             SetOpenModalLogin(false)
-    //             SetOpenModalSignUp(false)
-    //         }
-    //     }
-    // }
-
-
 
     return (
         <div className="modal">
@@ -92,7 +94,9 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
 
                             <div className="auth-form__controls">
                                 <button className="btn auth-form__controls-back btn--normal">TRỞ LẠI</button>
-                                {isOpenModalSignUp ? <button className="btn btn--primary">ĐĂNG KÝ</button> : <button onClick={() => LoginCustomer(userName, password)} className="btn btn--primary">ĐĂNG NHẬP</button>}
+                                {isOpenModalSignUp ? <button className="btn btn--primary">ĐĂNG KÝ</button> :
+                                    isVendorLogin ? <button onClick={() => LoginVendor(userName, password)} className="btn btn--primary">ĐĂNG NHẬP</button>
+                                        : <button onClick={() => LoginCustomer(userName, password)} className="btn btn--primary">ĐĂNG NHẬP</button>}
                             </div>
                         </div>
                     </div>

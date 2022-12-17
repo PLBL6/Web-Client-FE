@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 
-const CardProduct = ({ shopItems, addToCart }) => {
+const CardProduct = ({ shopItems }) => {
 
     const SaveIdDetailProduct = (id) => {
         localStorage.setItem("ProductIdDetail", id)

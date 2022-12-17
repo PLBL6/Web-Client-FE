@@ -19,31 +19,42 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
     <>
       <header className='header'>
         <div className='container d_flex'>
-          <div className='catgrories d_flex'>
-            <span className='fa-solid fa-bars'></span>
-            <h4>
-              Danh mục <i className='fa fa-chevron-down'></i>
-            </h4>
-          </div>
+          {JSON.parse(localStorage.getItem("login"))?.user && isVendorLogin
+            ? <div className='catgrories d_flex'></div>
+            : <div className='catgrories d_flex'>
+              <span className='fa-solid fa-bars'></span>
+              <h4>Danh mục<i className='fa fa-chevron-down'></i></h4>
+            </div>
+          }
 
           <div className='navlink'>
             <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
-              {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
               <li>
-                <Link to='/'>Trang chủ</Link>
+                <a href="/">Trang chủ</a>
               </li>
-              <li>
-                {JSON.parse(localStorage.getItem("login"))?.user
-                  ? <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
+              {/* <li>
+                {JSON.parse(localStorage.getItem("login"))?.user && !isVendorLogin
+                  ? <a onClick={(e) => handleLinkActiveUser(e, 0)} href='/user/profile'>Khách hàng</a>
                   : <Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }} >Khách hàng</Link>}
               </li>
-              {JSON.parse(localStorage.getItem("login"))?.user && !isVendorLogin ?
-                "" :
-                <li>
-                  {/* <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link> */}
+              <li>
+                {JSON.parse(localStorage.getItem("login"))?.user && isVendorLogin
+                  ? <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
+                  :
                   <Link onClick={() => { setIsVendorLogin(true); OnOpenModalLogin(); }} >Doanh nghiệp</Link>
-                </li>
+                }
+              </li> */}
+
+              {!JSON.parse(localStorage.getItem("login"))?.user
+                ? <>
+                  <li><Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }} >Khách hàng</Link></li>
+                  <li><Link onClick={() => { setIsVendorLogin(true); OnOpenModalLogin(); }} >Doanh nghiệp</Link></li>
+                </>
+                : isVendorLogin
+                  ? <li><Link onClick={(e) => handleLinkActiveShop(e, 0)} href="/user-shop/order">Doanh nghiệp</Link></li>
+                  : <li><Link onClick={(e) => handleLinkActiveUser(e, 0)} href='/user/profile'>Khách hàng</Link></li>
               }
+
               {/* {isCustomer ?
                 <li>
                   <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
@@ -53,11 +64,10 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
                 </li>} */}
               {JSON.parse(localStorage.getItem("login"))?.user ?
                 <li>
-                  <Link to='/' onClick={() => { localStorage.removeItem("login"); window.location.reload() }}>Đăng xuất</Link>
+                  <a href="/" onClick={() => { localStorage.removeItem("login"); localStorage.removeItem("isVendor"); localStorage.removeItem("CartItem") }}>Đăng xuất</a>
                 </li>
                 : ""}
             </ul>
-
           </div>
         </div>
       </header>

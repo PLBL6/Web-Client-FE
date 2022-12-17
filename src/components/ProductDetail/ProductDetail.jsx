@@ -3,19 +3,19 @@ import { borderColor } from "@mui/system";
 import axios from "axios";
 import { useLayoutEffect } from "react";
 import { memo, useCallback, useEffect, useState } from "react";
-import URL_API from "../../url";
+import { URL_API } from "../../url";
 import CategoryProductData from "../data/CategoryProductData";
 import ColorData from "../data/ColorData";
 import SizeData from "../data/SizeData";
 
 import "./productDetail.css"
-const ProductDetail = ({ id }) => {
+const ProductDetail = ({ id, CartItem, addToCart }) => {
 
-    const [checked, setChecked] = useState()
+    const [checked, setChecked] = useState(0)
 
     const [product, setProduct] = useState()
     const [details, setDetails] = useState()
-    
+
     const [loading, setLoading] = useState(false)
     const [quantity, setQuantity] = useState(1)
 
@@ -31,11 +31,9 @@ const ProductDetail = ({ id }) => {
     const handleMoveToTop = () => {
         document.documentElement.scrollTop = 0
     }
-
     useEffect(() => {
         handleMoveToTop()
-    })
-
+    }, [])
 
     useEffect(() => {
         setLoading(true)
@@ -43,7 +41,6 @@ const ProductDetail = ({ id }) => {
             const data = await axios(URL_API + `api/get-mathangs?idMatHang=${localStorage.getItem("ProductIdDetail")}`)
             setProduct(data.data.mathangs)
         }
-
         getProduct()
         setLoading(false)
     }, [])
@@ -54,8 +51,22 @@ const ProductDetail = ({ id }) => {
             setDetails(data.data.chitietmathangs)
         }
         getDetailsProduct()
-
     }, [])
+
+    const handleAddToCart = () => {
+        if (!JSON.parse(localStorage.getItem("login"))?.token) {
+            alert("Bạn chưa đăng nhập để sử dụng hệ thống")
+        }
+        else {
+            addToCart({
+                ...product,
+                "qty": quantity,
+                "detail": { ...details?.find(item => item.id === checked) }
+            })
+
+        }
+    }
+    // console.log("checked:", details?.find(item => item.id === checked));
 
     return (
         <div className="product-detail">
@@ -86,9 +97,9 @@ const ProductDetail = ({ id }) => {
                 </ul>
 
                 <div className="product-detail__price">
-                    <p className="product-detail__price-old">{product?.gia}$</p>
-                    <p className="product-detail__price-current">{Math.round(product?.gia * (100 - product?.khuyenMai) / 100)}$</p>
-                    <p className="product-detail__price-discount">{product?.khuyenMai} GIẢM</p>
+                    <p className="product-detail__price-old">{product?.gia} VND</p>
+                    <p className="product-detail__price-current">{Math.round(product?.gia * (100 - product?.khuyenMai) / 100)} VND</p>
+                    <p className="product-detail__price-discount">{product?.khuyenMai}% GIẢM</p>
                 </div>
 
                 <ul className="product-detail__list-details">
@@ -100,7 +111,7 @@ const ProductDetail = ({ id }) => {
                         <h3 className="product-detail__head">Loại hàng:</h3>
                         <div className="product-color product-detail__value">
                             {details?.map((detail, index) => (
-                                <div key={index}>
+                                <div className="product-type" key={index}>
                                     <input id={detail?.id} type="radio" value={detail?.id}
                                         onChange={() => setChecked(detail?.id)}
                                         checked={checked === detail?.id}
@@ -126,7 +137,7 @@ const ProductDetail = ({ id }) => {
 
 
                 <div className="product-detail__handle">
-                    <button className="product-detail__addtocart">
+                    <button onClick={handleAddToCart} className="product-detail__addtocart">
                         <i className="fa-sharp fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
                     </button>
                     <a className="product-detail__buy" href="/">Mua ngay</a>
@@ -137,4 +148,4 @@ const ProductDetail = ({ id }) => {
     )
 }
 
-export default memo(ProductDetail)
+export default ProductDetail

@@ -1,10 +1,10 @@
 import Comment from "../components/ProductDetail/Comment"
 import ProductDetail from "../components/ProductDetail/ProductDetail"
 
-const ProductDetailPage = () => {
+const ProductDetailPage = ({ CartItem, addToCart }) => {
     return (
         <div className="product-details-wrapper" >
-            <ProductDetail />
+            <ProductDetail CartItem={CartItem} addToCart={addToCart} />
             <Comment />
         </div>
     )
