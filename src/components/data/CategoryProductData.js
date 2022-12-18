@@ -25,7 +25,7 @@ const CategoryProductData = [
       cateIcon: "fa-solid fa-shirt",
       cateName: "Áo khoác",
       slug: "4",
-      cateImg: "/images/category/cate3.png"
+      cateImg: "/images/category/cate4.png"
     },
     {
       id: 5,

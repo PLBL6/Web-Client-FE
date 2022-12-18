@@ -20,9 +20,9 @@ const ChangePassword = () => {
                     <label htmlFor="new-passowrd-confirm">Nhập lại mật khẩu</label>
                     <input
                         type="text" className="form-control" id="new-passowrd-confirm" name="new-passowrd-confirm"
-    
                     />
                 </div>
+                <button style={{marginTop:"20px"}} className="btn-primary">Đổi mật khẩu</button>
             </form>
         </div>
     )

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { URL_API } from "../../../../url";
 
 const ListProductShop = () => {
-
     const [category, setCategory] = useState('');
 
     const [products, getProducts] = useState();
@@ -17,7 +16,7 @@ const ListProductShop = () => {
         GetAllProduct()
     }, [])
 
-    // console.log("Product of Vendor:", products);
+    console.log("Product of Vendor:", products);
 
     return (
         <div className="shop-product-section">
@@ -49,21 +48,41 @@ const ListProductShop = () => {
 
             </div>
 
-            <div className="list-product-section">
+            <div className="list-product-section" style={{maxHeight:"500px", overflowY:"scroll"}}>
                 <h3>{products?.length} sản phẩm</h3>
-                <table className="table-product table">
+                <table className="table-product table"  >
                     <thead>
                         <tr>
                             <td>Tên sản phẩm</td>
-                            <td>Loại hàng</td>
-                            <td>Giá</td>
-                            <td>Kho hàng</td>
-                            <td>Doanh số</td>
+                            <td className="text-center">Loại hàng</td>
+                            <td className="text-center">Giá</td>
+                            {/* <td>Kho hàng</td> */}
+                            <td className="text-center">Khuyến mãi</td>
+                            {/* <td>Doanh số</td> */}
                             <td>Thao tác</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody >
+                        {products?.map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <div className="table-product__name">
+                                        <img className="table-product__img" src={item?.hinhAnh} alt="" />
+                                        <p className="table-product__text">{item?.tenMatHang}</p>
+                                    </div>
+                                </td>
+                                <td  className="text-center">{item?.danhMuc}</td>
+                                <td  className="text-center">{item?.gia}VND</td>
+                                <td  className="text-center">{item?.khuyenMai}</td>
+                                {/* <td>30</td> */}
+                                <td className="handle-row">
+                                    <a className="link" href="/">Cập nhật</a>
+                                    <a className="link" href="/">Xem chi tiết</a>
+                                    <a className="link" href="/">Xóa</a>
+                                </td>
+                            </tr>
+                        ))}
+                        {/* <tr>
                             <td>
                                 <div className="table-product__name">
                                     <img className="table-product__img" src="https://product.hstatic.net/200000053174/product/10_b6e996b6d9b249728ce9e760a0069b61_master.jpg" alt="" />
@@ -98,25 +117,7 @@ const ListProductShop = () => {
                                 <a className="link" href="/">Xóa</a>
                             </td>
 
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="table-product__name">
-                                    <img className="table-product__img" src="https://product.hstatic.net/200000053174/product/10_b6e996b6d9b249728ce9e760a0069b61_master.jpg" alt="" />
-                                    <p className="table-product__text">Áo phông</p>
-                                </div>
-                            </td>
-                            <td>Áo quần</td>
-                            <td>1000$</td>
-                            <td>100</td>
-                            <td>30</td>
-                            <td className="handle-row">
-                                <a className="link" href="/">Cập nhật</a>
-                                <a className="link" href="/">Xem chi tiết</a>
-                                <a className="link" href="/">Xóa</a>
-                            </td>
-
-                        </tr>
+                        </tr> */}
 
                     </tbody>
                 </table>

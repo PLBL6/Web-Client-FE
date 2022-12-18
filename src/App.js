@@ -17,7 +17,11 @@ function App() {
   const [isVendorLogin, setIsVendorLogin] = useState(() => {
     return JSON.parse(localStorage.getItem("isVendor")) ?? false
   })
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("UserInfo")) ?? {}
+  })
+
+  // console.log("user:",user);
 
   const handleClickLogin = () => {
     SetOpenModalLogin(true)
@@ -36,13 +40,13 @@ function App() {
     const productExit = CartItem.find((item) => (item.id === product.id) && (item.detail.id === product.detail.id))
 
     if (productExit) {
-        setCartItem(CartItem.map((item) => ((item.id === product.id) && (item.detail.id === product.detail.id) ? { ...productExit, qty: productExit.qty + 1 } : item)))
+      setCartItem(CartItem.map((item) => ((item.id === product.id) && (item.detail.id === product.detail.id) ? { ...productExit, qty: productExit.qty + 1 } : item)))
     } else {
       setCartItem([...CartItem, { ...product }])
     }
 
   }
-  console.log("Cart:", CartItem);
+  // console.log("Cart:", CartItem);
   localStorage.setItem("CartItem", JSON.stringify(CartItem))
 
 
@@ -51,13 +55,18 @@ function App() {
     const productExit = CartItem.find((item) => (item.id === product.id) && (item.detail.id === product.detail.id))
 
     if (productExit.qty === 1) {
-      setCartItem(CartItem.filter((item) => (item.id == product.id && item.detail.id !== product.detail.id) || item.id !== product.id ))
+      setCartItem(CartItem.filter((item) => (item.id == product.id && item.detail.id !== product.detail.id) || item.id !== product.id))
     } else {
       setCartItem(CartItem.map((item) => (item.id === product.id && item.detail.id === product.detail.id ? { ...productExit, qty: productExit.qty - 1 } : item)))
     }
   }
+
+  const removeCartItem = (product) => {
+    // const productExit = CartItem.find((item) => (item.id === product.id) && (item.detail.id === product.detail.id))
+    setCartItem(CartItem.filter((item) => (item.id == product.id && item.detail.id !== product.detail.id) || item.id !== product.id))
+  }
   // console.log("CartItem:", CartItem);
-  console.log("isVendorLogin:", isVendorLogin);
+  // console.log("isVendorLogin:", isVendorLogin);
 
   return (
     <>
@@ -83,10 +92,10 @@ function App() {
       />
       <Routes>
         <Route path='/' element={<MainPage />} />
-        <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />} />
+        <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} removeCartItem={removeCartItem} />} />
         <Route path='/product/*' element={<ProductDetailPage CartItem={CartItem} addToCart={addToCart} />} />
         <Route path='/category/*' element={<ListProductPage />} />
-        <Route path='/user/*' element={<UserProfilePage />} />
+        <Route path='/user/*' element={<UserProfilePage user={user} />} />
         <Route path='/user-shop/*' element={<UserShopPage />} />
       </Routes>
       <Footer />

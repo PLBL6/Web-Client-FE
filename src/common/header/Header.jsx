@@ -13,6 +13,7 @@ const Header = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, user, isVendorL
         CartItem={CartItem}
         setIsVendorLogin={setIsVendorLogin}
         isVendorLogin={isVendorLogin}
+        user={user}
       />
       <Navbar
         OnOpenModalLogin={OnOpenModalLogin}

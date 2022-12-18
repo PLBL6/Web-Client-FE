@@ -21,9 +21,17 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
         localStorage.setItem("isVendor", false)
 
         if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
+            await axios(URL_API_2 + `api/get-khachhang-by-id?khachHangId=${JSON.parse(localStorage.getItem("login")).user.id}`, {
+                headers: {
+                    "mode": "no-cors",
+                    "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
+                }
+            }).then(res => { setUser(res.data.khachhang); localStorage.setItem("UserInfo", JSON.stringify(res.data.khachhang)) })
+
             SetOpenModalLogin(false)
             SetOpenModalSignUp(false)
-
+        } else {
+            alert("Đăng nhập thất bại")
         }
     }
 
@@ -37,9 +45,19 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
         localStorage.setItem("isVendor", true)
 
         if (JSON.parse(localStorage.getItem("login"))?.errCode === 0) {
+            await axios(URL_API_2 + `api/get-nhacungcap-by-id?NCCId=${JSON.parse(localStorage.getItem("login")).user.id}`, {
+                headers: {
+                    "mode": "no-cors",
+                    "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
+                }
+            }).then(res => { setUser(res.data.khachhang); localStorage.setItem("UserInfo", JSON.stringify(res.data.khachhang)) })
             SetOpenModalLogin(false)
             SetOpenModalSignUp(false)
-            window.location.href = "/user-shop/all"
+            localStorage.setItem("indexCategoryShopPage", 0)
+
+            window.location.href = "/user-shop/order"
+        } else {
+            alert("Đăng nhập thất bại")
         }
     }
 

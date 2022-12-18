@@ -16,7 +16,6 @@ const UserOrder = () => {
         inputSeach.onblur = () => {
             searchIcon.style.color = "#bbb"
         }
-
     }, [])
 
     useEffect(() => {
@@ -42,8 +41,6 @@ const UserOrder = () => {
                 </div>
                 <button className="btn-primary">TÌM</button>
             </div>
-
-
             <div className="order-item-section">
                 {orders?.map((order, index) => (
                     <div key={index}>

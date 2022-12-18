@@ -10,8 +10,8 @@ const UserShop = () => {
     const [open, setOpen] = useState(true)
 
     const [selectedindex, setSelectedIndex] = useState(() => {
-        const index = JSON.parse(localStorage.getItem("indexCategoryShopPage"))
-        return index ?? 0
+        
+        return JSON.parse(localStorage.getItem("indexCategoryShopPage")) ?? 0
     })
 
     const handleListItemClick = (e, index) => {

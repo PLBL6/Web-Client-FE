@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom"
 import ColorData from "../../components/data/ColorData"
 import SizeData from "../../components/data/SizeData"
 
-const CartShopItem = ({ item, addToCart, decreaseQty }) => {
+const CartShopItem = ({ item, addToCart, decreaseQty, removeCartItem }) => {
     return (
         <div className="cart-shop__list-items">
             <ul className="cart-shop__list-prop">
@@ -10,7 +11,7 @@ const CartShopItem = ({ item, addToCart, decreaseQty }) => {
                     <div>
                         <p className="cart-item-name">{item.tenMatHang}</p>
                         <p>{`Màu: ${ColorData[item.detail.maMS - 1]} - Size: ${SizeData[item.detail.maKC - 1]}`}</p>
-                        <p className="cart-item-shop-name">?</p>
+                        <p className="cart-item-shop-name"></p>
                     </div>
                 </li>
                 <li className="cart-shop__item__prop f_flex_center handle_over_flow">
@@ -28,7 +29,7 @@ const CartShopItem = ({ item, addToCart, decreaseQty }) => {
                     <p className="cart-item-total-price">{(item.gia * (100 - item.khuyenMai) / 100) * item.qty} đ</p>
                 </li>
                 <li className="cart-shop__item__prop f_flex_center">
-                    <a className="cart-item-handle" href="/">Xóa</a>
+                    <Link onClick={() => removeCartItem(item)} className="cart-item-handle" >Xóa</Link>
                 </li>
             </ul>
         </div>

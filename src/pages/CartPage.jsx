@@ -1,8 +1,8 @@
 import Cart from "../common/Cart/Cart"
 
-const CartPage = ({ CartItem, addToCart, decreaseQty }) => {
+const CartPage = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
     return (
-        <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+        <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} removeCartItem={removeCartItem} />
     )
 }
 

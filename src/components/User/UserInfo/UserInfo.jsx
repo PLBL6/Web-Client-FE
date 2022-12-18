@@ -3,29 +3,11 @@ import { useEffect, useRef, useState } from "react"
 import { URL_API_2 } from "../../../url"
 import "./userInfo.css"
 
-const UserInfo = () => {
+const UserInfo = ({ user }) => {
     const nameRef = useRef()
     const emailRef = useRef()
     const phoneRef = useRef()
     const addressRef = useRef()
-
-    const [info, setInfo] = useState()
-
-    useEffect(() => {
-        const getInfo = async () => {
-            const data = await axios(URL_API_2 + `api/get-khachhang-by-id?khachHangId=${JSON.parse(localStorage.getItem("login"))?.user?.id}`,{
-                mode:'no-cors',
-                headers: {
-                    "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
-                }
-            })
-            setInfo(data.data.khachhang)
-        }
-        setTimeout(() => {
-            getInfo()
-        }, 500);
-
-    }, [])
 
     return (
         <div className="userInfo-section boxShadow">
@@ -35,7 +17,7 @@ const UserInfo = () => {
                     <input
                         type="text" className="form-control" id="name" name="name"
                         ref={nameRef}
-                        value={info?.ten}
+                        value={user?.ten}
                     />
                 </div>
                 <div className="form-group">
@@ -43,7 +25,7 @@ const UserInfo = () => {
                     <input
                         type="text" className="form-control" id="Email" name="Email"
                         ref={emailRef}
-                        value={info?.email}
+                        value={user?.email}
 
                     />
                 </div>
@@ -52,7 +34,7 @@ const UserInfo = () => {
                     <input
                         type="text" className="form-control" id="Phone" name="Phone"
                         ref={phoneRef}
-                        value={info?.sdt}
+                        value={user?.sdt}
 
                     />
                 </div>
@@ -61,7 +43,7 @@ const UserInfo = () => {
                     <input
                         type="text" className="form-control" id="addr" name="addr"
                         ref={addressRef}
-                        value={info?.diaChi}
+                        value={user?.diaChi}
 
                     />
                 </div>
