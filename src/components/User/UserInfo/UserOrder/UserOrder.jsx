@@ -42,7 +42,7 @@ const UserOrder = () => {
                 <button className="btn-primary">TÌM</button>
             </div>
             <div className="order-item-section">
-                {orders?.map((order, index) => (
+                {orders?.length > 0 ? orders?.map((order, index) => (
                     <div key={index}>
                         <div className="order-item__user">
                             <div className="order-item__user-info">
@@ -51,14 +51,17 @@ const UserOrder = () => {
                             <p className="order-item__status"></p>
                         </div>
                         <UserOrderitem orderItem={order} />
+                        <div className="order-item__handle">
+                            <div className="order-item__total-price">
+                                <p className="order-item__total-price-text">Tổng số tiền:</p>
+                                <p className="order-item__total-price-value">{orders?.tongTien}</p>
+                            </div>
+                        </div>
+
                     </div>
-                ))}
-                <div className="order-item__handle">
-                    <div className="order-item__total-price">
-                        <p className="order-item__total-price-text">Tổng số tiền:</p>
-                        <p className="order-item__total-price-value">{orders?.tongTien}</p>
-                    </div>
-                </div>
+                ))
+                    : <h2 className="text-center">Bạn chưa có order nào </h2>
+                }
 
             </div>
 

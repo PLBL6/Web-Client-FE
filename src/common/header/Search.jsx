@@ -54,15 +54,11 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
           <div className='user icon f_flex width'>
             {JSON.parse(localStorage.getItem("login"))?.user ?
               <div className="header-user">
-                <img className="header-user__img" src={user?.anhDaiDien} alt="Avatar" />
-                <p className="header-user__name">{`${user?.ho} ${user?.ten}`}</p>
+                <img className="header-user__img" src={user?.anhDaiDien || "https://dxmvietnam.com/asset/images/no-image-found.png"} alt="Avatar"/>
+                <p className="header-user__name">{user.tenNguoiDung || `${user?.ho} ${user?.ten}`}</p>
                 <ul className="header__navbar-user-menu">
                   <li className="header__navbar-user-item ">
                     <Link to="/user/profile">Tài khoản của tôi</Link>
-                    {/* {JSON.parse(localStorage.getItem("login"))?.user
-                      ? <Link to="/user/profile">Tài khoản của tôi</Link>
-                      : <Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }} >Khách hàng</Link>
-                    } */}
                   </li>
                   <li className="header__navbar-user-item header__navbar-user-item--separate">
                     <a onClick={() => {
@@ -102,17 +98,6 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
 
             }
             <div className="user-cart">
-              {/* <div className="user">
-                {JSON.parse(localStorage.getItem("login"))?.user
-                  ? <Link to='/user/profile' onClick={() => localStorage.setItem("indexCategoryUserPage", 0)}>
-                    <i className='fa fa-user icon-circle'></i>
-                  </Link>
-                  : <Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }}>
-                    <i className='fa fa-user icon-circle'></i>
-                  </Link>
-                }
-              </div> */}
-
               {JSON.parse(localStorage.getItem("login"))?.user && isVendorLogin
                 ? ""
 

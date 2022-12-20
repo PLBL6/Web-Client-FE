@@ -23,7 +23,7 @@ const ShopCart = ({ category }) => {
     infinite: true,
     slidesToShow: products1?.length > 4 ? 5 :products1?.length,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
   }
 
   return (

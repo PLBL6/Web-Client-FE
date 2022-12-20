@@ -9,12 +9,14 @@ import ColorData from "../data/ColorData";
 import SizeData from "../data/SizeData";
 
 import "./productDetail.css"
-const ProductDetail = ({ id, CartItem, addToCart }) => {
+const ProductDetail = ({ addToCart }) => {
 
     const [checked, setChecked] = useState(0)
 
     const [product, setProduct] = useState()
     const [details, setDetails] = useState()
+
+    const [vendorInfo, setVendorInfo] = useState()
 
     const [loading, setLoading] = useState(false)
     const [quantity, setQuantity] = useState(1)
@@ -33,6 +35,11 @@ const ProductDetail = ({ id, CartItem, addToCart }) => {
     }
     useEffect(() => {
         handleMoveToTop()
+    }, [])
+
+    useEffect(() => {
+        axios(URL_API + `api/get-nhacungcap-by-id-mathang?idMatHang=${localStorage.getItem("ProductIdDetail")}`)
+            .then(res =>setVendorInfo(res.data.nhacungcap.NhaCungMatHangCapData))
     }, [])
 
     useEffect(() => {
@@ -61,7 +68,12 @@ const ProductDetail = ({ id, CartItem, addToCart }) => {
             addToCart({
                 ...product,
                 "qty": quantity,
-                "detail": { ...details?.find(item => item.id === checked) }
+                "detail": { ...details?.find(item => item.id === checked) },
+                "nhaCungCap": {
+                    "id": vendorInfo?.id,
+                    "tenNguoiDung": vendorInfo?.tenNguoiDung,
+                    "anhDaiDien": vendorInfo?.anhDaiDien
+                }
             })
 
         }
@@ -71,7 +83,7 @@ const ProductDetail = ({ id, CartItem, addToCart }) => {
     return (
         <div className="product-detail">
             <div className="product-detail__img" >
-                <img src={product?.hinhAnh} alt="san pham" onError="this.src='https://dxmvietnam.com/asset/images/no-image-found.png';" />
+                <img src={product?.hinhAnh || "https://dxmvietnam.com/asset/images/no-image-found.png"} alt="san pham" />
             </div>
             <div className="product-detail__info">
                 <h1 className="product-detail__name">{product?.tenMatHang}</h1>
