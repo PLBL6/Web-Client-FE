@@ -11,10 +11,66 @@ const UserInfo = ({ user }) => {
     const phoneRef = useRef()
     const addressRef = useRef()
 
+    const [firstName, setFirstName] = useState(user.ten)
+    const [lastName, setLastName] = useState(user.ho)
+    const [email, setEmail] = useState(user.email)
+    const [phone, setPhone] = useState(user.sdt)
+    const [address, setAddress] = useState(user.diaChi)
+
     return (
         <div className="userInfo-section boxShadow">
             <form action="" className="userInfo-form">
-            <div className="form-group">
+                <div className="form-group">
+                    <label htmlFor="username">Tên người dùng</label>
+                    <input
+                        type="text" className="form-control" id="username" name="username"
+                        value={user?.tenNguoiDung}
+                        readOnly
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="lastName">Họ</label>
+                    <input
+                        type="text" className="form-control" id="lastName" name="lastName"
+                        value={firstName}
+                        onChange={e => setFirstName(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="firstName">Tên</label>
+                    <input
+                        type="text" className="form-control" id="firstName" name="firstName"
+                        value={lastName}
+                        onChange={e => setLastName(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Email">Email</label>
+                    <input
+                        type="text" className="form-control" id="Email" name="Email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Phone">Số điện thoại</label>
+                    <input
+                        type="text" className="form-control" id="Phone" name="Phone"
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="addr">Địa chỉ</label>
+                    <input
+                        type="text" className="form-control" id="addr" name="addr"
+                        value={address}
+                        onChange={e => e.target.value}
+
+                    />
+                </div>
+                {/* <div className="form-group">
                     <label htmlFor="username">Tên người dùng</label>
                     <input
                         type="text" className="form-control" id="username" name="username"
@@ -28,6 +84,7 @@ const UserInfo = ({ user }) => {
                         type="text" className="form-control" id="lastName" name="lastName"
                         ref={lastNameRef}
                         value={user?.ho}
+                        onChange={}
                     />
                 </div>
                 <div className="form-group">
@@ -64,7 +121,7 @@ const UserInfo = ({ user }) => {
                         value={user?.diaChi}
 
                     />
-                </div>
+                </div> */}
 
                 <button className="btn-primary mtop">Lưu</button>
             </form>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import CartShopItem from "./CartShopItem"
 import "./cart.css"
 import axios from "axios"
@@ -12,36 +12,79 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
   const CartItemFilterByShop = filterByShop(CartItem)
 
   const CreateOrder = async () => {
-    let idNewOrder
-    await axios.post(URL_API_2 + `api/create-new-don-hang`, {
+    const respone = await axios({
+      method: "POST",
+      url: URL_API_2 + "api/create-new-don-hang",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        "Access-Control-Allow-Origin": "*",
+      },
       data: {
-        "khachHang": JSON.parse(localStorage.getItem("login").user.id),
+        "khachHang": JSON.parse(localStorage.getItem("login")).user.id,
         "tongTien": totalPrice
       },
-      headers: {
-        "mode": "no-cors",
-        "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
-      }
-    }).then(res => { console.log(res.data); idNewOrder = res.data.id })
-
-
-    CartItem.forEach((item) => {
-      axios.post(URL_API_2 + `api/create-new-chi-tiet-don-hang`, {
-        data: {
-          "maCTMH": item.detail.id,
-          "maDH": idNewOrder,
-          "soLuong": item.qty,
-          "tongTien": ((item.gia * (100 - item.khuyenMai) / 100) * item.qty)
-        },
-        headers: {
-          "mode": "no-cors",
-          "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
-        }
-      })
-        // .then(res => { console.log("Create chi tiet don Hang"), res.data })
-
     })
+    // .then(res => { console.log(res.data.errMessage); newOrderId = res.data.errMessage.id; console.log("idNewOrder:", newOrderId); })
+    console.log(respone.data.errMessage);
+    return respone.data.errMessage.id
+  }
 
+  // const CreateDetailOrder = async (detailOrder, id) => {
+  //   await fetch(URL_API_2 + "api/create-new-chi-tiet-don-hang", {
+  //     method: "POST",
+
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": JSON.parse(localStorage.getItem("login")).token,
+  //       // "Access-Control-Allow-Origin": "*",
+  //     },
+  //     body: JSON.stringify({
+  //       "maCTMH": detailOrder.detail.id,
+  //       "maDH": id,
+  //       "soLuong": detailOrder.qty,
+  //       "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty)
+  //     })
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => console.log(data.errMessage))
+  //   // console.log(`Create chi tiet don Hang ${index} :`, respone.data.errMessage)
+  // }
+  const CreateDetailOrder = async (detailOrder, id) => {
+    await axios({
+      method: "POST",
+      url: URL_API_2 + "api/create-new-chi-tiet-don-hang",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: {
+        "maCTMH": detailOrder.detail.id,
+        "maDH": id,
+        "soLuong": detailOrder.qty,
+        "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty)
+      }
+    })
+      .then(data => console.log(data.data.errMessage))
+  }
+
+  const CreatePurchareDetail = async (detailOrder, id) => {
+    await CreateDetailOrder(detailOrder, id)
+  }
+
+  const handlePurcharse = async (CartItem) => {
+    if (CartItem.length > 0) {
+      const id = await CreateOrder()
+
+      CartItem.map((item, index) => {
+        CreatePurchareDetail(item, id)
+      })
+    }
+
+    else {
+      alert("Không có sản phẩm nào để mua")
+    }
   }
 
   return (
@@ -72,8 +115,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
         }
         <div className="cart-payment boxShadow">
           <p className="cart-payment__text">Tổng thanh toán ({CartItem.length} sản phẩm):</p>
-          <p className="cart-payment__value">{totalPrice} đ</p>
-          <a className="btn-primary" href="/">Mua hàng</a>
+          <p className="cart-payment__value">{totalPrice} $</p>
+          <button onClick={() => { handlePurcharse(CartItem) }} className="btn-primary">Mua hàng</button>
         </div>
       </div>
     </div>

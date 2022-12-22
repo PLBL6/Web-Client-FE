@@ -54,7 +54,7 @@ const UserOrder = () => {
                         <div className="order-item__handle">
                             <div className="order-item__total-price">
                                 <p className="order-item__total-price-text">Tổng số tiền:</p>
-                                <p className="order-item__total-price-value">{orders?.tongTien}</p>
+                                <p className="order-item__total-price-value">{order?.tongTien} $</p>
                             </div>
                         </div>
 

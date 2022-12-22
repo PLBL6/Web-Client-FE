@@ -82,42 +82,6 @@ const ListProductShop = () => {
                                 </td>
                             </tr>
                         ))}
-                        {/* <tr>
-                            <td>
-                                <div className="table-product__name">
-                                    <img className="table-product__img" src="https://product.hstatic.net/200000053174/product/10_b6e996b6d9b249728ce9e760a0069b61_master.jpg" alt="" />
-                                    <p className="table-product__text">Áo phông</p>
-                                </div>
-                            </td>
-                            <td>Áo quần</td>
-                            <td>1000$</td>
-                            <td>100</td>
-                            <td>30</td>
-                            <td className="handle-row">
-                                <a className="link" href="/">Cập nhật</a>
-                                <a className="link" href="/">Xem chi tiết</a>
-                                <a className="link" href="/">Xóa</a>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>
-                                <div className="table-product__name">
-                                    <img className="table-product__img" src="https://product.hstatic.net/200000053174/product/10_b6e996b6d9b249728ce9e760a0069b61_master.jpg" alt="" />
-                                    <p className="table-product__text">Áo phông</p>
-                                </div>
-                            </td>
-                            <td>Áo quần</td>
-                            <td>1000$</td>
-                            <td>100</td>
-                            <td>30</td>
-                            <td className="handle-row">
-                                <a className="link" href="/">Cập nhật</a>
-                                <a className="link" href="/">Xem chi tiết</a>
-                                <a className="link" href="/">Xóa</a>
-                            </td>
-
-                        </tr> */}
 
                     </tbody>
                 </table>

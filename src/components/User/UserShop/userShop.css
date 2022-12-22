@@ -172,6 +172,12 @@
     border-top: 0 !important;
 }
 
+.order-wrap-status-price {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
 .order-item-value {
     color: var(--primary);
 

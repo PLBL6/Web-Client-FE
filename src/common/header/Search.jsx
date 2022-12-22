@@ -35,9 +35,9 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
           <div className='logo width '>
             {JSON.parse(localStorage.getItem("login"))?.user
               ? isVendorLogin
-                ? <a onClick={(e) => handleLinkActiveShop(e, 0)} className="logoShoplink" href="/user-shop/order">Charlotte </a>
-                : <a className="logoShoplink" href="/">Charlotte </a>
-              : <a className="logoShoplink" href="/">Charlotte </a>
+                ? <Link onClick={(e) => handleLinkActiveShop(e, 0)} className="logoShoplink" to="/user-shop/order">Charlotte </Link>
+                : <Link className="logoShoplink" to="/">Charlotte </Link>
+              : <Link className="logoShoplink" to="/">Charlotte </Link>
             }
           </div>
 
@@ -54,18 +54,18 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
           <div className='user icon f_flex width'>
             {JSON.parse(localStorage.getItem("login"))?.user ?
               <div className="header-user">
-                <img className="header-user__img" src={user?.anhDaiDien || "https://dxmvietnam.com/asset/images/no-image-found.png"} alt="Avatar"/>
+                <img className="header-user__img" src={user?.anhDaiDien || "https://dxmvietnam.com/asset/images/no-image-found.png"} alt="Avatar" />
                 <p className="header-user__name">{user.tenNguoiDung || `${user?.ho} ${user?.ten}`}</p>
                 <ul className="header__navbar-user-menu">
                   <li className="header__navbar-user-item ">
-                    <Link to="/user/profile">Tài khoản của tôi</Link>
+                    <Link to="/user/profile" onClick={() => localStorage.setItem("indexCategoryUserPage", 0)}>Tài khoản của tôi</Link>
                   </li>
                   <li className="header__navbar-user-item header__navbar-user-item--separate">
                     <a onClick={() => {
                       localStorage.removeItem("login");
                       localStorage.removeItem("CartItem");
+                      localStorage.removeItem("isVendor")
                       localStorage.removeItem("UserInfo");
-                      window.location.reload()
                     }} href="/">Đăng xuất</a>
                   </li>
                 </ul>

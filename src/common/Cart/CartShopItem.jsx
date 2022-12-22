@@ -16,7 +16,7 @@ const CartShopItem = ({ item, addToCart, decreaseQty, removeCartItem }) => {
                 </li>
                 <li className="cart-shop__item__prop f_flex_center handle_over_flow">
                     <p className="cart-item-price">{item.gia} đ</p>
-                    <p className="cart-item-price-current">{item.gia * (100 - item.khuyenMai) / 100} đ</p>
+                    <p className="cart-item-price-current">{item.gia * (100 - item.khuyenMai) / 100} $</p>
                 </li>
                 <li className="cart-shop__item__prop f_flex_center">
                     <div className="quantity-input">
@@ -26,7 +26,7 @@ const CartShopItem = ({ item, addToCart, decreaseQty, removeCartItem }) => {
                     </div>
                 </li>
                 <li className="cart-shop__item__prop f_flex_center handle_over_flow">
-                    <p className="cart-item-total-price">{(item.gia * (100 - item.khuyenMai) / 100) * item.qty} đ</p>
+                    <p className="cart-item-total-price">{(item.gia * (100 - item.khuyenMai) / 100) * item.qty} $</p>
                 </li>
                 <li className="cart-shop__item__prop f_flex_center">
                     <Link onClick={() => removeCartItem(item)} className="cart-item-handle" >Xóa</Link>

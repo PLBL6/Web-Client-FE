@@ -60,7 +60,7 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
                 <li>
                   <a href="/" onClick={() => {
                     localStorage.removeItem("login");
-                    localStorage.removeItem("isVendor");
+                    localStorage.removeItem("isVendor")
                     localStorage.removeItem("CartItem")
                     localStorage.removeItem("UserInfo")
                   }}>Đăng xuất</a>
