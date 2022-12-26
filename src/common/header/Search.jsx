@@ -15,7 +15,7 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
   useEffect(() => {
     window.addEventListener("scroll", function () {
       const search = document.querySelector(".search")
-      search.classList.toggle("active", window.scrollY > 100)
+      search.classList.toggle("active", window.scrollY > 200)
     })
 
     const notify = document.querySelector('.search .cart span')
@@ -62,10 +62,11 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
                   </li>
                   <li className="header__navbar-user-item header__navbar-user-item--separate">
                     <a onClick={() => {
-                      localStorage.removeItem("login");
-                      localStorage.removeItem("CartItem");
-                      localStorage.removeItem("isVendor")
-                      localStorage.removeItem("UserInfo");
+                      // localStorage.removeItem("login");
+                      // localStorage.removeItem("CartItem");
+                      // localStorage.removeItem("isVendor")
+                      // localStorage.removeItem("UserInfo");
+                      localStorage.clear()
                     }} href="/">Đăng xuất</a>
                   </li>
                 </ul>

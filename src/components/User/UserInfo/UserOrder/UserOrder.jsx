@@ -7,6 +7,8 @@ const UserOrder = () => {
 
     const [orders, setOrders] = useState()
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         const inputSeach = document.querySelector(".order-search__input")
         const searchIcon = document.querySelector(".order-search__icon")
@@ -19,14 +21,16 @@ const UserOrder = () => {
     }, [])
 
     useEffect(() => {
+        setLoading(true)
         const getOrderByIdUser = async () => {
             const data = await axios(URL_API_2 + `api/get-all-donhangs-by-id-khachhang?khachHangID=${JSON.parse(localStorage.getItem("login")).user.id}`)
             setOrders(data.data.donhangs)
             sessionStorage.setItem("Orders", JSON.stringify(data.data.donhangs))
+            setLoading(false)
         }
-        setTimeout(() => {
-            getOrderByIdUser()
-        }, 1000);
+
+        getOrderByIdUser()
+
     }, [])
 
     console.log("orders:", orders);
@@ -41,9 +45,10 @@ const UserOrder = () => {
                 </div>
                 <button className="btn-primary">TÌM</button>
             </div>
-            <div className="order-item-section">
-                {orders?.length > 0 ? orders?.map((order, index) => (
-                    <div key={index}>
+            <div className="order-item-section-2">
+                {loading ? <div className="loading"></div> : ""}
+                {orders?.map((order, index) => (
+                    <div className="order-item-sub boxShadow" key={index}>
                         <div className="order-item__user">
                             <div className="order-item__user-info">
                                 <p className="order-item__datetime">{order?.createdAt}</p>
@@ -60,8 +65,9 @@ const UserOrder = () => {
 
                     </div>
                 ))
-                    : <h2 className="text-center">Bạn chưa có order nào </h2>
+                    // : 
                 }
+                {orders?.length < 1 ? <h2 className="text-center no-order">Bạn chưa có order nào </h2> : ""}
 
             </div>
 

@@ -1,25 +1,67 @@
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import { useState } from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { Link, Route, Routes } from "react-router-dom"
+import { filterByCustomer } from "../../../filterByCustomer"
+import { URL_API, URL_API_2 } from "../../../url"
 import ListOrder from "./ManageOrder/ListOrder"
 import CreateProductShop from "./ManageProduct/CreateProductShop"
 import ListProductShop from "./ManageProduct/ListProductShop"
+import Revenue from "./Revenue/Revenue"
 import "./userShop.css"
 
 const UserShop = () => {
     const [open, setOpen] = useState(true)
+    const [orders, setOrders] = useState()
+    const [ordersByUser, setOrdersByUser] = useState()
+    const [loading, setLoading] = useState(false)
+
+    const [loadingProducts, setLoadingProducts] = useState(false)
+
+    const [products, setProducts] = useState();
+    const [categoryByShop, setCategoryByShop] = useState()
 
     const [selectedindex, setSelectedIndex] = useState(() => {
-        
         return JSON.parse(localStorage.getItem("indexCategoryShopPage")) ?? 0
     })
+
+    useEffect(() => {
+        setLoading(true)
+        const getOrderShop = async () => {
+            const data = await axios(URL_API_2 + `api/get-all-donhangs-by-id-nhacungcap?nhaCungCapId=${JSON.parse(localStorage.getItem("login")).user.id}`)
+            console.log(data.data.chitietdonhangs);
+            setOrdersByUser(filterByCustomer(data.data.chitietdonhangs))
+            setOrders(data.data.chitietdonhangs)
+            setLoading(false)
+        }
+        getOrderShop()
+    }, [])
+
+
+    useEffect(() => {
+        setLoadingProducts(true)
+        const GetAllProduct = async () => {
+            const data = await axios(URL_API + `api/get-all-mathangs-by-id-nhacungcap?nhaCungCapId=${JSON.parse(localStorage.getItem("login")).user.id}`)
+            setProducts(data.data.mathangs)
+            setLoadingProducts(false)
+        }
+        GetAllProduct()
+    }, [])
+
+
+    useEffect(async () => {
+        const getCategories = async () => {
+            const data = await axios.get(URL_API + `api/get-danhmucs-by-id-nhacungcap?nhaCungCapId=${JSON.parse(localStorage.getItem("login")).user.id}`)
+            setCategoryByShop(data.data.mathangs)
+        }
+        getCategories()
+    }, [])
 
     const handleListItemClick = (e, index) => {
         setSelectedIndex(index)
         localStorage.setItem("indexCategoryShopPage", index)
 
     }
-
 
     return (
         <div className="userShop-section grid__row">
@@ -66,12 +108,15 @@ const UserShop = () => {
                         </List>
                     </Collapse>
 
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <i className="fa-solid fa-money-check-dollar"></i>
-                        </ListItemIcon>
-                        <ListItemText primary="Doanh thu" />
-                    </ListItemButton>
+                    <Link to="/user-shop/revenue">
+                        <ListItemButton selected={selectedindex === 3} onClick={e => handleListItemClick(e, 3)}>
+                            <ListItemIcon>
+                                <i className="fa-solid fa-money-check-dollar"></i>
+                            </ListItemIcon>
+                            <ListItemText primary="Doanh thu" />
+                        </ListItemButton>
+
+                    </Link>
 
                 </List>
             </div>
@@ -80,9 +125,14 @@ const UserShop = () => {
             <div className="handle-user-shop-section grid__column-9 no-pd">
                 <Routes>
                     <Route path="/*" element={<h1 className="user-shop-heading">Xin chào cửa hàng, ....</h1>}></Route>
-                    <Route path="/all" element={<ListProductShop />}></Route>
+                    <Route path="/all" element={<ListProductShop categoryByShop={categoryByShop} products={products} loadingProducts={loadingProducts} />}></Route>
                     <Route path="/new-product" element={<CreateProductShop />}></Route>
-                    <Route path="/order" element={<ListOrder />}></Route>
+                    <Route path="/order" element={<ListOrder
+                        orders={orders}
+                        ordersByUser={ordersByUser}
+                        setOrdersByUser={setOrdersByUser}
+                        loading={loading} />}></Route>
+                    <Route path="/revenue" element={<Revenue />}></Route>
 
                 </Routes>
 

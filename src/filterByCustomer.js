@@ -1,19 +1,21 @@
 export function filterByCustomer(orders) {
     const result = []
     orders.forEach((item, index) => {
-        const { ChiTietDonHangData, maMHName, maMHhinhAnh, } = item
-        const newItemToPush = { maMHName, maMHhinhAnh, ChiTietDonHangData }
-        if (result.some(sub => sub["khachHang"]["id"] === item.khachHang)) {
-            result.find(i => i?.khachHang?.id === item.khachHang)?.order.push(newItemToPush)
+        const { khachHangId, khachHangName, khachHanganhDaiDien, khachHangDiaChi, khachHangPhone, ...newItemToPush } = item
+        // const newItemToPush = { maMHName, maMHhinhAnh, ChiTietDonHangData }
+        if (result.some(sub => sub["khachHang"]["id"] === item.khachHangId)) {
+            result.find(i => i?.khachHang?.id === item.khachHangId)?.order.push({ ...newItemToPush, khachHangId })
         }
         else {
             let resultItem = {
                 "khachHang": {
-                    "id": item.khachHang,
+                    "id": item.khachHangId,
                     "nameCustomer": item.khachHangName,
-                    "avatar": item.khachHanganhDaiDien
+                    "avatar": item.khachHanganhDaiDien,
+                    "phoneNumber": khachHangPhone,
+                    "address": khachHangDiaChi
                 },
-                "order": [newItemToPush]
+                "order": [{ ...newItemToPush, khachHangId }]
             }
             result.push(resultItem)
         }

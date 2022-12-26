@@ -7,7 +7,7 @@ import { useState } from "react"
 import UserOrder from "../components/User/UserInfo/UserOrder/UserOrder"
 import ChangePassword from "../components/User/UserInfo/ChangePassword/ChangePassword"
 
-const UserProfilePage = ({user}) => {
+const UserProfilePage = ({ user, setUser }) => {
     const [selectedindex, setSelectedIndex] = useState(() => {
         const index = JSON.parse(localStorage.getItem("indexCategoryUserPage"))
         return index ?? 0
@@ -48,7 +48,7 @@ const UserProfilePage = ({user}) => {
                     </div>
                     <div className="grid__column-9">
                         <Routes>
-                            <Route path="/profile" element={<UserInfo user={user} />}></Route>
+                            <Route path="/profile" element={<UserInfo user={user} setUser={setUser} />}></Route>
                             <Route path="/purchase" element={<UserOrder />}></Route>
                             <Route path="/change-password" element={<ChangePassword />}></Route>
                         </Routes>

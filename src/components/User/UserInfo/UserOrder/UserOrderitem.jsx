@@ -4,8 +4,10 @@ import { URL_API_2 } from "../../../../url"
 import UserOrderItemDetail from "./UserOrderItemDetail"
 
 const UserOrderitem = ({ orderItem }) => {
-
+    
     const [orderDetails, setOrderDetails] = useState()
+    
+    // console.log("orderDetails:", orderDetails);
 
     useEffect(() => {
         const getOrderDetailsByIdOrder = async () => {
@@ -22,7 +24,7 @@ const UserOrderitem = ({ orderItem }) => {
         < >
             <div className="order-item__list-product">
                 {orderDetails?.map((orderDetail, index) => (
-                    <UserOrderItemDetail key={index} orderDetail={orderDetail} />
+                    <UserOrderItemDetail key={index} orderDetails={orderDetails} orderDetail={orderDetail} setOrderDetails={setOrderDetails} />
                 ))}
             </div>
         </>

@@ -6,7 +6,7 @@ import { filterByShop } from "../../filterByShop"
 import { URL_API_2 } from "../../url"
 
 const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
-  const totalPrice = CartItem.reduce((price, item) => price + ((item.gia * (100 - item.khuyenMai) / 100) * item.qty), 0)
+  const totalPrice = CartItem.reduce((price, item) => price + ((item.gia * (100 - item.khuyenMai) / 100) * item.qty), 0).toFixed(1)
   console.log("CartItem:", CartItem);
   console.log("CartItemFilterByShop:", filterByShop(CartItem));
   const CartItemFilterByShop = filterByShop(CartItem)
@@ -25,48 +25,60 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
         "tongTien": totalPrice
       },
     })
-    // .then(res => { console.log(res.data.errMessage); newOrderId = res.data.errMessage.id; console.log("idNewOrder:", newOrderId); })
     console.log(respone.data.errMessage);
     return respone.data.errMessage.id
   }
 
-  // const CreateDetailOrder = async (detailOrder, id) => {
-  //   await fetch(URL_API_2 + "api/create-new-chi-tiet-don-hang", {
-  //     method: "POST",
-
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": JSON.parse(localStorage.getItem("login")).token,
-  //       // "Access-Control-Allow-Origin": "*",
-  //     },
-  //     body: JSON.stringify({
-  //       "maCTMH": detailOrder.detail.id,
-  //       "maDH": id,
-  //       "soLuong": detailOrder.qty,
-  //       "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty)
-  //     })
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => console.log(data.errMessage))
-  //   // console.log(`Create chi tiet don Hang ${index} :`, respone.data.errMessage)
-  // }
   const CreateDetailOrder = async (detailOrder, id) => {
-    await axios({
-      method: "POST",
-      url: URL_API_2 + "api/create-new-chi-tiet-don-hang",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": JSON.parse(localStorage.getItem("login")).token,
-        "Access-Control-Allow-Origin": "*",
-      },
-      data: {
-        "maCTMH": detailOrder.detail.id,
-        "maDH": id,
-        "soLuong": detailOrder.qty,
-        "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty)
+    // await axios({
+    //   method: "POST",
+    //   url: URL_API_2 + "api/create-new-chi-tiet-don-hang",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization": JSON.parse(localStorage.getItem("login")).token,
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    //   data: {
+    //     "maCTMH": detailOrder.detail.id,
+    //     "maDH": id,
+    //     "soLuong": detailOrder.qty,
+    //     "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty),
+    //     "trangThai": "Đã đặt"
+    //   }
+    // })
+    //   .then(data => console.log(data.data.errMessage))
+    const res = await axios.post(URL_API_2 + "api/create-new-chi-tiet-don-hang", {
+      "maCTMH": detailOrder.detail.id,
+      "maDH": id,
+      "soLuong": detailOrder.qty,
+      "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty),
+      "trangThai": "Đã đặt"
+    },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": JSON.parse(localStorage.getItem("login")).token,
+          // "Access-Control-Allow-Origin": "*",
+        },
       }
-    })
-      .then(data => console.log(data.data.errMessage))
+    )
+    console.log("Create ctmh:", res.data.errMessage);
+  }
+
+  const UpdateQuantity = async (idDetailProduct, qty) => {
+    const data = await axios.put(URL_API_2 + "api/update-chitietmathang-by-id", {
+      "id": idDetailProduct,
+      "soLuong": qty,
+    },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": JSON.parse(localStorage.getItem("login")).token,
+          // "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+    console.log("Update qty:", data.data.errMessage);
   }
 
   const CreatePurchareDetail = async (detailOrder, id) => {
@@ -77,8 +89,9 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
     if (CartItem.length > 0) {
       const id = await CreateOrder()
 
-      CartItem.map((item, index) => {
-        CreatePurchareDetail(item, id)
+      CartItem.map(async (item, index) => {
+        await CreatePurchareDetail(item, id)
+        await UpdateQuantity(item.detail.id, item.qty)
       })
     }
 

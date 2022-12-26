@@ -36,7 +36,7 @@ const UserOrderItemDetail = ({ orderDetail }) => {
                 <div>
                     <p className="order-item__product-name">{orderItemDetail?.mathang?.tenMatHang}</p>
                     <span>x{orderDetail.soLuong}</span>
-                    <p className="order-item-shop">{`${ColorData[orderItemDetail?.ctmh?.maMS]} - ${SizeData[orderItemDetail?.ctmh?.maKC]}`}</p>
+                    <p className="order-item-shop">{`${ColorData[orderItemDetail?.ctmh?.maMS - 1]} - ${SizeData[orderItemDetail?.ctmh?.maKC - 1]}`}</p>
                 </div>
             </div>
             <p className="order-item-value">{orderDetail?.tongTien}$</p>

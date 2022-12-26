@@ -61,3 +61,38 @@
     font-weight: 200;
 }
 
+.order-item-sub {
+    background-color: #fff;
+}
+
+.order-item-sub + .order-item-sub {
+    margin-top: 20px;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+}
+
+.input-user-img {
+    display: none;
+}
+
+.btn-user-img {
+    background-color: var(--primary);
+    text-align: center;
+    cursor: pointer;
+    min-width: 100px !important;
+    padding: 3px 0;
+    margin-left: 20px;
+    border-radius: 3px;
+}
+
+.btn-user-img:hover {
+    opacity: 0.8;
+}
+
+.no-order {
+    color: var(--primary);
+}

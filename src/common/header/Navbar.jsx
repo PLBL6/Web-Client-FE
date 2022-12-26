@@ -59,10 +59,11 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
               {JSON.parse(localStorage.getItem("login"))?.user ?
                 <li>
                   <a href="/" onClick={() => {
-                    localStorage.removeItem("login");
-                    localStorage.removeItem("isVendor")
-                    localStorage.removeItem("CartItem")
-                    localStorage.removeItem("UserInfo")
+                    // localStorage.removeItem("login");
+                    // localStorage.removeItem("isVendor")
+                    // localStorage.removeItem("CartItem")
+                    // localStorage.removeItem("UserInfo")
+                    localStorage.clear()
                   }}>Đăng xuất</a>
                 </li>
 

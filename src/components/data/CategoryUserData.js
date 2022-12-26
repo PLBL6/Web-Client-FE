@@ -15,11 +15,6 @@ const CategoryUserData = [
         cateName: "Thay đổi mật khẩu",
         slug: "/user/change-password"
     },
-    {
-        cateIcon: "fa-solid fa-right-from-bracket",
-        cateName: "Logout",
-        slug: "/"
-    },
 
 ]
 
