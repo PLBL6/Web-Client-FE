@@ -1,9 +1,34 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { useState } from "react"
+import axios from "axios";
+import { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom";
+import { URL_API } from "../../../../url";
 
 const CreateProductShop = () => {
+
+    const [searchParams] = useSearchParams();
+
+    const [product, setProduct] = useState()
+
+    useEffect(() => {
+        const getProduct = async () => {
+            const data = await axios(URL_API + `api/get-mathangs?idMatHang=${localStorage.getItem("ProductIdDetail")}`)
+            setProduct(data.data.mathangs)
+        }
+
+        if (Number(searchParams.get("idProduct"))) {
+            getProduct()
+        }
+    }, [])
+
     const [category, setCategory] = useState("")
     const [avatars, setAvatars] = useState()
+
+    const [name, setName] = useState()
+    const [idCategory, setIdCategory] = useState()
+    const [description, setDescription] = useState()
+    const [price, setPrice] = useState()
+    const [discount, setDiscount] = useState()
 
     const handlePreviewAvatar = (e) => {
         const files = e.target.files
@@ -36,13 +61,13 @@ const CreateProductShop = () => {
                 </div>
                 <div className="form-group">
                     <label className="form-label" htmlFor="name"><span className="info-important">*</span>Tên sản phẩm</label>
-                    <input className="form-control" type="text" placeholder="Tên sản phẩm ..." />
+                    <input className="form-control" type="text" placeholder="Tên sản phẩm ..." value={name} onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="form-group">
-                    <label className="form-label" htmlFor="category"><span className="info-important">*</span>Mặt hàng</label>
+                    <label className="form-label" htmlFor="category"><span className="info-important">*</span>Thể loại</label>
                     <Box sx={{ width: 300 }}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Mặt hàng</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Thể loại</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -59,36 +84,19 @@ const CreateProductShop = () => {
                 </div>
                 <div className="form-group">
                     <label className="form-label" htmlFor="">Mô tả sản phẩm</label>
-                    <textarea className="" name="description" cols="100" rows="10"></textarea>
-                </div>
-            </div>
-
-            <div className="details-info">
-                <h2>Thông tin chi tiết</h2>
-                <div className="form-group">
-                    <label className="form-label" htmlFor="color">Màu sắc</label>
-                    <input className="form-control" type="text" placeholder="Màu sản phẩm ..." />
-                </div>
-                <div className="form-group">
-                    <label className="form-label" htmlFor="color">Kích cỡ</label>
-                    <input className="form-control" type="text" placeholder="Kích cỡ sản phẩm ..." />
+                    <textarea className="" name="description" cols="100" rows="10" value={description} onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
                 <div className="form-group">
                     <label className="form-label" htmlFor="price"><span className="info-important">*</span>Giá</label>
-                    <input className="form-control form-control-custom" type="number" placeholder="Giá sản phẩm ..." />
+                    <input className="form-control form-control-custom" value={price} onChange={e => setPrice(e.target.value)} type="number" placeholder="Giá sản phẩm ..." />
                 </div>
                 <div className="form-group">
-                    <label className="form-label" htmlFor="quantity"><span className="info-important">*</span>Kho hàng</label>
-                    <input className="form-control form-control-custom" type="number" placeholder="Kho hàng ..." />
-                </div>
-
-                <div className="form-group">
-                    <label className="form-label" htmlFor="discount">Giảm giá</label>
-                    <input className="form-control form-control-custom" type="number" placeholder="Giảm giá (%) ..." />
+                    <label className="form-label" htmlFor="discount">Khuyến mãi</label>
+                    <input className="form-control form-control-custom" value={discount} onChange={e => setDiscount(e.target.value)} type="number" placeholder="Giảm giá (%) ..." />
                 </div>
             </div>
 
-            <button className="btn-primary btn-create">Thêm mới sản phẩm</button>
+            <button className="btn-primary btn-create">Lưu sản phẩm</button>
         </div>
     )
 }

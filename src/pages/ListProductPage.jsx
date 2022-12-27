@@ -12,6 +12,8 @@ import { URL_API } from "../url"
 
 const ListProductPage = () => {
 
+    const [loading, setLoading] = useState(false)
+
     const [selectedindex, setSelectedIndex] = useState(() => {
         const index = JSON.parse(localStorage.getItem("indexCategory") - 1)
         return index ?? 0
@@ -25,9 +27,11 @@ const ListProductPage = () => {
     })
 
     useEffect(() => {
+        setLoading(true)
         const GetProducts = async (indexCategory) => {
             const res = await axios.get(URL_API + `api/get-all-mathangs-by-id-danhmuc?danhMucID=${indexCategory}`)
             setProducts(res.data.mathangs)
+            setLoading(false)
         }
 
         GetProducts(indexCategory)
@@ -86,7 +90,7 @@ const ListProductPage = () => {
                     <div className="grid__row" style={{ marginTop: "10px" }}>
                         <Routes>
                             {CategoryProductData.map((item) => (
-                                <Route key={item.id} path={`/${item.id}`} element={<ListProduct products={currentProducts} />}></Route>
+                                <Route key={item.id} path={`/${item.id}`} element={<ListProduct products={currentProducts} loading={loading} />}></Route>
                             ))}
                         </Routes>
                     </div>

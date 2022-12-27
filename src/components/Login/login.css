@@ -44,7 +44,7 @@
     --growth-to: 1;
     margin: auto;
     z-index: 1;
-    animation: growth ease 0.2s;
+    animation: growth ease-in-out 0.2s;
 }
 
 .auth-form {

@@ -1,15 +1,20 @@
 import Product from "./Product"
 
 
-const ListProduct = ({ products }) => {
+const ListProduct = ({ products, loading }) => {
     return (
         <>
-            {products.map((shopItems, index) => (
-                <div className="grid__column-2-4" key={index} style={{marginBottom:"10px"}} >
-                    <Product shopItems={shopItems} />
-                </div>
-            ))}
+            {loading ? <div className="loading"></div>
+                :
+                <>
+                    {products.map((shopItems, index) => (
+                        <div className="grid__column-2-4" key={index} style={{ marginBottom: "10px" }} >
+                            <Product shopItems={shopItems} />
+                        </div>
+                    ))}
 
+                </>
+            }
         </>
     )
 }

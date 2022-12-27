@@ -6,6 +6,7 @@ import ColorData from "../../../../data/ColorData";
 import SizeData from "../../../../data/SizeData";
 
 function OrderItemDetail({ ordersByUser, orderDetail, setOrdersByUser }) {
+    console.log("orderDetail", orderDetail);
     // console.log("orderDetail:", orderDetail);
     // console.log("ordersByUser", ordersByUser);
     const [detailProduct, setDetailProduct] = useState()
@@ -54,7 +55,7 @@ function OrderItemDetail({ ordersByUser, orderDetail, setOrdersByUser }) {
                     <p className="order-item__product-name">{orderDetail.maMHName}</p>
                     <span>x{orderDetail.soLuong}</span>
                     <p>{`Màu: ${ColorData[detailProduct?.maMS - 1]}`} - {`Size: ${SizeData[detailProduct?.maKC - 1]}`}</p>
-                    {/* <p>{orderDetail.ChiTietDonHangData.ChiTietDonHang.createdAt}</p> */}
+                    <p>Ngày đặt: {orderDetail.createdAt}</p>
                 </div>
             </div>
             <div className="order-wrap-status-price">

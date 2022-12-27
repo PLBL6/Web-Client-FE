@@ -1,10 +1,4 @@
-// import orderData from "../../../data/OrderData"
-
-import axios from "axios"
 import { memo } from "react"
-import { useEffect, useState } from "react"
-import { filterByCustomer } from "../../../../filterByCustomer"
-import { URL_API_2 } from "../../../../url"
 import Orderitem from "./OrderItem/OrderItem"
 
 const ListOrder = ({orders, ordersByUser, setOrdersByUser, loading}) => {

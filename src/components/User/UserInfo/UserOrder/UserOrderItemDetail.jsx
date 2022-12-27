@@ -19,14 +19,6 @@ const UserOrderItemDetail = ({ orderDetail }) => {
             getOrderDetailItem()
         }, 0)
 
-        // axios(URL_API + `api/get-detail-chitietmathang?ctmhId=${orderDetail?.maCTMH}`, {
-        //     mode: 'no-cors',
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Authorization": `${JSON.parse(localStorage.getItem("login")).token}`
-        //     }
-        // }).then(res => setOrderItemDetail(res.data))
-
     }, [])
 
     return (
@@ -39,7 +31,10 @@ const UserOrderItemDetail = ({ orderDetail }) => {
                     <p className="order-item-shop">{`${ColorData[orderItemDetail?.ctmh?.maMS - 1]} - ${SizeData[orderItemDetail?.ctmh?.maKC - 1]}`}</p>
                 </div>
             </div>
-            <p className="order-item-value">{orderDetail?.tongTien}$</p>
+            <div>
+                <p className="order-item-value">{orderDetail?.tongTien}$</p>
+                <p className="order-item-status"><span>{orderDetail.trangThai}</span></p>
+            </div>
         </div>
     )
 }

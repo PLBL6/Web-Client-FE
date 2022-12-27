@@ -8,12 +8,11 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
 
   const handleLinkActiveUser = (e, index) => {
     localStorage.setItem("indexCategoryUserPage", index)
-    // window.location.href = "http://localhost:3000/user/profile"
 
   }
   const handleLinkActiveShop = (e, index) => {
     localStorage.setItem("indexCategoryShopPage", index)
-    // window.location.href = "http://localhost:3000/user-shop/order"
+    
   }
   return (
     <>

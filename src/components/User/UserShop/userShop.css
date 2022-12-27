@@ -68,8 +68,8 @@
     margin-bottom: 20px;
 }
 
-.base-info, .details-info {
-    margin-bottom: 40px;
+.base-info {
+    margin-bottom: 20px;
 }
 
 .base-info__avatar {
@@ -216,4 +216,29 @@
     font-size: 24px;
     margin-left: 10px;
     color: #c92d47;
+}
+
+/* CreateDetailProduct-section */
+.CreateDetailProduct-section {
+    background-color: #fff;
+    padding: 20px;
+    padding-bottom: 80px;
+}
+
+.btn-add-detail {
+    float: right;
+    margin-top: 12px;
+}
+
+.option-current {
+    margin: 12px 0;
+}
+
+.list-detail-color-size {
+    display: flex;
+}
+
+.detail-color-size {
+    border: 1px solid var(--primary);
+    padding: 2px 3px;
 }

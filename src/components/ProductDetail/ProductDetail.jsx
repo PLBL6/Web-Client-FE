@@ -163,8 +163,8 @@ const ProductDetail = ({ addToCart }) => {
                                                 onChange={() => setChecked(detail?.id)}
                                                 checked={checked === detail?.id}
                                             />
-                                            <label style={checked === detail?.id ? { borderColor: '#EB3251' } : {}}
-                                                htmlFor={detail?.id}>{`${ColorData[detail?.maMS - 1]} - ${SizeData[detail?.maKC - 1]}`}</label>
+                                            <label style={checked === detail?.id ? { borderColor: '#EB3251' } : {}} htmlFor={detail?.id}>
+                                                {`${ColorData[detail?.maMS - 1]} - ${SizeData[detail?.maKC - 1]}`}</label>
                                             <p>Số lượng: {detail?.soLuong}</p>
                                         </div>
                                     ))}
