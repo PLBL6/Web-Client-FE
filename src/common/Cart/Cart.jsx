@@ -1,71 +1,137 @@
-import React from "react"
-import "./style.css"
+import React, { useState } from "react"
+import CartShopItem from "./CartShopItem"
+import "./cart.css"
+import axios from "axios"
+import { filterByShop } from "../../filterByShop"
+import { URL_API_2 } from "../../url"
 
-const Cart = ({ CartItem, addToCart, decreaseQty }) => {
-  // Stpe: 7   calucate total of items
-  const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
+const Cart = ({ CartItem, setCartItem, addToCart, decreaseQty, removeCartItem }) => {
+  const totalPrice = CartItem.reduce((price, item) => price + ((item.gia * (100 - item.khuyenMai) / 100) * item.qty), 0).toFixed(1)
+  console.log("CartItem:", CartItem);
+  console.log("CartItemFilterByShop:", filterByShop(CartItem));
+  const CartItemFilterByShop = filterByShop(CartItem)
 
-  // prodcut qty total
+  const CreateOrder = async () => {
+    const respone = await axios({
+      method: "POST",
+      url: URL_API_2 + "api/create-new-don-hang",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: {
+        "khachHang": JSON.parse(localStorage.getItem("login")).user.id,
+        "tongTien": totalPrice
+      },
+    })
+    console.log(respone.data.errMessage);
+    return respone.data.errMessage.id
+  }
+
+  const CreateDetailOrder = async (detailOrder, id) => {
+    const res = await axios.post(URL_API_2 + "api/create-new-chi-tiet-don-hang", {
+      "maCTMH": detailOrder.detail.id,
+      "maDH": id,
+      "soLuong": detailOrder.qty,
+      "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty),
+      "trangThai": "Đã đặt"
+    },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": JSON.parse(localStorage.getItem("login")).token,
+          // "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+    console.log("Create ctmh:", res.data.errMessage);
+  }
+
+  const UpdateQuantity = async (idDetailProduct, qty) => {
+    const data = await axios.put(URL_API_2 + "api/update-chitietmathang-by-id", {
+      "id": idDetailProduct,
+      "soLuong": qty,
+    },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": JSON.parse(localStorage.getItem("login")).token,
+          // "Access-Control-Allow-Origin": "*",
+        },
+      }
+    )
+    console.log("Update qty:", data.data.errMessage);
+  }
+
+  const CreatePurchareDetail = async (detailOrder, id) => {
+    await CreateDetailOrder(detailOrder, id)
+  }
+
+  const handlePurcharse = async () => {
+    if (CartItem.length > 0) {
+      const id = await CreateOrder()
+
+      CartItem.map(async (item, index) => {
+        await CreatePurchareDetail(item, id)
+        await UpdateQuantity(item.detail.id, item.qty)
+      })
+      await PaymentPaypal()
+      localStorage.setItem("CartItem", [])
+      setCartItem([])
+    }
+
+    else {
+      alert("Không có sản phẩm nào để mua")
+    }
+  }
+
+
+  const PaymentPaypal = async () => {
+    const result = await axios(URL_API_2 + `api/paypal?KhachHangId=${JSON.parse(localStorage.getItem("login")).user.id}&tongTien=${totalPrice}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    console.log(result.data.url)
+    window.open(result.data.url)
+  }
+
   return (
-    <>
-      <section className='cart-items'>
-        <div className='container d_flex'>
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
-
-          <div className='cart-details'>
-            {CartItem.length === 0 && <h1 className='no-items product'>No Items are add in Cart</h1>}
-
-            {/* yasma hami le cart item lai display garaaxa */}
-            {CartItem.map((item) => {
-              const productQty = item.price * item.qty
-
-              return (
-                <div className='cart-list product d_flex' key={item.id}>
-                  <div className='img'>
-                    <img src={item.cover} alt='' />
-                  </div>
-                  <div className='cart-details'>
-                    <h3>{item.name}</h3>
-                    <h4>
-                      ${item.price}.00 * {item.qty}
-                      <span>${productQty}.00</span>
-                    </h4>
-                  </div>
-                  <div className='cart-items-function'>
-                    <div className='removeCart'>
-                      <button className='removeCart'>
-                        <i className='fa-solid fa-xmark'></i>
-                      </button>
-                    </div>
-                    {/* stpe: 5 
-                    product ko qty lai inc ra des garne
-                    */}
-                    <div className='cartControl d_flex'>
-                      <button className='incCart' onClick={() => addToCart(item)}>
-                        <i className='fa-solid fa-plus'></i>
-                      </button>
-                      <button className='desCart' onClick={() => decreaseQty(item)}>
-                        <i className='fa-solid fa-minus'></i>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className='cart-item-price'></div>
+    <div className='cart-section'>
+      <div className="grid1200">
+        <ul className="cart-header boxShadow">
+          <li className="cart-header__item">Sản phẩm</li>
+          <li className="cart-header__item">Đơn giá</li>
+          <li className="cart-header__item">Số lượng</li>
+          <li className="cart-header__item">Số tiền</li>
+          <li className="cart-header__item">Thao tác</li>
+        </ul>
+        {
+          CartItemFilterByShop.map((item, index) => (
+            <div className="cart-item-section" key={index}>
+              <div className="cart-shop-info">
+                <img className="cart-shop-img" src={item.nhaCungCap.anhDaiDien} alt="" />
+                <p>{item.nhaCungCap.tenNguoiDung}</p>
+              </div>
+              {item.product.map((itemProduct, index2) => (
+                <div key={index2} className="CartShopItem">
+                  <CartShopItem item={itemProduct} addToCart={addToCart} decreaseQty={decreaseQty} removeCartItem={removeCartItem} />
                 </div>
-              )
-            })}
-          </div>
-
-          <div className='cart-total product'>
-            <h2>Cart Summary</h2>
-            <div className=' d_flex'>
-              <h4>Total Price :</h4>
-              <h3>${totalPrice}.00</h3>
+              ))
+              }
             </div>
-          </div>
+          ))
+        }
+        <div className="cart-payment boxShadow">
+          <p className="cart-payment__text">Tổng thanh toán ({CartItem.length} sản phẩm):</p>
+          <p className="cart-payment__value">{totalPrice} $</p>
+          <button onClick={handlePurcharse} className="btn-primary">Mua hàng</button>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   )
 }
 

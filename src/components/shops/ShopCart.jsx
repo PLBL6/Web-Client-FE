@@ -1,108 +1,46 @@
-//import React, { useState } from "react"
-
-//const ShopCart = ({ addToCart, shopItems }) => {
-//  const [count, setCount] = useState(0)
-//  const increment = () => {
-//    setCount(count + 1)
-//  }
-
-//  return (
-//    <>
-//      {shopItems.map((shopItems) => {
-//        return (
-//          <div className='product mtop'>
-//            <div className='img'>
-//              <span className='discount'>{shopItems.discount}% Off</span>
-//              <img src={shopItems.cover} alt='' />
-//              <div className='product-like'>
-//                <label>{count}</label> <br />
-//                <i className='fa-regular fa-heart' onClick={increment}></i>
-//              </div>
-//            </div>
-//            <div className='product-details'>
-//              <h3>{shopItems.name}</h3>
-//              <div className='rate'>
-//                <i className='fa fa-star'></i>
-//                <i className='fa fa-star'></i>
-//                <i className='fa fa-star'></i>
-//                <i className='fa fa-star'></i>
-//                <i className='fa fa-star'></i>
-//              </div>
-//              <div className='price'>
-//                <h4>${shopItems.price}.00 </h4>
-//                <button onClick={() => addToCart(shopItems)}>
-//                  <i className='fa fa-plus'></i>
-//                </button>
-//              </div>
-//            </div>
-//          </div>
-//        )
-//      })}
-//    </>
-//  )
-//}
-
-//export default ShopCart
-
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import CardProduct from "./CardProduct"
+import axios from "axios"
+import { URL_API } from "../../url"
 
-const ShopCart = ({ shopItems, addToCart }) => {
-  const [count, setCount] = useState(0)
-  const increment = () => {
-    setCount(count + 1)
-  }
+const ShopCart = ({ category }) => {
+  const [products1, setProducts1] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    const getProductByCategory = async () => {
+      const data = await axios(URL_API + `api/get-all-mathangs-by-id-danhmuc?danhMucID=${category}`)
+      setProducts1(data.data.mathangs)
+      setLoading(false)
+    }
+
+    getProductByCategory()
+  }, [])
 
   const settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 5,
+    slidesToShow: products1?.length > 4 ? 5 : products1?.length,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
   }
 
   return (
     <>
-    <Slider {...settings}>
-      
-      {shopItems.map((shopItems, index) => {
-        return (
-          <div className='box'>
-            <div className='product mtop'>
-              <div className='img'>
-                <span className='discount'>{shopItems.discount}% Off</span>
-                <img src={shopItems.cover} alt='' />
-                <div className='product-like'>
-                  <label>{count}</label> <br />
-                  <i className='fa-regular fa-heart' onClick={increment}></i>
-                </div>
-              </div>
-              <div className='product-details'>
-                <h3>{shopItems.name}</h3>
-                <div className='rate'>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                  <i className='fa fa-star'></i>
-                </div>
-                <div className='price'>
-                  <h4>${shopItems.price}.00 </h4>
-                  {/* step : 3  
-                     if hami le button ma click garryo bahne 
-                    */}
-                  <button onClick={() => addToCart(shopItems)}>
-                    <i className='fa fa-plus'></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      })}
-    </Slider>
+      {loading
+        ? <div className="loading"></div>
+        : <Slider {...settings}>
+          {products1.slice(0, 10).map((shopItems, index) => {
+            return (
+              <CardProduct shopItems={shopItems} key={index} />
+            )
+          })}
+        </Slider>
+      }
     </>
   )
 }

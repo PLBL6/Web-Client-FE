@@ -1,46 +1,73 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Navbar = () => {
+const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, isVendorLogin }) => {
   // Toogle Menu
   const [MobileMenu, setMobileMenu] = useState(false)
+
+
+  const handleLinkActiveUser = (e, index) => {
+    localStorage.setItem("indexCategoryUserPage", index)
+
+  }
+  const handleLinkActiveShop = (e, index) => {
+    localStorage.setItem("indexCategoryShopPage", index)
+    
+  }
   return (
     <>
       <header className='header'>
         <div className='container d_flex'>
-          <div className='catgrories d_flex'>
-            <span class='fa-solid fa-border-all'></span>
-            <h4>
-              Danh mục <i className='fa fa-chevron-down'></i>
-            </h4>
-          </div>
+          {JSON.parse(localStorage.getItem("login"))?.user && isVendorLogin
+            ? <div className='catgrories d_flex'></div>
+            : <div className='catgrories d_flex'>
+              <span className='fa-solid fa-bars'></span>
+              <h4>Danh mục<i className='fa fa-chevron-down'></i></h4>
+            </div>
+          }
 
           <div className='navlink'>
             <ul className={MobileMenu ? "nav-links-MobileMenu" : "link f_flex capitalize"} onClick={() => setMobileMenu(false)}>
-              {/*<ul className='link f_flex uppercase {MobileMenu ? "nav-links-MobileMenu" : "nav-links"} onClick={() => setMobileMenu(false)}'>*/}
               <li>
-                <Link to='/'>home</Link>
+                {/* <a href="/">Trang chủ</a> */}
+                {JSON.parse(localStorage.getItem("login"))?.user
+                  ? isVendorLogin
+                    ? <a onClick={(e) => handleLinkActiveShop(e, 0)} href="/user-shop/order">Trang chủ</a>
+                    : <a href="/">Trang chủ</a>
+                  : <Link href="/">Trang chủ</Link>
+                }
               </li>
-              <li>
-                <Link to='/pages'>pages</Link>
-              </li>
-              <li>
-                <Link to='/user'>user account</Link>
-              </li>
-              <li>
-                <Link to='/vendor'>vendor account</Link>
-              </li>
-              <li>
-                <Link to='/track'>track my order</Link>
-              </li>
-              <li>
-                <Link to='/contact'>contact</Link>
-              </li>
-            </ul>
 
-            <button className='toggle' onClick={() => setMobileMenu(!MobileMenu)}>
-              {MobileMenu ? <i className='fas fa-times close home-btn'></i> : <i className='fas fa-bars open'></i>}
-            </button>
+              {!JSON.parse(localStorage.getItem("login"))?.user
+                ? <>
+                  <li><Link onClick={() => { setIsVendorLogin(false); OnOpenModalLogin(); }} >Khách hàng</Link></li>
+                  <li><Link onClick={() => { setIsVendorLogin(true); OnOpenModalLogin(); }} >Doanh nghiệp</Link></li>
+                </>
+                : isVendorLogin
+                  ? <li><a onClick={(e) => handleLinkActiveShop(e, 0)} href="/user-shop/order">Doanh nghiệp</a></li>
+                  : <li><Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link></li>
+              }
+
+              {/* {isCustomer ?
+                <li>
+                  <Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link>
+                </li> :
+                <li>
+                  <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link>
+                </li>} */}
+              {JSON.parse(localStorage.getItem("login"))?.user ?
+                <li>
+                  <a href="/" onClick={() => {
+                    // localStorage.removeItem("login");
+                    // localStorage.removeItem("isVendor")
+                    // localStorage.removeItem("CartItem")
+                    // localStorage.removeItem("UserInfo")
+                    localStorage.clear()
+                  }}>Đăng xuất</a>
+                </li>
+
+                : ""}
+            </ul>
           </div>
         </div>
       </header>

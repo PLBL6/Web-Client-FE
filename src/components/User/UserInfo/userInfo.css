@@ -1,0 +1,98 @@
+.change-password-section,
+.userInfo-section {
+    padding: 20px 40px;
+    background-color: #fff;
+}
+
+.btn-save {
+    width: 82px;
+    height: 40px;
+    background-color: #EB3251;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.btn-save:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.order-item__user-info i {
+    color: rgb(110, 108, 108);
+    margin-right: 12px;
+}
+
+.order-item__datetime {
+    color: #777;
+}
+
+.order-item-shop {
+    font-weight: bold;
+}
+
+.order-item-button {
+    display: flex;
+}
+
+.order-search-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.order-search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #EAEAEA;
+    padding: 10px 20px;
+    
+}
+
+.order-search i{
+    color: #bbb;
+    font-size: 22px;
+    
+}
+
+.order-search input{
+    width: 100%;
+    background-color: #EAEAEA;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.order-item-sub {
+    background-color: #fff;
+}
+
+.order-item-sub + .order-item-sub {
+    margin-top: 20px;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+}
+
+.input-user-img {
+    display: none;
+}
+
+.btn-user-img {
+    background-color: var(--primary);
+    text-align: center;
+    cursor: pointer;
+    min-width: 100px !important;
+    padding: 3px 0;
+    margin-left: 20px;
+    border-radius: 3px;
+}
+
+.btn-user-img:hover {
+    opacity: 0.8;
+}
+
+.no-order {
+    color: var(--primary);
+}
