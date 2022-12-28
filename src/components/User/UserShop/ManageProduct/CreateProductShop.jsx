@@ -3,6 +3,7 @@ import axios from "axios";
 import { async } from "q";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
+import { URL_API_2 } from "../../../../url";
 import { URL_API } from "../../../../url";
 
 const CreateProductShop = () => {
@@ -50,21 +51,30 @@ const CreateProductShop = () => {
     }
 
     const CreateProduct = async (name, description, price, idCategory, idVendor, discount, objImage) => {
-        const body = {
-            "tenMatHang": name,
-            "moTa:": description,
-            "gia": price,
-            "danhMuc": idCategory,
-            "nhaCungCap": idVendor,
-            "khuyenMai": discount,
-            "hinhAnh": objImage
-        }
-        const data = await axios.post(URL_API + "api/create-new-mat-hang", body, {
-            headers: {
-                "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        if (name == "" || price < 0 || idCategory < 1) {
+            alert("Xảy ra lỗi, thử lại")
+        } else {
+            const body = {
+                "tenMatHang": name,
+                "moTa:": description,
+                "gia": Number(price),
+                "danhMuc": Number(idCategory),
+                "nhaCungCap": Number(idVendor),
+                "khuyenMai": String(discount)
             }
-        })
-        console.log(data);
+            const data = await axios.post(URL_API + "api/create-new-mat-hang2", body, {
+                headers: {
+                    "Authorization": JSON.parse(localStorage.getItem("login")).token,
+                }
+            })
+            console.log(data.data.errMessage);
+            if (data.data.errMessage.errCode === 0) {
+                setName("")
+                setDescription("")
+                setPrice(0)
+                setDiscount(0)
+            }
+        }
     }
     return (
         <div className="CreateProductShop__section">
