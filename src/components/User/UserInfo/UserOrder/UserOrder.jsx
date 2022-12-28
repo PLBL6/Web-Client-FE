@@ -9,16 +9,16 @@ const UserOrder = () => {
 
     const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        const inputSeach = document.querySelector(".order-search__input")
-        const searchIcon = document.querySelector(".order-search__icon")
-        inputSeach.onfocus = () => {
-            searchIcon.style.color = "#666"
-        }
-        inputSeach.onblur = () => {
-            searchIcon.style.color = "#bbb"
-        }
-    }, [])
+    // useEffect(() => {
+    //     const inputSeach = document.querySelector(".order-search__input")
+    //     const searchIcon = document.querySelector(".order-search__icon")
+    //     inputSeach.onfocus = () => {
+    //         searchIcon.style.color = "#666"
+    //     }
+    //     inputSeach.onblur = () => {
+    //         searchIcon.style.color = "#bbb"
+    //     }
+    // }, [])
 
     useEffect(() => {
         setLoading(true)
@@ -39,14 +39,14 @@ const UserOrder = () => {
 
             {loading ? <div className="loading"></div> :
                 <>
-                    <div className="order-search-wrapper">
+                    {/* <div className="order-search-wrapper">
                         <div className="order-search">
                             <i className="order-search__icon fa-solid fa-magnifying-glass mr12"></i>
                             <input className="order-search__input" type="text" placeholder="Tìm kiếm theo Tên sản phẩm" />
 
                         </div>
                         <button className="btn-primary">TÌM</button>
-                    </div>
+                    </div> */}
                     <div className="order-item-section-2">
                         {loading ? <div className="loading"></div> : ""}
                         {orders?.map((order, index) => (

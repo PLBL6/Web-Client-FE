@@ -1,0 +1,24 @@
+.Cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.parentContainer {
+  width: 33.33%;
+}
+
+@media screen and (max-width: 1200px) {
+  .Cards{
+    flex-direction: column;
+  }
+  .parentContainer{
+    height: 9rem;
+  }
+}
+
+@media screen and (max-width: 768px)
+{
+  .Cards{
+    width: 90%;
+  }
+}

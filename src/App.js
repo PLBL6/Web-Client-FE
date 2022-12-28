@@ -92,7 +92,7 @@ function App() {
       />
       <Routes>
         <Route path='/' element={<MainPage />} />
-        <Route path='/cart' element={<CartPage CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} removeCartItem={removeCartItem} />} />
+        <Route path='/cart' element={<CartPage CartItem={CartItem} setCartItem={setCartItem} addToCart={addToCart} decreaseQty={decreaseQty} removeCartItem={removeCartItem} />} />
         <Route path='/product/*' element={<ProductDetailPage CartItem={CartItem} addToCart={addToCart} />} />
         <Route path='/category/*' element={<ListProductPage />} />
         <Route path='/user/*' element={<UserProfilePage user={user} setUser={setUser} />} />

@@ -5,7 +5,7 @@ import axios from "axios"
 import { filterByShop } from "../../filterByShop"
 import { URL_API_2 } from "../../url"
 
-const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
+const Cart = ({ CartItem, setCartItem, addToCart, decreaseQty, removeCartItem }) => {
   const totalPrice = CartItem.reduce((price, item) => price + ((item.gia * (100 - item.khuyenMai) / 100) * item.qty), 0).toFixed(1)
   console.log("CartItem:", CartItem);
   console.log("CartItemFilterByShop:", filterByShop(CartItem));
@@ -30,23 +30,6 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
   }
 
   const CreateDetailOrder = async (detailOrder, id) => {
-    // await axios({
-    //   method: "POST",
-    //   url: URL_API_2 + "api/create-new-chi-tiet-don-hang",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": JSON.parse(localStorage.getItem("login")).token,
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    //   data: {
-    //     "maCTMH": detailOrder.detail.id,
-    //     "maDH": id,
-    //     "soLuong": detailOrder.qty,
-    //     "tongTien": ((detailOrder.gia * (100 - detailOrder.khuyenMai) / 100) * detailOrder.qty),
-    //     "trangThai": "Đã đặt"
-    //   }
-    // })
-    //   .then(data => console.log(data.data.errMessage))
     const res = await axios.post(URL_API_2 + "api/create-new-chi-tiet-don-hang", {
       "maCTMH": detailOrder.detail.id,
       "maDH": id,
@@ -85,7 +68,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
     await CreateDetailOrder(detailOrder, id)
   }
 
-  const handlePurcharse = async (CartItem) => {
+  const handlePurcharse = async () => {
     if (CartItem.length > 0) {
       const id = await CreateOrder()
 
@@ -93,11 +76,27 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
         await CreatePurchareDetail(item, id)
         await UpdateQuantity(item.detail.id, item.qty)
       })
+      await PaymentPaypal()
+      localStorage.setItem("CartItem", [])
+      setCartItem([])
     }
 
     else {
       alert("Không có sản phẩm nào để mua")
     }
+  }
+
+
+  const PaymentPaypal = async () => {
+    const result = await axios(URL_API_2 + `api/paypal?KhachHangId=${JSON.parse(localStorage.getItem("login")).user.id}&tongTien=${totalPrice}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    console.log(result.data.url)
+    window.open(result.data.url)
   }
 
   return (
@@ -129,7 +128,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty, removeCartItem }) => {
         <div className="cart-payment boxShadow">
           <p className="cart-payment__text">Tổng thanh toán ({CartItem.length} sản phẩm):</p>
           <p className="cart-payment__value">{totalPrice} $</p>
-          <button onClick={() => { handlePurcharse(CartItem) }} className="btn-primary">Mua hàng</button>
+          <button onClick={handlePurcharse} className="btn-primary">Mua hàng</button>
         </div>
       </div>
     </div>

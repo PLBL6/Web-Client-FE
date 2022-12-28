@@ -11,7 +11,7 @@ const ListProductShop = ({ products, categoryByShop, loadingProducts, handleList
     const [filteredProduct, setFilteredProduct] = useState(() => {
         return products
     })
-    console.log("filteredProduct:", filteredProduct);
+    // console.log("filteredProduct:", filteredProduct);
     // console.log(products);
 
     // const filteredProduct = useMemo(() => {

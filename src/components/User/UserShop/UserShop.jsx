@@ -50,6 +50,7 @@ const UserShop = () => {
         const getOrderShop = async () => {
             const data = await axios(URL_API_2 + `api/get-all-donhangs-by-id-nhacungcap?nhaCungCapId=${JSON.parse(localStorage.getItem("login")).user.id}`)
             // console.log(data.data.chitietdonhangs);
+
             setOrdersByUser(filterByCustomer(data.data.chitietdonhangs))
             setOrders(data.data.chitietdonhangs)
             setLoading(false)
@@ -159,7 +160,7 @@ const UserShop = () => {
                         setOrdersByUser={setOrdersByUser}
                         loading={loading} />}></Route>
                     <Route path="/new-product-detail" element={<CreateDetailProduct products={products} colors={colors} sizes={sizes} />}></Route>
-                    <Route path="/revenue" element={<Revenue />}></Route>
+                    <Route path="/revenue" element={<Revenue orders={orders} />}></Route>
 
                 </Routes>
 

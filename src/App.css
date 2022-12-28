@@ -645,6 +645,7 @@ tbody tr {
   color: #c31834;
 }
 
+
 .user-page-section-wrapper {
   background-color: #f6f6f6;
 }
@@ -704,4 +705,8 @@ tbody tr {
 .text-warning {
   color: red;
   font-size: 14px;
+}
+
+.Revenue-section {
+  padding: 160px 0;
 }

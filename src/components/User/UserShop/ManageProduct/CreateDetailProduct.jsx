@@ -9,16 +9,19 @@ import SizeData from "../../../data/SizeData";
 function CreateDetailProduct({ products, colors, sizes }) {
 
     const [searchParams] = useSearchParams();
-    console.log(Number(searchParams.get("idProduct")));
     const [detailProduct, setDetailProduct] = useState()
+    console.log(detailProduct);
     const [idProduct, setIdProduct] = useState(() => {
         return Number(searchParams.get("idProduct")) || ''
     })
+    const [idDetail, setIdDetail] = useState()
     const [idColor, setIdColor] = useState('')
     const [idSize, setIdSize] = useState('')
     const [quantity, setQuantity] = useState(10)
     const [loading, setLoading] = useState(false)
     const [loadingAdd, setLoadingAdd] = useState(false)
+
+    const [isUpdate, setIsUpdate] = useState(false)
     // console.log("--------------------");
     // console.log("idProduct:", idProduct);
     // console.log("idColor:", idColor);
@@ -49,6 +52,44 @@ function CreateDetailProduct({ products, colors, sizes }) {
                 console.log(data.data.errMessage)
                 if (data.data.errMessage.errCode === 0) {
                     setDetailProduct([...detailProduct, body])
+                } else {
+                    alert('Thất bại')
+                }
+            }
+
+        } else {
+            alert("Có lỗi xảy ra, thử lại")
+        }
+    }
+
+    const UpdateDetail = async (idDetail, idColor, idSize, quantity) => {
+        if (Number.isInteger(idColor) && Number.isInteger(idSize) && Number.isInteger(quantity)) {
+            if (quantity < 10) {
+                alert("Số lượng Kho hàng ít nhất là 10")
+            } else {
+                const body = {
+                    "id": idDetail,
+                    "maMS": idColor,
+                    "maKC": idSize,
+                    "soLuong": quantity
+                }
+                setLoadingAdd(true)
+                const data = await axios.put(URL_API + "api/update-chi-tiet-mat-hang", body, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": JSON.parse(localStorage.getItem("login")).token,
+                    }
+                })
+                setLoadingAdd(false)
+                console.log(data.data.errMessage)
+                if (data.data.errMessage.errCode === 0) {
+                    const itemUpdate = detailProduct.find(item => item.id = idProduct)
+                    itemUpdate.maKC = idSize
+                    itemUpdate.maMS = idColor
+                    itemUpdate.soLuong = quantity
+                    const dataClone = [...detailProduct]
+                    const index = dataClone.indexOf(itemUpdate)
+                    setDetailProduct(dataClone)
                 } else {
                     alert('Thất bại')
                 }
@@ -115,7 +156,7 @@ function CreateDetailProduct({ products, colors, sizes }) {
                 <div className="list-detail-color-size">
                     {detailProduct?.length < 1 ? <span>Không</span> : ""}
                     {detailProduct?.map((item, index) => (
-                        <div onClick={() => { setIdColor(item?.maMS); setIdSize(item?.maKC); setQuantity(item?.soLuong) }} key={index} className="detail-color-size">{`${ColorData[item?.maMS - 1]} - ${SizeData[item?.maKC - 1]}`}</div>
+                        <div onClick={() => { setIdColor(item?.maMS); setIdDetail(item?.id); setIdSize(item?.maKC); setQuantity(item?.soLuong); setIsUpdate(true) }} key={index} className="detail-color-size">{`${ColorData[item?.maMS - 1]} - ${SizeData[item?.maKC - 1]}`}</div>
                     ))}
                 </div>
 
@@ -166,8 +207,11 @@ function CreateDetailProduct({ products, colors, sizes }) {
                     <input className="form-control form-control-custom" min={10} value={quantity} onChange={e => setQuantity(Number(e.target.value))} type="number" placeholder="Kho hàng ..." />
                 </div>
             </div>
-
-            <button onClick={() => handleAddDetail(idProduct, idColor, idSize, quantity)} className="btn-add-detail btn-primary">Lưu</button>
+            {
+                isUpdate ? <button onClick={() => UpdateDetail(idDetail, idColor, idSize, quantity)} className="btn-add-detail btn-primary">Lưu</button>
+                    :
+                    <button onClick={() => handleAddDetail(idProduct, idColor, idSize, quantity)} className="btn-add-detail btn-primary">Thêm sản phẩm</button>
+            }
             {loadingAdd ? <div className="overlay-loading"><div className="loading-login"></div></div> : ""}
         </div>
     );

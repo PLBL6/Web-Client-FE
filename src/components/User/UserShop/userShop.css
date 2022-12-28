@@ -241,4 +241,5 @@
 .detail-color-size {
     border: 1px solid var(--primary);
     padding: 2px 3px;
+    cursor: pointer;
 }

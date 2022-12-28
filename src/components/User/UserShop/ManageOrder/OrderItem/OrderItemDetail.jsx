@@ -6,7 +6,7 @@ import ColorData from "../../../../data/ColorData";
 import SizeData from "../../../../data/SizeData";
 
 function OrderItemDetail({ ordersByUser, orderDetail, setOrdersByUser }) {
-    console.log("orderDetail", orderDetail);
+    // console.log("orderDetail", orderDetail);
     // console.log("orderDetail:", orderDetail);
     // console.log("ordersByUser", ordersByUser);
     const [detailProduct, setDetailProduct] = useState()

@@ -25,7 +25,7 @@ const UserOrderitem = ({ orderItem }) => {
             {loading ? <div className="loading"></div> :
                 <div className="order-item__list-product">
                     {orderDetails?.map((orderDetail, index) => (
-                        <UserOrderItemDetail key={index} orderDetails={orderDetails} orderDetail={orderDetail} setOrderDetails={setOrderDetails} />
+                        <UserOrderItemDetail key={index} orderDetail={orderDetail}/>
                     ))}
                 </div>
             }

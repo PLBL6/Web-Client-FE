@@ -1,8 +1,10 @@
-function Revenue() {
+import Cards from "../../../Cards/Cards";
+
+function Revenue({ orders }) {
     return (
-        <>
-            <h1>Revenue Page</h1>
-        </>
+        <div className="Revenue-section">
+            <Cards orders={orders} />
+        </div>
     );
 }
 
