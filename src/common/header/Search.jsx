@@ -114,10 +114,10 @@ const Search = ({ CartItem, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogi
                     }
                   </div>
                   <div className='cart'>
-                    <a href='/cart'>
+                    <Link to='/cart'>
                       <i className='fa fa-shopping-bag icon-circle'></i>
                       {CartLength ? <span>{CartLength}</span> : ""}
-                    </a>
+                    </Link>
                   </div>
                 </>
               }

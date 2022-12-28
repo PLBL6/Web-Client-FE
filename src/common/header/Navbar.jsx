@@ -12,7 +12,7 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
   }
   const handleLinkActiveShop = (e, index) => {
     localStorage.setItem("indexCategoryShopPage", index)
-    
+
   }
   return (
     <>
@@ -32,8 +32,8 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
                 {/* <a href="/">Trang chủ</a> */}
                 {JSON.parse(localStorage.getItem("login"))?.user
                   ? isVendorLogin
-                    ? <a onClick={(e) => handleLinkActiveShop(e, 0)} href="/user-shop/order">Trang chủ</a>
-                    : <a href="/">Trang chủ</a>
+                    ? <Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Trang chủ</Link>
+                    : <Link to="/">Trang chủ</Link>
                   : <Link href="/">Trang chủ</Link>
                 }
               </li>
@@ -44,7 +44,7 @@ const Navbar = ({ user, OnOpenModalLogin, OnOpenModalSignUp, setIsVendorLogin, i
                   <li><Link onClick={() => { setIsVendorLogin(true); OnOpenModalLogin(); }} >Doanh nghiệp</Link></li>
                 </>
                 : isVendorLogin
-                  ? <li><a onClick={(e) => handleLinkActiveShop(e, 0)} href="/user-shop/order">Doanh nghiệp</a></li>
+                  ? <li><Link onClick={(e) => handleLinkActiveShop(e, 0)} to="/user-shop/order">Doanh nghiệp</Link></li>
                   : <li><Link onClick={(e) => handleLinkActiveUser(e, 0)} to='/user/profile'>Khách hàng</Link></li>
               }
 

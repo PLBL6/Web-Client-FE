@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router"
 import { URL_API, URL_API_2 } from "../../url"
 import validator from "../../validator"
 import "./login.css"
@@ -12,6 +13,8 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
     const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate()
 
     // console.log("isVendorLogin:", isVendorLogin);
 
@@ -72,7 +75,8 @@ function Login({ isOpenModalLogin, SetOpenModalLogin, isOpenModalSignUp, SetOpen
                 SetOpenModalSignUp(false)
                 localStorage.setItem("indexCategoryShopPage", 0)
 
-                window.location.href = "/user-shop/order"
+                // window.location.href = "/user-shop/order"
+                navigate("/user-shop/order")
             } else {
                 setLoading(false)
                 alert("Đăng nhập thất bại")

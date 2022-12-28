@@ -1,5 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import axios from "axios";
+import { async } from "q";
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom";
 import { URL_API } from "../../../../url";
@@ -21,23 +22,49 @@ const CreateProductShop = () => {
         }
     }, [])
 
-    const [category, setCategory] = useState("")
+    useEffect(() => {
+        const getCategory = async () => {
+            const data = await axios(URL_API + "api/get-danhmucs")
+            setCategory(data.data.danhmucs)
+        }
+        getCategory()
+    })
+
+    const [category, setCategory] = useState()
     const [avatars, setAvatars] = useState()
 
     const [name, setName] = useState()
-    const [idCategory, setIdCategory] = useState()
+    const [idCategory, setIdCategory] = useState('')
     const [description, setDescription] = useState()
     const [price, setPrice] = useState()
     const [discount, setDiscount] = useState()
 
     const handlePreviewAvatar = (e) => {
         const files = e.target.files
-        const listAvatars = []
-        for (let file of files) {
-            listAvatars.push(URL.createObjectURL(file))
+        // const listAvatars = []
+        // for (let file of files) {
+        //     listAvatars.push(URL.createObjectURL(file))
+        // }
+        // console.log(listAvatars);
+        setAvatars(files[0])
+    }
+
+    const CreateProduct = async (name, description, price, idCategory, idVendor, discount, objImage) => {
+        const body = {
+            "tenMatHang": name,
+            "moTa:": description,
+            "gia": price,
+            "danhMuc": idCategory,
+            "nhaCungCap": idVendor,
+            "khuyenMai": discount,
+            "hinhAnh": objImage
         }
-        console.log(listAvatars);
-        setAvatars(listAvatars)
+        const data = await axios.post(URL_API + "api/create-new-mat-hang", body, {
+            headers: {
+                "Authorization": JSON.parse(localStorage.getItem("login")).token,
+            }
+        })
+        console.log(data);
     }
     return (
         <div className="CreateProductShop__section">
@@ -49,14 +76,14 @@ const CreateProductShop = () => {
                         <label htmlFor="file">Thêm hình ảnh</label>
                         <input onChange={handlePreviewAvatar} id="file" type="file" name="img" accept="image/*" multiple="multiple" />
                     </div>
-                    {avatars && avatars.map((item, index) => (
+                    {/* {avatars && avatars?.map((item, index) => (
                         <img
                             key={index}
                             className="base-info__avatar"
                             src={item}
                             alt="avatar-product"
                         />
-                    ))}
+                    ))} */}
 
                 </div>
                 <div className="form-group">
@@ -72,12 +99,12 @@ const CreateProductShop = () => {
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 label="category"
-                                value={category}
-                                onChange={(e) => { setCategory(e.target.value) }}
+                                value={idCategory}
+                                onChange={(e) => { setIdCategory(e.target.value) }}
                             >
-                                <MenuItem value={1}>Quần Áo</MenuItem>
-                                <MenuItem value={2}>Giày dép</MenuItem>
-                                <MenuItem value={3}>Phụ kiện</MenuItem>
+                                {category?.map(item => (
+                                    <MenuItem key={item.id} value={item.id}>{item.tenDanhMuc}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Box>
@@ -96,7 +123,7 @@ const CreateProductShop = () => {
                 </div>
             </div>
 
-            <button className="btn-primary btn-create">Lưu sản phẩm</button>
+            <button onClick={() => CreateProduct(name, description, price, idCategory, JSON.parse(localStorage.getItem("UserInfo")).id, avatars)} className="btn-primary btn-create">Lưu sản phẩm</button>
         </div>
     )
 }
